@@ -12,7 +12,6 @@
       background: #f4f5f7;
     }
 
-    /* HEADER */
     header {
       position: relative;
       display: flex;
@@ -24,7 +23,7 @@
     }
 
     .left, .right {
-      width: 60px;
+      width: 70px;
       text-align: center;
       font-size: 22px;
       cursor: pointer;
@@ -41,13 +40,12 @@
     .premium-btn {
       background: gold;
       color: #000;
-      padding: 6px 10px;
-      border-radius: 12px;
+      padding: 6px 12px;
+      border-radius: 14px;
       font-size: 14px;
       font-weight: bold;
     }
 
-    /* PANEL */
     .panel {
       position: fixed;
       top: 0;
@@ -65,22 +63,6 @@
       left: 0;
     }
 
-    .panel h2 {
-      margin-top: 0;
-    }
-
-    .panel button {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border: none;
-      border-radius: 10px;
-      font-size: 16px;
-      cursor: pointer;
-      background: #e5e7eb;
-    }
-
-    /* OVERLAY */
     .overlay {
       display: none;
       position: fixed;
@@ -93,10 +75,26 @@
       display: block;
     }
 
-    /* CONTENT */
     .content {
-      padding: 40px 20px;
+      padding: 30px 20px;
       text-align: center;
+    }
+
+    .counter {
+      margin: 15px 0;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .result {
+      margin: 20px auto;
+      padding: 20px;
+      max-width: 320px;
+      background: white;
+      border-radius: 16px;
+      font-size: 20px;
+      font-weight: bold;
+      display: none;
     }
 
     .content button {
@@ -115,54 +113,97 @@
 
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <div class="left" onclick="togglePanel()">⚙️</div>
-
-    <div class="title">DecideFácil</div>
-
-    <div class="right">
-      <span class="premium-btn" onclick="alert('Premium próximamente')">
-        ⭐ Premium
-      </span>
-    </div>
-  </header>
-
-  <!-- PANEL -->
-  <div class="panel" id="panel">
-    <h2>Opciones</h2>
-    <button>¿Cómo funciona?</button>
-    <button>Soporte</button>
-    <button onclick="togglePanel()">Cerrar</button>
+<header>
+  <div class="left" onclick="togglePanel()">⚙️</div>
+  <div class="title">DecideFácil</div>
+  <div class="right">
+    <span class="premium-btn" onclick="activarPremium()">⭐ Premium</span>
   </div>
+</header>
 
-  <!-- OVERLAY -->
-  <div class="overlay" id="overlay" onclick="togglePanel()"></div>
+<div class="panel" id="panel">
+  <h2>Opciones</h2>
+  <p>Decisiones diarias gratis: 2</p>
+  <button onclick="togglePanel()">Cerrar</button>
+</div>
 
-  <!-- CONTENT -->
-  <div class="content">
-    <p>Toma decisiones rápidas sin complicarte</p>
-    <button onclick="decidir()">Decidir por mí</button>
-  </div>
+<div class="overlay" id="overlay" onclick="togglePanel()"></div>
 
-  <script>
-    function togglePanel() {
-      document.getElementById("panel").classList.toggle("active");
-      document.getElementById("overlay").classList.toggle("active");
+<div class="content">
+  <div class="counter" id="counter"></div>
+  <div class="result" id="result"></div>
+  <button onclick="decidir()">Decidir por mí</button>
+</div>
+
+<script>
+  const opciones = [
+    "Sí",
+    "No",
+    "Tal vez",
+    "Hazlo ahora",
+    "Mejor espera",
+    "No vale la pena"
+  ];
+
+  const hoy = new Date().toDateString();
+
+  if (!localStorage.getItem("fecha")) {
+    localStorage.setItem("fecha", hoy);
+    localStorage.setItem("usos", 0);
+    localStorage.setItem("premium", "false");
+  }
+
+  if (localStorage.getItem("fecha") !== hoy) {
+    localStorage.setItem("fecha", hoy);
+    localStorage.setItem("usos", 0);
+  }
+
+  function actualizarContador() {
+    const usos = Number(localStorage.getItem("usos"));
+    const premium = localStorage.getItem("premium") === "true";
+
+    if (premium) {
+      document.getElementById("counter").innerText =
+        "⭐ Premium activo: decisiones ilimitadas";
+    } else {
+      document.getElementById("counter").innerText =
+        `Te quedan ${2 - usos} decisiones hoy`;
+    }
+  }
+
+  function decidir() {
+    const premium = localStorage.getItem("premium") === "true";
+    let usos = Number(localStorage.getItem("usos"));
+
+    if (!premium && usos >= 2) {
+      alert("Límite diario alcanzado. Hazte Premium ⭐");
+      return;
     }
 
-    function decidir() {
-      const opciones = [
-        "Sí",
-        "No",
-        "Tal vez",
-        "Hazlo ahora",
-        "Mejor espera",
-        "No vale la pena"
-      ];
-      alert("DecideFácil dice: " + opciones[Math.floor(Math.random() * opciones.length)]);
+    const resultado = opciones[Math.floor(Math.random() * opciones.length)];
+    document.getElementById("result").style.display = "block";
+    document.getElementById("result").innerText = resultado;
+
+    if (!premium) {
+      localStorage.setItem("usos", usos + 1);
     }
-  </script>
+
+    actualizarContador();
+  }
+
+  function activarPremium() {
+    localStorage.setItem("premium", "true");
+    alert("⭐ Premium activado (modo demo)");
+    actualizarContador();
+  }
+
+  function togglePanel() {
+    document.getElementById("panel").classList.toggle("active");
+    document.getElementById("overlay").classList.toggle("active");
+  }
+
+  actualizarContador();
+</script>
 
 </body>
 </html>
