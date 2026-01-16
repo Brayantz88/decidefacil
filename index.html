@@ -2,121 +2,126 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DecideFácil</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-*{
-  box-sizing:border-box;
-  font-family: Arial, sans-serif;
-}
+*{box-sizing:border-box;font-family:Arial, sans-serif}
 
 body{
   margin:0;
-  min-height:100vh;
-  background: radial-gradient(circle at top, #2b1055, #000);
+  background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);
   color:white;
+  min-height:100vh;
 }
 
 /* HEADER */
 header{
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
   padding:15px;
 }
 
-.gear{
-  font-size:26px;
+.icon-btn{
+  background:rgba(255,255,255,0.12);
+  border-radius:14px;
+  padding:10px 14px;
   cursor:pointer;
+  font-size:18px;
+  transition:.2s;
 }
+.icon-btn:hover{transform:scale(1.1)}
 
 .premium-btn{
-  background: linear-gradient(135deg,#9f7aea,#6b46c1);
-  padding:6px 14px;
-  border-radius:20px;
   font-size:14px;
-  cursor:pointer;
+  padding:8px 14px;
+  border-radius:20px;
+  background:linear-gradient(135deg,#f7971e,#ffd200);
+  color:#000;
+  font-weight:bold;
 }
 
 /* MAIN */
 main{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  height:75vh;
   text-align:center;
+  padding:50px 20px;
+  animation:fadeUp .6s ease;
 }
 
 h1{
   font-size:44px;
-  margin:0;
+  margin-bottom:10px;
 }
 
-p{
+.subtitle{
   opacity:.8;
-  margin:10px 0 30px;
+  margin-bottom:40px;
 }
 
 .main-btn{
-  background:linear-gradient(135deg,#00f2fe,#4facfe);
-  color:black;
+  width:90%;
+  max-width:320px;
+  padding:16px;
+  margin:15px auto;
+  font-size:18px;
   border:none;
-  padding:18px 35px;
-  font-size:20px;
-  border-radius:30px;
-  font-weight:bold;
+  border-radius:18px;
+  background:linear-gradient(135deg,#6a11cb,#2575fc);
+  color:white;
   cursor:pointer;
+  transition:.2s;
+}
+.main-btn:hover{transform:scale(1.05)}
+
+footer{
+  text-align:center;
+  opacity:.6;
+  font-size:13px;
+  margin-top:40px;
 }
 
-/* CONFIG MODAL */
+/* MODALS */
 .modal{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.75);
+  background:rgba(0,0,0,.6);
   display:none;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
+  z-index:10;
 }
 
 .panel{
   width:90%;
-  max-width:380px;
-  background:linear-gradient(180deg,#1a1a3d,#0b0b1f);
-  border-radius:25px;
-  padding:20px;
-  box-shadow:0 0 30px rgba(120,80,255,.4);
+  max-width:360px;
+  background:linear-gradient(135deg,#1d2671,#c33764);
+  border-radius:22px;
+  padding:25px;
+  text-align:center;
+  animation:fadeUp .4s ease;
 }
 
-.panel h2{
-  text-align:center;
-  margin:5px 0 20px;
-}
+.panel h2{margin-top:0}
 
 .option{
-  display:flex;
-  align-items:center;
-  gap:12px;
   padding:14px;
-  border-radius:18px;
-  margin-bottom:12px;
+  border-radius:16px;
+  background:rgba(255,255,255,.15);
+  margin:10px 0;
   cursor:pointer;
-  font-weight:bold;
 }
 
-.star{background:linear-gradient(135deg,#f6d365,#fda085);}
-.lang{background:linear-gradient(135deg,#667eea,#764ba2);}
-.tiktok{background:linear-gradient(135deg,#25f4ee,#fe2c55);}
-.ig{background:linear-gradient(135deg,#f58529,#dd2a7b);}
-.privacy{background:linear-gradient(135deg,#43cea2,#185a9d);}
-
 .close{
-  text-align:center;
   margin-top:15px;
-  font-size:24px;
+  opacity:.7;
   cursor:pointer;
-  opacity:.8;
+}
+
+/* ANIM */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:translateY(0)}
 }
 </style>
 </head>
@@ -124,28 +129,47 @@ p{
 <body>
 
 <header>
-  <div class="gear" onclick="openConfig()">⚙️</div>
-  <div class="premium-btn">Premium</div>
+  <div class="icon-btn" onclick="openConfig()">⚙️</div>
+  <div class="premium-btn" onclick="openPremium()">⭐ Premium</div>
 </header>
 
 <main>
   <h1>DecideFácil</h1>
-  <p>Decide sin complicarte</p>
+  <div class="subtitle">Decide sin complicarte</div>
+
   <button class="main-btn">Decidir por mí</button>
 </main>
+
+<footer>© 2026 DecideFácil</footer>
 
 <!-- CONFIG -->
 <div class="modal" id="config">
   <div class="panel">
     <h2>⚙️ Configuración</h2>
 
-    <div class="option star">⭐ Premium</div>
-    <div class="option lang">🌐 Cambiar idioma</div>
-    <div class="option tiktok">🎵 Síguenos en TikTok</div>
-    <div class="option ig">📸 Síguenos en Instagram</div>
-    <div class="option privacy">🔒 Política de privacidad</div>
+    <div class="option">🌐 Cambiar idioma</div>
+    <div class="option">📄 Política de privacidad</div>
+    <div class="option" onclick="openPremium()">⭐ Premium</div>
 
-    <div class="close" onclick="closeConfig()">✕</div>
+    <div class="close" onclick="closeConfig()">Cerrar</div>
+  </div>
+</div>
+
+<!-- PREMIUM -->
+<div class="modal" id="premium">
+  <div class="panel">
+    <h2>💎 DecideFácil Premium</h2>
+    <p style="opacity:.85;font-size:14px">
+      Accede a todas las funciones
+    </p>
+
+    <div class="option">✔ Decisiones ilimitadas</div>
+    <div class="option">✔ Sin anuncios</div>
+    <div class="option">✔ Acceso prioritario</div>
+
+    <button class="main-btn">Comprar Premium</button>
+
+    <div class="close" onclick="closePremium()">Volver</div>
   </div>
 </div>
 
@@ -155,6 +179,13 @@ function openConfig(){
 }
 function closeConfig(){
   document.getElementById("config").style.display="none";
+}
+function openPremium(){
+  closeConfig();
+  document.getElementById("premium").style.display="flex";
+}
+function closePremium(){
+  document.getElementById("premium").style.display="none";
 }
 </script>
 
