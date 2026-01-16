@@ -10,75 +10,82 @@
 
 body{
   margin:0;
-  background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);
-  color:white;
   min-height:100vh;
+  background:linear-gradient(135deg,#1b1446,#2b1f63,#3b2b7a);
+  color:white;
 }
 
 /* HEADER */
 header{
   display:flex;
-  align-items:center;
   justify-content:space-between;
-  padding:15px;
+  align-items:center;
+  padding:16px;
 }
 
-.icon-btn{
-  background:rgba(255,255,255,0.12);
-  border-radius:14px;
+.icon{
+  background:rgba(255,255,255,.15);
   padding:10px 14px;
+  border-radius:14px;
   cursor:pointer;
   font-size:18px;
-  transition:.2s;
 }
-.icon-btn:hover{transform:scale(1.1)}
 
-.premium-btn{
-  font-size:14px;
-  padding:8px 14px;
-  border-radius:20px;
-  background:linear-gradient(135deg,#f7971e,#ffd200);
+.premium{
+  background:linear-gradient(135deg,#ffb347,#ffcc33);
   color:#000;
   font-weight:bold;
+  padding:8px 16px;
+  border-radius:20px;
+  font-size:14px;
+  cursor:pointer;
 }
 
 /* MAIN */
 main{
   text-align:center;
-  padding:50px 20px;
-  animation:fadeUp .6s ease;
+  padding:40px 20px;
 }
 
 h1{
-  font-size:44px;
-  margin-bottom:10px;
+  font-size:42px;
+  margin-bottom:6px;
 }
 
 .subtitle{
-  opacity:.8;
-  margin-bottom:40px;
+  opacity:.85;
+  margin-bottom:25px;
 }
 
-.main-btn{
+/* BUTTONS */
+.btn{
   width:90%;
-  max-width:320px;
+  max-width:330px;
+  margin:12px auto;
   padding:16px;
-  margin:15px auto;
   font-size:18px;
   border:none;
-  border-radius:18px;
-  background:linear-gradient(135deg,#6a11cb,#2575fc);
-  color:white;
+  border-radius:20px;
   cursor:pointer;
+  color:white;
+  background:linear-gradient(135deg,#6a11cb,#2575fc);
   transition:.2s;
 }
-.main-btn:hover{transform:scale(1.05)}
 
+.btn.secondary{
+  background:linear-gradient(135deg,#8e2de2,#4a00e0);
+}
+
+.btn:hover{
+  transform:scale(1.05);
+}
+
+/* FOOTER */
 footer{
   text-align:center;
   opacity:.6;
   font-size:13px;
-  margin-top:40px;
+  padding:30px 0;
 }
 
 /* MODALS */
@@ -99,15 +106,12 @@ footer{
   border-radius:22px;
   padding:25px;
   text-align:center;
-  animation:fadeUp .4s ease;
 }
 
-.panel h2{margin-top:0}
-
 .option{
+  background:rgba(255,255,255,.18);
   padding:14px;
   border-radius:16px;
-  background:rgba(255,255,255,.15);
   margin:10px 0;
   cursor:pointer;
 }
@@ -117,27 +121,28 @@ footer{
   opacity:.7;
   cursor:pointer;
 }
-
-/* ANIM */
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(30px)}
-  to{opacity:1;transform:translateY(0)}
-}
 </style>
 </head>
 
 <body>
 
 <header>
-  <div class="icon-btn" onclick="openConfig()">⚙️</div>
-  <div class="premium-btn" onclick="openPremium()">⭐ Premium</div>
+  <div class="icon" onclick="openConfig()">⚙️</div>
+  <div class="premium" onclick="openPremium()">⭐ Premium</div>
 </header>
 
 <main>
   <h1>DecideFácil</h1>
   <div class="subtitle">Decide sin complicarte</div>
 
-  <button class="main-btn">Decidir por mí</button>
+  <!-- NUEVO BOTÓN ARRIBA -->
+  <button class="btn secondary">🤖 Preguntar a la IA</button>
+
+  <!-- BOTÓN CENTRAL -->
+  <button class="btn">🎲 Decidir por mí</button>
+
+  <!-- NUEVO BOTÓN ABAJO -->
+  <button class="btn secondary">🧠 Que decida la IA</button>
 </main>
 
 <footer>© 2026 DecideFácil</footer>
@@ -146,11 +151,9 @@ footer{
 <div class="modal" id="config">
   <div class="panel">
     <h2>⚙️ Configuración</h2>
-
     <div class="option">🌐 Cambiar idioma</div>
     <div class="option">📄 Política de privacidad</div>
     <div class="option" onclick="openPremium()">⭐ Premium</div>
-
     <div class="close" onclick="closeConfig()">Cerrar</div>
   </div>
 </div>
@@ -158,17 +161,11 @@ footer{
 <!-- PREMIUM -->
 <div class="modal" id="premium">
   <div class="panel">
-    <h2>💎 DecideFácil Premium</h2>
-    <p style="opacity:.85;font-size:14px">
-      Accede a todas las funciones
-    </p>
-
+    <h2>💎 Premium</h2>
     <div class="option">✔ Decisiones ilimitadas</div>
     <div class="option">✔ Sin anuncios</div>
-    <div class="option">✔ Acceso prioritario</div>
-
-    <button class="main-btn">Comprar Premium</button>
-
+    <div class="option">✔ Acceso anticipado</div>
+    <button class="btn">Comprar Premium</button>
     <div class="close" onclick="closePremium()">Volver</div>
   </div>
 </div>
