@@ -2,69 +2,154 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>DecideFácil</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DecideFácil</title>
 
   <style>
-    body { margin:0; font-family:Arial; background:#f4f5f7; }
-    header { display:flex; justify-content:space-between; align-items:center; background:#4f46e5; color:white; padding:14px; position:relative; }
-    .title { position:absolute; left:50%; transform:translateX(-50%); font-size:26px; font-weight:bold; }
-    .left,.right { font-size:22px; cursor:pointer; }
-    .premium-btn { background:gold; color:black; padding:6px 12px; border-radius:14px; font-weight:bold; }
-    .panel { position:fixed; top:0; left:-260px; width:260px; height:100%; background:white; padding:20px; transition:0.3s; box-shadow:2px 0 10px rgba(0,0,0,.2); }
-    .panel.active { left:0; }
-    .overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.4); }
-    .overlay.active { display:block; }
-    .content { padding:30px; text-align:center; }
-    .result { margin:20px auto; padding:20px; background:white; border-radius:16px; font-size:20px; display:none; }
-    button { padding:18px; width:90%; max-width:300px; font-size:18px; border:none; border-radius:16px; background:#4f46e5; color:white; }
+    * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: #0f0f0f;
+      color: white;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* HEADER */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+    }
+
+    .gear {
+      font-size: 26px;
+      cursor: pointer;
+    }
+
+    .premium-btn {
+      font-size: 14px;
+      background: gold;
+      color: black;
+      padding: 6px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    /* MAIN */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      opacity: 0.8;
+      margin-bottom: 30px;
+    }
+
+    .main-btn {
+      background: #1db954;
+      color: black;
+      border: none;
+      padding: 18px 30px;
+      font-size: 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    /* MODAL PREMIUM */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: #1c1c1c;
+      padding: 25px;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 350px;
+      text-align: center;
+    }
+
+    .modal-content h2 {
+      margin-top: 0;
+    }
+
+    .close {
+      margin-top: 15px;
+      color: #aaa;
+      cursor: pointer;
+    }
   </style>
 </head>
 
 <body>
 
-<header>
-  <div class="left" onclick="togglePanel()">⚙️</div>
-  <div class="title">DecideFácil</div>
-  <div class="right"><span class="premium-btn" onclick="activarPremium()">⭐ Premium</span></div>
-</header>
+  <!-- HEADER -->
+  <header>
+    <div class="gear" onclick="abrirMenu()">⚙️</div>
+    <div class="premium-btn" onclick="abrirPremium()">Premium</div>
+  </header>
 
-<div class="panel" id="panel">
-  <h2>Opciones</h2>
-  <p>Gratis: 2 decisiones diarias</p>
-</div>
+  <!-- CONTENIDO -->
+  <main>
+    <h1>DecideFácil</h1>
+    <p>¿No sabes qué decidir? Déjalo al azar.</p>
+    <button class="main-btn">Decidir por mí</button>
+  </main>
 
-<div class="overlay" id="overlay" onclick="togglePanel()"></div>
+  <!-- MODAL PREMIUM -->
+  <div class="modal" id="premiumModal">
+    <div class="modal-content">
+      <h2>⭐ Premium</h2>
+      <p>✔ Decisiones ilimitadas<br>
+         ✔ Sin anuncios<br>
+         ✔ Acceso total</p>
 
-<div class="content">
-  <div id="counter"></div>
-  <div class="result" id="result"></div>
-  <button onclick="decidir()">Decidir por mí</button>
-</div>
+      <button class="main-btn" style="background:gold;">
+        Obtener Premium
+      </button>
 
-<script>
-  const opciones=["Sí","No","Tal vez","Hazlo","Espera","No vale la pena"];
-  const hoy=new Date().toDateString();
-  if(!localStorage.getItem("fecha")){localStorage.setItem("fecha",hoy);localStorage.setItem("usos",0);localStorage.setItem("premium","false");}
-  if(localStorage.getItem("fecha")!==hoy){localStorage.setItem("fecha",hoy);localStorage.setItem("usos",0);}
-  function decidir(){
-    let usos=Number(localStorage.getItem("usos"));
-    let premium=localStorage.getItem("premium")==="true";
-    if(!premium && usos>=2){alert("Límite alcanzado ⭐");return;}
-    document.getElementById("result").style.display="block";
-    document.getElementById("result").innerText=opciones[Math.floor(Math.random()*opciones.length)];
-    if(!premium)localStorage.setItem("usos",usos+1);
-    actualizar();
-  }
-  function activarPremium(){localStorage.setItem("premium","true");alert("Premium activado");actualizar();}
-  function togglePanel(){panel.classList.toggle("active");overlay.classList.toggle("active");}
-  function actualizar(){
-    let usos=Number(localStorage.getItem("usos"));
-    let premium=localStorage.getItem("premium")==="true";
-    counter.innerText=premium?"⭐ Premium ilimitado":"Te quedan "+(2-usos)+" hoy";
-  }
-  actualizar();
-</script>
+      <div class="close" onclick="cerrarPremium()">Cerrar</div>
+    </div>
+  </div>
+
+  <script>
+    function abrirPremium() {
+      document.getElementById("premiumModal").style.display = "flex";
+    }
+
+    function cerrarPremium() {
+      document.getElementById("premiumModal").style.display = "none";
+    }
+
+    function abrirMenu() {
+      alert("Aquí irá el menú ⚙️");
+    }
+  </script>
 
 </body>
 </html>
