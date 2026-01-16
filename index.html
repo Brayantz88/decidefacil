@@ -7,76 +7,150 @@
 
   <style>
     body {
+      margin: 0;
       font-family: Arial, sans-serif;
-      background: #f5f6fa;
-      margin: 0;
-      padding: 0;
-      text-align: center;
+      background: #f4f5f7;
     }
 
+    /* HEADER */
     header {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
       background: #4f46e5;
       color: white;
-      padding: 30px 15px;
     }
 
-    h1 {
-      margin: 0;
-      font-size: 32px;
-    }
-
-    p {
-      font-size: 16px;
-      margin-top: 8px;
-    }
-
-    .container {
-      margin-top: 40px;
-      padding: 20px;
-    }
-
-    button {
-      width: 90%;
-      max-width: 300px;
-      padding: 15px;
-      font-size: 18px;
-      margin: 15px auto;
-      border: none;
-      border-radius: 12px;
-      background: #4f46e5;
-      color: white;
+    .left, .right {
+      width: 60px;
+      text-align: center;
+      font-size: 22px;
       cursor: pointer;
     }
 
-    button:active {
-      background: #3730a3;
+    .title {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 26px;
+      font-weight: bold;
     }
 
-    footer {
-      margin-top: 50px;
+    .premium-btn {
+      background: gold;
+      color: #000;
+      padding: 6px 10px;
+      border-radius: 12px;
       font-size: 14px;
-      color: #666;
+      font-weight: bold;
+    }
+
+    /* PANEL */
+    .panel {
+      position: fixed;
+      top: 0;
+      left: -260px;
+      width: 260px;
+      height: 100%;
+      background: white;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+      transition: left 0.3s ease;
+      padding: 20px;
+      z-index: 1000;
+    }
+
+    .panel.active {
+      left: 0;
+    }
+
+    .panel h2 {
+      margin-top: 0;
+    }
+
+    .panel button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      background: #e5e7eb;
+    }
+
+    /* OVERLAY */
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 999;
+    }
+
+    .overlay.active {
+      display: block;
+    }
+
+    /* CONTENT */
+    .content {
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .content button {
+      width: 90%;
+      max-width: 320px;
+      padding: 18px;
+      font-size: 18px;
+      border-radius: 16px;
+      border: none;
+      background: #4f46e5;
+      color: white;
+      cursor: pointer;
     }
   </style>
 </head>
 
 <body>
 
+  <!-- HEADER -->
   <header>
-    <h1>DecideFácil</h1>
-    <p>Decide sin complicarte</p>
+    <div class="left" onclick="togglePanel()">⚙️</div>
+
+    <div class="title">DecideFácil</div>
+
+    <div class="right">
+      <span class="premium-btn" onclick="alert('Premium próximamente')">
+        ⭐ Premium
+      </span>
+    </div>
   </header>
 
-  <div class="container">
-    <button onclick="decidir()">Decidir por mí</button>
-    <button onclick="alert('Función premium próximamente')">⭐ Premium</button>
+  <!-- PANEL -->
+  <div class="panel" id="panel">
+    <h2>Opciones</h2>
+    <button>¿Cómo funciona?</button>
+    <button>Soporte</button>
+    <button onclick="togglePanel()">Cerrar</button>
   </div>
 
-  <footer>
-    © 2026 DecideFácil
-  </footer>
+  <!-- OVERLAY -->
+  <div class="overlay" id="overlay" onclick="togglePanel()"></div>
+
+  <!-- CONTENT -->
+  <div class="content">
+    <p>Toma decisiones rápidas sin complicarte</p>
+    <button onclick="decidir()">Decidir por mí</button>
+  </div>
 
   <script>
+    function togglePanel() {
+      document.getElementById("panel").classList.toggle("active");
+      document.getElementById("overlay").classList.toggle("active");
+    }
+
     function decidir() {
       const opciones = [
         "Sí",
@@ -86,9 +160,7 @@
         "Mejor espera",
         "No vale la pena"
       ];
-
-      const resultado = opciones[Math.floor(Math.random() * opciones.length)];
-      alert("DecideFácil dice: " + resultado);
+      alert("DecideFácil dice: " + opciones[Math.floor(Math.random() * opciones.length)]);
     }
   </script>
 
