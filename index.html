@@ -1,155 +1,162 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DecideFácil</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DecideFácil</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
-    }
+<style>
+*{
+  box-sizing:border-box;
+  font-family: Arial, sans-serif;
+}
 
-    body {
-      margin: 0;
-      background: #0f0f0f;
-      color: white;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+body{
+  margin:0;
+  min-height:100vh;
+  background: radial-gradient(circle at top, #2b1055, #000);
+  color:white;
+}
 
-    /* HEADER */
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px;
-    }
+/* HEADER */
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px;
+}
 
-    .gear {
-      font-size: 26px;
-      cursor: pointer;
-    }
+.gear{
+  font-size:26px;
+  cursor:pointer;
+}
 
-    .premium-btn {
-      font-size: 14px;
-      background: gold;
-      color: black;
-      padding: 6px 12px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-weight: bold;
-    }
+.premium-btn{
+  background: linear-gradient(135deg,#9f7aea,#6b46c1);
+  padding:6px 14px;
+  border-radius:20px;
+  font-size:14px;
+  cursor:pointer;
+}
 
-    /* MAIN */
-    main {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 20px;
-    }
+/* MAIN */
+main{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  height:75vh;
+  text-align:center;
+}
 
-    h1 {
-      font-size: 42px;
-      margin-bottom: 10px;
-    }
+h1{
+  font-size:44px;
+  margin:0;
+}
 
-    p {
-      opacity: 0.8;
-      margin-bottom: 30px;
-    }
+p{
+  opacity:.8;
+  margin:10px 0 30px;
+}
 
-    .main-btn {
-      background: #1db954;
-      color: black;
-      border: none;
-      padding: 18px 30px;
-      font-size: 20px;
-      border-radius: 30px;
-      cursor: pointer;
-      font-weight: bold;
-    }
+.main-btn{
+  background:linear-gradient(135deg,#00f2fe,#4facfe);
+  color:black;
+  border:none;
+  padding:18px 35px;
+  font-size:20px;
+  border-radius:30px;
+  font-weight:bold;
+  cursor:pointer;
+}
 
-    /* MODAL PREMIUM */
-    .modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.7);
-      display: none;
-      justify-content: center;
-      align-items: center;
-    }
+/* CONFIG MODAL */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.75);
+  display:none;
+  justify-content:center;
+  align-items:center;
+}
 
-    .modal-content {
-      background: #1c1c1c;
-      padding: 25px;
-      border-radius: 15px;
-      width: 90%;
-      max-width: 350px;
-      text-align: center;
-    }
+.panel{
+  width:90%;
+  max-width:380px;
+  background:linear-gradient(180deg,#1a1a3d,#0b0b1f);
+  border-radius:25px;
+  padding:20px;
+  box-shadow:0 0 30px rgba(120,80,255,.4);
+}
 
-    .modal-content h2 {
-      margin-top: 0;
-    }
+.panel h2{
+  text-align:center;
+  margin:5px 0 20px;
+}
 
-    .close {
-      margin-top: 15px;
-      color: #aaa;
-      cursor: pointer;
-    }
-  </style>
+.option{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px;
+  border-radius:18px;
+  margin-bottom:12px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.star{background:linear-gradient(135deg,#f6d365,#fda085);}
+.lang{background:linear-gradient(135deg,#667eea,#764ba2);}
+.tiktok{background:linear-gradient(135deg,#25f4ee,#fe2c55);}
+.ig{background:linear-gradient(135deg,#f58529,#dd2a7b);}
+.privacy{background:linear-gradient(135deg,#43cea2,#185a9d);}
+
+.close{
+  text-align:center;
+  margin-top:15px;
+  font-size:24px;
+  cursor:pointer;
+  opacity:.8;
+}
+</style>
 </head>
 
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <div class="gear" onclick="abrirMenu()">⚙️</div>
-    <div class="premium-btn" onclick="abrirPremium()">Premium</div>
-  </header>
+<header>
+  <div class="gear" onclick="openConfig()">⚙️</div>
+  <div class="premium-btn">Premium</div>
+</header>
 
-  <!-- CONTENIDO -->
-  <main>
-    <h1>DecideFácil</h1>
-    <p>¿No sabes qué decidir? Déjalo al azar.</p>
-    <button class="main-btn">Decidir por mí</button>
-  </main>
+<main>
+  <h1>DecideFácil</h1>
+  <p>Decide sin complicarte</p>
+  <button class="main-btn">Decidir por mí</button>
+</main>
 
-  <!-- MODAL PREMIUM -->
-  <div class="modal" id="premiumModal">
-    <div class="modal-content">
-      <h2>⭐ Premium</h2>
-      <p>✔ Decisiones ilimitadas<br>
-         ✔ Sin anuncios<br>
-         ✔ Acceso total</p>
+<!-- CONFIG -->
+<div class="modal" id="config">
+  <div class="panel">
+    <h2>⚙️ Configuración</h2>
 
-      <button class="main-btn" style="background:gold;">
-        Obtener Premium
-      </button>
+    <div class="option star">⭐ Premium</div>
+    <div class="option lang">🌐 Cambiar idioma</div>
+    <div class="option tiktok">🎵 Síguenos en TikTok</div>
+    <div class="option ig">📸 Síguenos en Instagram</div>
+    <div class="option privacy">🔒 Política de privacidad</div>
 
-      <div class="close" onclick="cerrarPremium()">Cerrar</div>
-    </div>
+    <div class="close" onclick="closeConfig()">✕</div>
   </div>
+</div>
 
-  <script>
-    function abrirPremium() {
-      document.getElementById("premiumModal").style.display = "flex";
-    }
-
-    function cerrarPremium() {
-      document.getElementById("premiumModal").style.display = "none";
-    }
-
-    function abrirMenu() {
-      alert("Aquí irá el menú ⚙️");
-    }
-  </script>
+<script>
+function openConfig(){
+  document.getElementById("config").style.display="flex";
+}
+function closeConfig(){
+  document.getElementById("config").style.display="none";
+}
+</script>
 
 </body>
 </html>
