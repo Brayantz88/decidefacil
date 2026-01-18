@@ -6,103 +6,123 @@
 <title>DecideFácil</title>
 
 <style>
+*{box-sizing:border-box;}
 body{
   margin:0;
-  font-family:Arial, sans-serif;
-  background:linear-gradient(135deg,#1e1e2f,#3a3a6a);
+  font-family:system-ui,Arial;
+  background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);
   color:white;
+  height:100vh;
 }
 
 /* HEADER */
 header{
+  position:fixed;
+  top:0;
+  width:100%;
   display:flex;
   justify-content:space-between;
   align-items:center;
   padding:12px 16px;
+  z-index:10;
 }
-header button{
-  background:none;
+.icon-btn{
+  background:rgba(255,255,255,.1);
   border:none;
   color:white;
-  font-size:20px;
-  cursor:pointer;
+  font-size:18px;
+  padding:8px;
+  border-radius:12px;
 }
-#premiumBtn{
-  background:gold;
+.premium{
+  background:linear-gradient(135deg,#f7971e,#ffd200);
   color:black;
-  padding:6px 12px;
+  padding:8px 14px;
   border-radius:20px;
   font-weight:bold;
 }
 
-/* CONTENEDORES */
-.container{
-  padding:20px;
+/* HOME */
+.screen{
+  display:none;
+  height:100vh;
+  padding-top:80px;
+}
+#home{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
   text-align:center;
 }
-h1{font-size:34px;}
-.main-buttons button{
+#home h1{font-size:40px;}
+#home p{opacity:.8;}
+
+.main-btn{
   width:90%;
-  max-width:400px;
-  margin:10px auto;
-  padding:15px;
-  font-size:18px;
-  border-radius:14px;
+  max-width:420px;
+  padding:16px;
+  margin:10px;
   border:none;
-  background:#6c63ff;
+  border-radius:18px;
+  font-size:18px;
   color:white;
+  background:linear-gradient(135deg,#6a5cff,#00d4ff);
 }
 
-/* SECCIONES */
-.section{display:none;}
-textarea{
-  width:95%;
-  height:100px;
-  border-radius:10px;
-  border:none;
-  padding:10px;
+/* CHAT */
+.chat{
+  display:flex;
+  flex-direction:column;
+  height:100%;
 }
-.send-btn{
-  margin-top:10px;
-  padding:12px 20px;
-  border-radius:12px;
+.chat-header{
+  padding:14px;
+  text-align:center;
+  font-size:18px;
+  font-weight:bold;
+}
+.messages{
+  flex:1;
+  padding:14px;
+  overflow-y:auto;
+}
+.msg{
+  max-width:80%;
+  padding:12px;
+  border-radius:14px;
+  margin-bottom:10px;
+}
+.user{background:#6a5cff; margin-left:auto;}
+.ai{background:rgba(255,255,255,.15);}
+
+.input-area{
+  display:flex;
+  padding:10px;
+  gap:10px;
+}
+input{
+  flex:1;
+  padding:14px;
+  border-radius:20px;
+  border:none;
+}
+.send{
+  padding:14px 18px;
+  border-radius:20px;
   border:none;
   background:#00d4ff;
 }
-.response{
-  margin-top:15px;
-  background:rgba(0,0,0,.3);
-  padding:12px;
-  border-radius:10px;
-}
 
-/* MENÚ CONFIG */
-.overlay{
-  display:none;
-  position:fixed;
-  top:0; left:0;
-  width:100%; height:100%;
-  background:rgba(0,0,0,.85);
+/* CONFIG */
+.list{
   padding:20px;
 }
-.menu-btn{
-  display:block;
-  width:100%;
-  padding:14px;
-  margin:10px 0;
-  border-radius:12px;
-  border:none;
-  font-size:16px;
-}
-
-/* IDIOMAS */
-.lang-btn{
-  padding:12px;
-  width:100%;
-  margin:8px 0;
-  border-radius:10px;
-  border:none;
-  font-size:16px;
+.item{
+  background:rgba(255,255,255,.12);
+  padding:16px;
+  border-radius:16px;
+  margin-bottom:12px;
 }
 </style>
 </head>
@@ -110,156 +130,84 @@ textarea{
 <body>
 
 <header>
-  <button onclick="openConfig()">⚙️</button>
+  <button class="icon-btn" onclick="openScreen('config')">⚙️</button>
   <div></div>
-  <button id="premiumBtn">⭐ Premium</button>
+  <button class="premium">⭐ Premium</button>
 </header>
 
 <!-- HOME -->
-<div class="container" id="home">
+<div class="screen" id="home">
   <h1 id="title">DecideFácil</h1>
   <p id="subtitle">La IA que te ayuda a decidir</p>
+  <button class="main-btn" onclick="openChat('¿Qué hago hoy?')">¿Qué hago hoy?</button>
+  <button class="main-btn" onclick="openChat('Decidir con poco dinero')">Decidir con poco dinero</button>
+  <button class="main-btn" onclick="openChat('¿Qué puedo comer?')">¿Qué puedo comer?</button>
+</div>
 
-  <div class="main-buttons">
-    <button onclick="openSection('day')" id="btn1">¿Qué hago hoy?</button>
-    <button onclick="openSection('money')" id="btn2">Decidir con poco dinero</button>
-    <button onclick="openSection('food')" id="btn3">¿Qué puedo comer?</button>
+<!-- CHAT -->
+<div class="screen chat" id="chat">
+  <div class="chat-header" id="chatTitle"></div>
+  <div class="messages" id="messages"></div>
+  <div class="input-area">
+    <input id="input" placeholder="Escribe aquí...">
+    <button class="send" onclick="send()">➤</button>
   </div>
 </div>
 
-<!-- SECCIONES -->
-<div class="container section" id="day">
-  <h2 id="dayTitle"></h2>
-  <textarea></textarea><br>
-  <button class="send-btn" onclick="reply(this)">Enviar</button>
-  <div class="response"></div>
-  <br><button onclick="goHome()">⬅</button>
-</div>
-
-<div class="container section" id="money">
-  <h2 id="moneyTitle"></h2>
-  <textarea></textarea><br>
-  <button class="send-btn" onclick="reply(this)">Enviar</button>
-  <div class="response"></div>
-  <br><button onclick="goHome()">⬅</button>
-</div>
-
-<div class="container section" id="food">
-  <h2 id="foodTitle"></h2>
-  <textarea></textarea><br>
-  <button class="send-btn" onclick="reply(this)">Enviar</button>
-  <div class="response"></div>
-  <br><button onclick="goHome()">⬅</button>
-</div>
-
 <!-- CONFIG -->
-<div class="overlay" id="configMenu">
-  <h2>Configuración</h2>
-  <button class="menu-btn" onclick="openLanguage()">🌍 Cambiar idioma</button>
-  <button class="menu-btn" onclick="closeConfig()">Cerrar</button>
+<div class="screen" id="config">
+  <div class="list">
+    <div class="item" onclick="openScreen('lang')">🌍 Cambiar idioma</div>
+    <div class="item">🔒 Política de privacidad</div>
+    <div class="item" onclick="openScreen('home')">⬅ Volver</div>
+  </div>
 </div>
 
-<!-- IDIOMAS -->
-<div class="overlay" id="languageMenu">
-  <h2>Cambiar idioma</h2>
-  <button class="lang-btn" onclick="setLang('es')">Español</button>
-  <button class="lang-btn" onclick="setLang('en')">English</button>
-  <button class="lang-btn" onclick="setLang('fr')">Français</button>
-  <button class="lang-btn" onclick="setLang('jp')">日本語</button>
-  <button class="lang-btn" onclick="setLang('ar')">العربية</button>
-  <button class="menu-btn" onclick="backConfig()">⬅ Volver</button>
+<!-- LANG -->
+<div class="screen" id="lang">
+  <div class="list">
+    <div class="item" onclick="setLang('es')">Español</div>
+    <div class="item" onclick="setLang('en')">English</div>
+    <div class="item" onclick="setLang('fr')">Français</div>
+    <div class="item" onclick="setLang('jp')">日本語</div>
+    <div class="item" onclick="setLang('ar')">العربية</div>
+    <div class="item" onclick="openScreen('config')">⬅ Volver</div>
+  </div>
 </div>
 
 <script>
-let currentLang="es";
+let lang="es";
 
-const texts={
-es:{
- title:"DecideFácil",
- subtitle:"La IA que te ayuda a decidir",
- btn1:"¿Qué hago hoy?",
- btn2:"Decidir con poco dinero",
- btn3:"¿Qué puedo comer?",
- day:"¿Qué hago hoy?",
- money:"Decidir con poco dinero",
- food:"¿Qué puedo comer?"
-},
-en:{
- title:"EasyDecide",
- subtitle:"AI that helps you decide",
- btn1:"What should I do today?",
- btn2:"Decide with little money",
- btn3:"What can I eat?",
- day:"What should I do today?",
- money:"Decide with little money",
- food:"What can I eat?"
-},
-fr:{
- title:"DécideFacile",
- subtitle:"IA pour mieux décider",
- btn1:"Que faire aujourd'hui ?",
- btn2:"Décider avec peu d'argent",
- btn3:"Que puis-je manger ?",
- day:"Que faire aujourd'hui ?",
- money:"Décider avec peu d'argent",
- food:"Que puis-je manger ?"
-},
-jp:{
- title:"決めやすい",
- subtitle:"決断を助けるAI",
- btn1:"今日は何をする？",
- btn2:"少ないお金で決める",
- btn3:"何を食べられる？",
- day:"今日は何をする？",
- money:"少ないお金で決める",
- food:"何を食べられる？"
-},
-ar:{
- title:"قرر بسهولة",
- subtitle:"ذكاء اصطناعي يساعدك على القرار",
- btn1:"ماذا أفعل اليوم؟",
- btn2:"القرار بمال قليل",
- btn3:"ماذا يمكنني أن آكل؟",
- day:"ماذا أفعل اليوم؟",
- money:"القرار بمال قليل",
- food:"ماذا يمكنني أن آكل؟"
+function openScreen(id){
+ document.querySelectorAll('.screen').forEach(s=>s.style.display='none');
+ document.getElementById(id).style.display='block';
 }
-};
+openScreen('home');
 
-function setLang(lang){
- currentLang=lang;
- document.getElementById("title").innerText=texts[lang].title;
- document.getElementById("subtitle").innerText=texts[lang].subtitle;
- document.getElementById("btn1").innerText=texts[lang].btn1;
- document.getElementById("btn2").innerText=texts[lang].btn2;
- document.getElementById("btn3").innerText=texts[lang].btn3;
- document.getElementById("dayTitle").innerText=texts[lang].day;
- document.getElementById("moneyTitle").innerText=texts[lang].money;
- document.getElementById("foodTitle").innerText=texts[lang].food;
- backConfig();
+function openChat(title){
+ document.getElementById('chatTitle').innerText=title;
+ document.getElementById('messages').innerHTML='';
+ openScreen('chat');
 }
 
-function openSection(id){
- document.getElementById("home").style.display="none";
- document.querySelectorAll(".section").forEach(s=>s.style.display="none");
- document.getElementById(id).style.display="block";
+function send(){
+ let txt=document.getElementById('input');
+ if(!txt.value)return;
+ let m=document.createElement('div');
+ m.className='msg user';
+ m.innerText=txt.value;
+ messages.appendChild(m);
+ txt.value='';
+ let r=document.createElement('div');
+ r.className='msg ai';
+ r.innerText='🤖 Respuesta simulada de IA';
+ messages.appendChild(r);
+ messages.scrollTop=messages.scrollHeight;
 }
-function goHome(){
- document.querySelectorAll(".section").forEach(s=>s.style.display="none");
- document.getElementById("home").style.display="block";
-}
-function reply(btn){
- btn.nextElementSibling.innerText="🤖 IA: Respuesta simulada";
-}
-function openConfig(){document.getElementById("configMenu").style.display="block";}
-function closeConfig(){document.getElementById("configMenu").style.display="none";}
-function openLanguage(){
- document.getElementById("configMenu").style.display="none";
- document.getElementById("languageMenu").style.display="block";
-}
-function backConfig(){
- document.getElementById("languageMenu").style.display="none";
- document.getElementById("configMenu").style.display="block";
+
+function setLang(l){
+ lang=l;
+ openScreen('config');
 }
 </script>
 
