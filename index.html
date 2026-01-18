@@ -8,121 +8,127 @@
 <style>
 *{box-sizing:border-box;}
 body{
-  margin:0;
-  font-family:system-ui,Arial;
-  background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);
-  color:white;
-  height:100vh;
+ margin:0;
+ font-family:system-ui,Arial;
+ background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);
+ color:white;
+ height:100vh;
 }
 
-/* HEADER */
 header{
-  position:fixed;
-  top:0;
-  width:100%;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:12px 16px;
-  z-index:10;
+ position:fixed;
+ top:0;
+ width:100%;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ padding:12px 16px;
+ z-index:10;
 }
 .icon-btn{
-  background:rgba(255,255,255,.1);
-  border:none;
-  color:white;
-  font-size:18px;
-  padding:8px;
-  border-radius:12px;
+ background:rgba(255,255,255,.1);
+ border:none;
+ color:white;
+ font-size:18px;
+ padding:8px;
+ border-radius:12px;
 }
 .premium{
-  background:linear-gradient(135deg,#f7971e,#ffd200);
-  color:black;
-  padding:8px 14px;
-  border-radius:20px;
-  font-weight:bold;
+ background:linear-gradient(135deg,#f7971e,#ffd200);
+ color:black;
+ padding:8px 14px;
+ border-radius:20px;
+ font-weight:bold;
+}
+
+.screen{
+ display:none;
+ height:100vh;
+ padding-top:80px;
 }
 
 /* HOME */
-.screen{
-  display:none;
-  height:100vh;
-  padding-top:80px;
-}
 #home{
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
+ display:flex;
+ flex-direction:column;
+ justify-content:center;
+ align-items:center;
+ text-align:center;
 }
 #home h1{font-size:40px;}
-#home p{opacity:.8;}
+#home p{opacity:.85;}
 
 .main-btn{
-  width:90%;
-  max-width:420px;
-  padding:16px;
-  margin:10px;
-  border:none;
-  border-radius:18px;
-  font-size:18px;
-  color:white;
-  background:linear-gradient(135deg,#6a5cff,#00d4ff);
+ width:90%;
+ max-width:420px;
+ padding:16px;
+ margin:10px;
+ border:none;
+ border-radius:18px;
+ font-size:18px;
+ color:white;
+ background:linear-gradient(135deg,#6a5cff,#00d4ff);
 }
 
 /* CHAT */
 .chat{
-  display:flex;
-  flex-direction:column;
-  height:100%;
+ display:flex;
+ flex-direction:column;
+ height:100%;
 }
 .chat-header{
-  padding:14px;
-  text-align:center;
-  font-size:18px;
-  font-weight:bold;
+ padding:14px;
+ text-align:center;
+ font-size:18px;
+ font-weight:bold;
 }
 .messages{
-  flex:1;
-  padding:14px;
-  overflow-y:auto;
+ flex:1;
+ padding:14px;
+ overflow-y:auto;
 }
 .msg{
-  max-width:80%;
-  padding:12px;
-  border-radius:14px;
-  margin-bottom:10px;
+ max-width:80%;
+ padding:12px;
+ border-radius:14px;
+ margin-bottom:10px;
 }
 .user{background:#6a5cff; margin-left:auto;}
 .ai{background:rgba(255,255,255,.15);}
 
 .input-area{
-  display:flex;
-  padding:10px;
-  gap:10px;
+ display:flex;
+ padding:10px;
+ gap:10px;
 }
 input{
-  flex:1;
-  padding:14px;
-  border-radius:20px;
-  border:none;
+ flex:1;
+ padding:14px;
+ border-radius:20px;
+ border:none;
 }
 .send{
-  padding:14px 18px;
-  border-radius:20px;
-  border:none;
-  background:#00d4ff;
+ padding:14px 18px;
+ border-radius:20px;
+ border:none;
+ background:#00d4ff;
 }
 
 /* CONFIG */
 .list{
-  padding:20px;
+ padding:20px;
 }
 .item{
-  background:rgba(255,255,255,.12);
-  padding:16px;
-  border-radius:16px;
-  margin-bottom:12px;
+ background:rgba(255,255,255,.12);
+ padding:16px;
+ border-radius:16px;
+ margin-bottom:12px;
+ cursor:pointer;
+}
+.item a{
+ color:white;
+ text-decoration:none;
+ display:block;
 }
 </style>
 </head>
@@ -130,49 +136,62 @@ input{
 <body>
 
 <header>
-  <button class="icon-btn" onclick="openScreen('config')">⚙️</button>
-  <div></div>
-  <button class="premium">⭐ Premium</button>
+ <button class="icon-btn" onclick="openScreen('config')">⚙️</button>
+ <div></div>
+ <button class="premium" id="premiumBtn">⭐ Premium</button>
 </header>
 
 <!-- HOME -->
 <div class="screen" id="home">
-  <h1 id="title">DecideFácil</h1>
-  <p id="subtitle">La IA que te ayuda a decidir</p>
-  <button class="main-btn" onclick="openChat('¿Qué hago hoy?')">¿Qué hago hoy?</button>
-  <button class="main-btn" onclick="openChat('Decidir con poco dinero')">Decidir con poco dinero</button>
-  <button class="main-btn" onclick="openChat('¿Qué puedo comer?')">¿Qué puedo comer?</button>
+ <h1 id="title">DecideFácil</h1>
+ <p id="subtitle">La IA que te ayuda a decidir</p>
+
+ <button class="main-btn" onclick="openChat('¿Qué hago hoy?')">¿Qué hago hoy?</button>
+ <button class="main-btn" onclick="openChat('Decidir con poco dinero')">Decidir con poco dinero</button>
+ <button class="main-btn" onclick="openChat('¿Qué puedo comer?')">¿Qué puedo comer?</button>
 </div>
 
 <!-- CHAT -->
 <div class="screen chat" id="chat">
-  <div class="chat-header" id="chatTitle"></div>
-  <div class="messages" id="messages"></div>
-  <div class="input-area">
-    <input id="input" placeholder="Escribe aquí...">
-    <button class="send" onclick="send()">➤</button>
-  </div>
+ <div class="chat-header" id="chatTitle"></div>
+ <div class="messages" id="messages"></div>
+ <div class="input-area">
+   <input id="input" placeholder="Escribe aquí...">
+   <button class="send" onclick="send()">➤</button>
+ </div>
 </div>
 
 <!-- CONFIG -->
 <div class="screen" id="config">
-  <div class="list">
-    <div class="item" onclick="openScreen('lang')">🌍 Cambiar idioma</div>
-    <div class="item">🔒 Política de privacidad</div>
-    <div class="item" onclick="openScreen('home')">⬅ Volver</div>
-  </div>
+ <div class="list">
+   <div class="item" onclick="openScreen('lang')">🌍 Cambiar idioma</div>
+
+   <div class="item">
+     <a href="https://instagram.com/TU_USUARIO" target="_blank">📸 Instagram</a>
+   </div>
+
+   <div class="item">
+     <a href="https://tiktok.com/@TU_USUARIO" target="_blank">🎵 TikTok</a>
+   </div>
+
+   <div class="item">
+     <a href="https://discord.gg/TU_INVITACION" target="_blank">💬 Discord</a>
+   </div>
+
+   <div class="item" onclick="openScreen('home')">⬅ Volver</div>
+ </div>
 </div>
 
 <!-- LANG -->
 <div class="screen" id="lang">
-  <div class="list">
-    <div class="item" onclick="setLang('es')">Español</div>
-    <div class="item" onclick="setLang('en')">English</div>
-    <div class="item" onclick="setLang('fr')">Français</div>
-    <div class="item" onclick="setLang('jp')">日本語</div>
-    <div class="item" onclick="setLang('ar')">العربية</div>
-    <div class="item" onclick="openScreen('config')">⬅ Volver</div>
-  </div>
+ <div class="list">
+   <div class="item" onclick="setLang('es')">Español</div>
+   <div class="item" onclick="setLang('en')">English</div>
+   <div class="item" onclick="setLang('fr')">Français</div>
+   <div class="item" onclick="setLang('jp')">日本語</div>
+   <div class="item" onclick="setLang('ar')">العربية</div>
+   <div class="item" onclick="openScreen('config')">⬅ Volver</div>
+ </div>
 </div>
 
 <script>
@@ -181,7 +200,12 @@ let lang="es";
 function openScreen(id){
  document.querySelectorAll('.screen').forEach(s=>s.style.display='none');
  document.getElementById(id).style.display='block';
+
+ // Premium solo en HOME
+ document.getElementById('premiumBtn').style.display =
+   id==='home' ? 'block' : 'none';
 }
+
 openScreen('home');
 
 function openChat(title){
@@ -191,17 +215,21 @@ function openChat(title){
 }
 
 function send(){
- let txt=document.getElementById('input');
- if(!txt.value)return;
- let m=document.createElement('div');
- m.className='msg user';
- m.innerText=txt.value;
- messages.appendChild(m);
- txt.value='';
- let r=document.createElement('div');
- r.className='msg ai';
- r.innerText='🤖 Respuesta simulada de IA';
- messages.appendChild(r);
+ let input=document.getElementById('input');
+ if(!input.value)return;
+
+ let u=document.createElement('div');
+ u.className='msg user';
+ u.innerText=input.value;
+ messages.appendChild(u);
+
+ input.value='';
+
+ let a=document.createElement('div');
+ a.className='msg ai';
+ a.innerText='🤖 Respuesta simulada de IA';
+ messages.appendChild(a);
+
  messages.scrollTop=messages.scrollHeight;
 }
 
