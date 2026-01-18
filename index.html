@@ -6,110 +6,103 @@
 <title>DecideFácil</title>
 
 <style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #1e1e2f, #3a3a6a);
-  color: white;
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:linear-gradient(135deg,#1e1e2f,#3a3a6a);
+  color:white;
 }
 
 /* HEADER */
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 16px;
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 16px;
 }
-
-header button {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 18px;
-  cursor: pointer;
+header button{
+  background:none;
+  border:none;
+  color:white;
+  font-size:20px;
+  cursor:pointer;
 }
-
-#premiumBtn {
-  background: gold;
-  color: black;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-weight: bold;
+#premiumBtn{
+  background:gold;
+  color:black;
+  padding:6px 12px;
+  border-radius:20px;
+  font-weight:bold;
 }
 
 /* CONTENEDORES */
-.container {
-  padding: 20px;
-  text-align: center;
+.container{
+  padding:20px;
+  text-align:center;
 }
-
-h1 {
-  font-size: 34px;
-  margin-bottom: 10px;
-}
-
-.main-buttons button {
-  width: 90%;
-  max-width: 400px;
-  margin: 10px auto;
-  padding: 15px;
-  font-size: 18px;
-  border-radius: 14px;
-  border: none;
-  cursor: pointer;
-  background: #6c63ff;
-  color: white;
+h1{font-size:34px;}
+.main-buttons button{
+  width:90%;
+  max-width:400px;
+  margin:10px auto;
+  padding:15px;
+  font-size:18px;
+  border-radius:14px;
+  border:none;
+  background:#6c63ff;
+  color:white;
 }
 
 /* SECCIONES */
-.section {
-  display: none;
+.section{display:none;}
+textarea{
+  width:95%;
+  height:100px;
+  border-radius:10px;
+  border:none;
+  padding:10px;
+}
+.send-btn{
+  margin-top:10px;
+  padding:12px 20px;
+  border-radius:12px;
+  border:none;
+  background:#00d4ff;
+}
+.response{
+  margin-top:15px;
+  background:rgba(0,0,0,.3);
+  padding:12px;
+  border-radius:10px;
 }
 
-textarea {
-  width: 95%;
-  height: 100px;
-  border-radius: 10px;
-  border: none;
-  padding: 10px;
-  font-size: 16px;
+/* MENÚ CONFIG */
+.overlay{
+  display:none;
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:rgba(0,0,0,.85);
+  padding:20px;
 }
-
-.send-btn {
-  margin-top: 10px;
-  padding: 12px 20px;
-  border-radius: 12px;
-  border: none;
-  background: #00d4ff;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.response {
-  margin-top: 15px;
-  background: rgba(0,0,0,0.3);
-  padding: 12px;
-  border-radius: 10px;
+.menu-btn{
+  display:block;
+  width:100%;
+  padding:14px;
+  margin:10px 0;
+  border-radius:12px;
+  border:none;
+  font-size:16px;
 }
 
 /* IDIOMAS */
-select {
-  background: #222;
-  color: white;
-  border-radius: 8px;
-  padding: 5px;
-}
-
-/* CONFIG */
-#configMenu {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.85);
-  padding: 20px;
+.lang-btn{
+  padding:12px;
+  width:100%;
+  margin:8px 0;
+  border-radius:10px;
+  border:none;
+  font-size:16px;
 }
 </style>
 </head>
@@ -118,93 +111,155 @@ select {
 
 <header>
   <button onclick="openConfig()">⚙️</button>
-
-  <select onchange="changeLanguage(this.value)">
-    <option value="es">Español</option>
-    <option value="en">English</option>
-    <option value="fr">Français</option>
-    <option value="jp">日本語</option>
-    <option value="ar">العربية</option>
-  </select>
-
+  <div></div>
   <button id="premiumBtn">⭐ Premium</button>
 </header>
 
-<!-- PORTADA -->
+<!-- HOME -->
 <div class="container" id="home">
-  <h1>DecideFácil</h1>
-  <p>La IA que te ayuda a decidir mejor</p>
+  <h1 id="title">DecideFácil</h1>
+  <p id="subtitle">La IA que te ayuda a decidir</p>
 
   <div class="main-buttons">
-    <button onclick="openSection('dia')">¿Qué hago hoy?</button>
-    <button onclick="openSection('dinero')">Decidir con poco dinero</button>
-    <button onclick="openSection('comida')">¿Qué puedo comer?</button>
+    <button onclick="openSection('day')" id="btn1">¿Qué hago hoy?</button>
+    <button onclick="openSection('money')" id="btn2">Decidir con poco dinero</button>
+    <button onclick="openSection('food')" id="btn3">¿Qué puedo comer?</button>
   </div>
 </div>
 
 <!-- SECCIONES -->
-<div class="container section" id="dia">
-  <h2>¿Qué hago hoy?</h2>
-  <textarea placeholder="Escribe tu situación..."></textarea>
-  <br>
+<div class="container section" id="day">
+  <h2 id="dayTitle"></h2>
+  <textarea></textarea><br>
   <button class="send-btn" onclick="reply(this)">Enviar</button>
   <div class="response"></div>
-  <br><button onclick="goHome()">⬅ Volver</button>
+  <br><button onclick="goHome()">⬅</button>
 </div>
 
-<div class="container section" id="dinero">
-  <h2>Decidir con poco dinero</h2>
-  <textarea placeholder="¿Qué quieres comprar o decidir?"></textarea>
-  <br>
+<div class="container section" id="money">
+  <h2 id="moneyTitle"></h2>
+  <textarea></textarea><br>
   <button class="send-btn" onclick="reply(this)">Enviar</button>
   <div class="response"></div>
-  <br><button onclick="goHome()">⬅ Volver</button>
+  <br><button onclick="goHome()">⬅</button>
 </div>
 
-<div class="container section" id="comida">
-  <h2>¿Qué puedo comer?</h2>
-  <textarea placeholder="¿Qué ingredientes tienes?"></textarea>
-  <br>
+<div class="container section" id="food">
+  <h2 id="foodTitle"></h2>
+  <textarea></textarea><br>
   <button class="send-btn" onclick="reply(this)">Enviar</button>
   <div class="response"></div>
-  <br><button onclick="goHome()">⬅ Volver</button>
+  <br><button onclick="goHome()">⬅</button>
 </div>
 
 <!-- CONFIG -->
-<div id="configMenu">
+<div class="overlay" id="configMenu">
   <h2>Configuración</h2>
-  <p>DecideFácil</p>
-  <p>Versión inicial</p>
-  <button onclick="closeConfig()">Cerrar</button>
+  <button class="menu-btn" onclick="openLanguage()">🌍 Cambiar idioma</button>
+  <button class="menu-btn" onclick="closeConfig()">Cerrar</button>
+</div>
+
+<!-- IDIOMAS -->
+<div class="overlay" id="languageMenu">
+  <h2>Cambiar idioma</h2>
+  <button class="lang-btn" onclick="setLang('es')">Español</button>
+  <button class="lang-btn" onclick="setLang('en')">English</button>
+  <button class="lang-btn" onclick="setLang('fr')">Français</button>
+  <button class="lang-btn" onclick="setLang('jp')">日本語</button>
+  <button class="lang-btn" onclick="setLang('ar')">العربية</button>
+  <button class="menu-btn" onclick="backConfig()">⬅ Volver</button>
 </div>
 
 <script>
-function openSection(id) {
-  document.getElementById("home").style.display = "none";
-  document.querySelectorAll(".section").forEach(s => s.style.display = "none");
-  document.getElementById(id).style.display = "block";
+let currentLang="es";
+
+const texts={
+es:{
+ title:"DecideFácil",
+ subtitle:"La IA que te ayuda a decidir",
+ btn1:"¿Qué hago hoy?",
+ btn2:"Decidir con poco dinero",
+ btn3:"¿Qué puedo comer?",
+ day:"¿Qué hago hoy?",
+ money:"Decidir con poco dinero",
+ food:"¿Qué puedo comer?"
+},
+en:{
+ title:"EasyDecide",
+ subtitle:"AI that helps you decide",
+ btn1:"What should I do today?",
+ btn2:"Decide with little money",
+ btn3:"What can I eat?",
+ day:"What should I do today?",
+ money:"Decide with little money",
+ food:"What can I eat?"
+},
+fr:{
+ title:"DécideFacile",
+ subtitle:"IA pour mieux décider",
+ btn1:"Que faire aujourd'hui ?",
+ btn2:"Décider avec peu d'argent",
+ btn3:"Que puis-je manger ?",
+ day:"Que faire aujourd'hui ?",
+ money:"Décider avec peu d'argent",
+ food:"Que puis-je manger ?"
+},
+jp:{
+ title:"決めやすい",
+ subtitle:"決断を助けるAI",
+ btn1:"今日は何をする？",
+ btn2:"少ないお金で決める",
+ btn3:"何を食べられる？",
+ day:"今日は何をする？",
+ money:"少ないお金で決める",
+ food:"何を食べられる？"
+},
+ar:{
+ title:"قرر بسهولة",
+ subtitle:"ذكاء اصطناعي يساعدك على القرار",
+ btn1:"ماذا أفعل اليوم؟",
+ btn2:"القرار بمال قليل",
+ btn3:"ماذا يمكنني أن آكل؟",
+ day:"ماذا أفعل اليوم؟",
+ money:"القرار بمال قليل",
+ food:"ماذا يمكنني أن آكل؟"
+}
+};
+
+function setLang(lang){
+ currentLang=lang;
+ document.getElementById("title").innerText=texts[lang].title;
+ document.getElementById("subtitle").innerText=texts[lang].subtitle;
+ document.getElementById("btn1").innerText=texts[lang].btn1;
+ document.getElementById("btn2").innerText=texts[lang].btn2;
+ document.getElementById("btn3").innerText=texts[lang].btn3;
+ document.getElementById("dayTitle").innerText=texts[lang].day;
+ document.getElementById("moneyTitle").innerText=texts[lang].money;
+ document.getElementById("foodTitle").innerText=texts[lang].food;
+ backConfig();
 }
 
-function goHome() {
-  document.querySelectorAll(".section").forEach(s => s.style.display = "none");
-  document.getElementById("home").style.display = "block";
+function openSection(id){
+ document.getElementById("home").style.display="none";
+ document.querySelectorAll(".section").forEach(s=>s.style.display="none");
+ document.getElementById(id).style.display="block";
 }
-
-function reply(btn) {
-  const response = btn.nextElementSibling;
-  response.innerText = "🤖 IA: Analizando tu situación... (respuesta simulada)";
+function goHome(){
+ document.querySelectorAll(".section").forEach(s=>s.style.display="none");
+ document.getElementById("home").style.display="block";
 }
-
-function openConfig() {
-  document.getElementById("configMenu").style.display = "block";
+function reply(btn){
+ btn.nextElementSibling.innerText="🤖 IA: Respuesta simulada";
 }
-
-function closeConfig() {
-  document.getElementById("configMenu").style.display = "none";
+function openConfig(){document.getElementById("configMenu").style.display="block";}
+function closeConfig(){document.getElementById("configMenu").style.display="none";}
+function openLanguage(){
+ document.getElementById("configMenu").style.display="none";
+ document.getElementById("languageMenu").style.display="block";
 }
-
-function changeLanguage(lang) {
-  alert("Idioma cambiado a: " + lang + " (luego se conecta a traducción real)");
+function backConfig(){
+ document.getElementById("languageMenu").style.display="none";
+ document.getElementById("configMenu").style.display="block";
 }
 </script>
 
