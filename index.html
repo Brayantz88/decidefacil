@@ -6,69 +6,47 @@
 <title>DecideFácil</title>
 
 <style>
-/* ================= RESET ================= */
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-/* ================= BODY ================= */
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;}
 body{
-  background: radial-gradient(circle at top,#2b1a55,#0b0b18);
+  background:radial-gradient(circle at top,#2d1b5a,#090914);
   color:white;
-  overflow-x:hidden;
 }
 
-/* ================= SPLASH ================= */
+/* ===== SPLASH ===== */
 #splash{
-  position:fixed;
-  inset:0;
-  background:#0b0b18;
+  position:fixed;inset:0;
+  background:#090914;
   display:flex;
-  align-items:center;
   justify-content:center;
+  align-items:center;
   z-index:999;
-  animation:hideSplash 1s ease forwards;
+  animation:hide 1s ease forwards;
   animation-delay:2.5s;
 }
 #splash h1{
-  font-size:48px;
-  animation:fadeInScale 2s ease;
+  font-size:52px;
+  animation:pop 2s ease;
 }
-@keyframes fadeInScale{
-  from{opacity:0;transform:scale(0.5);}
-  to{opacity:1;transform:scale(1);}
-}
-@keyframes hideSplash{
-  to{opacity:0;visibility:hidden;}
-}
+@keyframes pop{from{opacity:0;transform:scale(.5);}to{opacity:1;transform:scale(1);}}
+@keyframes hide{to{opacity:0;visibility:hidden;}}
 
-/* ================= HEADER ================= */
+/* ===== HEADER ===== */
 header{
   display:flex;
   justify-content:space-between;
   align-items:center;
   padding:15px;
 }
-.icon-btn{
-  background:rgba(255,255,255,0.08);
+.icon{
+  background:rgba(255,255,255,.1);
   border:none;
   color:white;
-  padding:10px;
+  padding:12px;
   border-radius:50%;
-  font-size:18px;
-}
-.premium-btn{
-  background:linear-gradient(45deg,#ffd36a,#ffb300);
-  border:none;
-  padding:10px 18px;
-  border-radius:20px;
-  font-weight:bold;
+  font-size:20px;
 }
 
-/* ================= HOME ================= */
+/* ===== HOME ===== */
 #home{
   min-height:100vh;
   display:flex;
@@ -78,14 +56,9 @@ header{
   text-align:center;
   padding:20px;
 }
-#home h1{
-  font-size:42px;
-}
-#home p{
-  opacity:.8;
-  margin-bottom:30px;
-}
-.main-btn{
+#home h1{font-size:44px;}
+#home p{opacity:.8;margin:10px 0 30px;}
+.btn{
   width:90%;
   max-width:420px;
   padding:18px;
@@ -93,36 +66,33 @@ header{
   border:none;
   border-radius:30px;
   font-size:18px;
-  background:linear-gradient(45deg,#7b3cff,#3b82f6);
+  background:linear-gradient(45deg,#7c3aed,#2563eb);
   color:white;
 }
-.ad-btn{
-  background:linear-gradient(45deg,#00f2fe,#4facfe);
-}
 
-/* ================= SCREENS ================= */
+/* ===== SCREENS ===== */
 .screen{
   display:none;
   min-height:100vh;
-  padding:15px;
+  padding:20px;
 }
-.back-btn{
+.close{
+  font-size:28px;
   background:none;
   border:none;
   color:white;
-  font-size:18px;
-  margin-bottom:10px;
+  margin-bottom:20px;
 }
 
-/* ================= CHAT ================= */
-.chat-box{
+/* ===== CHAT ===== */
+.chat{
   max-width:900px;
   margin:auto;
 }
 .chat-log{
   background:#0f172a;
   border-radius:15px;
-  padding:15px;
+  padding:20px;
   min-height:350px;
   margin-bottom:10px;
 }
@@ -136,26 +106,57 @@ header{
   border:none;
 }
 .chat-input button{
-  margin-left:5px;
-  border:none;
+  margin-left:8px;
   padding:15px;
+  border:none;
   border-radius:20px;
-  background:#3b82f6;
+  background:#2563eb;
   color:white;
 }
 
-/* ================= CONFIG ================= */
-.config-item{
-  background:rgba(255,255,255,0.08);
-  padding:15px;
-  border-radius:20px;
-  margin:10px 0;
-  cursor:pointer;
+/* ===== PREMIUM ===== */
+.premium-box{
+  text-align:center;
+}
+.premium-box h1{
+  font-size:42px;
+  margin-bottom:15px;
+}
+.premium-box ul{
+  list-style:none;
+  font-size:20px;
+  margin:20px 0;
+}
+.premium-box li{margin:10px 0;}
+.ads-btn{
+  margin-top:30px;
+  padding:18px;
+  width:100%;
+  border:none;
+  border-radius:30px;
+  background:linear-gradient(45deg,#06b6d4,#3b82f6);
+  font-size:18px;
 }
 
-/* ================= LANG MODAL ================= */
-#langModal{
-  display:none;
+/* ===== ADS ===== */
+.progress{
+  background:#222;
+  border-radius:20px;
+  overflow:hidden;
+  margin:15px 0;
+}
+.bar{
+  height:20px;
+  width:0%;
+  background:linear-gradient(45deg,#22d3ee,#3b82f6);
+}
+
+/* ===== CONFIG ===== */
+.item{
+  background:rgba(255,255,255,.1);
+  padding:18px;
+  border-radius:20px;
+  margin:12px 0;
 }
 select{
   width:100%;
@@ -163,85 +164,69 @@ select{
   border-radius:15px;
   border:none;
 }
-
-/* ================= PREMIUM ================= */
-.progress{
-  background:#222;
-  border-radius:20px;
-  overflow:hidden;
-  margin:15px 0;
-}
-.progress-bar{
-  height:20px;
-  width:0%;
-  background:linear-gradient(45deg,#00f2fe,#4facfe);
-}
-
-/* ================= FOOTER ================= */
-footer{
-  text-align:center;
-  opacity:.5;
-  padding:20px;
-}
 </style>
 </head>
 
 <body>
 
-<!-- SPLASH -->
-<div id="splash">
-  <h1>DecideFácil</h1>
-</div>
+<div id="splash"><h1>DecideFácil</h1></div>
 
-<!-- HEADER -->
 <header>
-  <button class="icon-btn" onclick="openConfig()">⚙️</button>
-  <button class="premium-btn" onclick="openPremium()">⭐ Premium</button>
+  <button class="icon" onclick="openConfig()">⚙️</button>
+  <button class="icon" onclick="openPremium()">⭐</button>
 </header>
 
-<!-- HOME -->
 <div id="home">
-  <h1 id="title">DecideFácil</h1>
-  <p id="subtitle">Decide sin complicarte</p>
+  <h1 id="t_title">DecideFácil</h1>
+  <p id="t_sub">Decide sin complicarte</p>
 
-  <button class="main-btn" onclick="openChat('Pregunta a la IA')">🤖 Pregunta a la IA</button>
-  <button class="main-btn" onclick="openChat('Decide por mí')">🎯 Decide por mí</button>
-  <button class="main-btn" onclick="openChat('Qué hago hoy')">📅 Qué hago hoy</button>
-
-  <button class="main-btn ad-btn" onclick="watchAd()">🎬 Ver anuncio</button>
-  <p id="adsText">0 / 50 anuncios</p>
-  <div class="progress">
-    <div class="progress-bar" id="bar"></div>
-  </div>
+  <button class="btn" onclick="openChat('ia')">🤖 <span id="t_btn1">Pregunta a la IA</span></button>
+  <button class="btn" onclick="openChat('decide')">🎯 <span id="t_btn2">Decide por mí</span></button>
+  <button class="btn" onclick="openChat('hoy')">📅 <span id="t_btn3">Qué hago hoy</span></button>
 </div>
 
 <!-- CHAT -->
 <div id="chat" class="screen">
-  <button class="back-btn" onclick="goHome()">⬅ Regresar</button>
+  <button class="close" onclick="goHome()">✕</button>
   <h2 id="chatTitle"></h2>
-
-  <div class="chat-box">
-    <div class="chat-log">
-      🤖 DecideFácil: aquí irá la IA real
-    </div>
+  <div class="chat">
+    <div class="chat-log">🤖 DecideFácil</div>
     <div class="chat-input">
-      <input placeholder="Escribe aquí...">
+      <input id="input" placeholder="Escribe aquí">
       <button>Enviar</button>
     </div>
   </div>
 </div>
 
+<!-- PREMIUM -->
+<div id="premium" class="screen">
+  <button class="close" onclick="goHome()">✕</button>
+  <div class="premium-box">
+    <h1 id="p_title">Premium</h1>
+    <ul id="p_list">
+      <li>✔ IA ilimitada</li>
+      <li>✔ Respuestas avanzadas</li>
+      <li>✔ Sin anuncios</li>
+      <li>✔ Acceso anticipado</li>
+    </ul>
+    <button class="ads-btn" onclick="openAds()">📺 <span id="t_ads">Anuncios</span></button>
+  </div>
+</div>
+
+<!-- ADS -->
+<div id="ads" class="screen">
+  <button class="close" onclick="openPremium()">✕</button>
+  <h2 id="adsCount">0 / 50</h2>
+  <div class="progress"><div class="bar" id="bar"></div></div>
+  <button class="btn" onclick="watchAd()">Ver anuncio</button>
+</div>
+
 <!-- CONFIG -->
 <div id="config" class="screen">
-  <button class="back-btn" onclick="goHome()">⬅ Regresar</button>
-  <h2>Configuración</h2>
-
-  <div class="config-item" onclick="openLang()">🌍 Cambiar idioma</div>
-  <div class="config-item" onclick="openInstagram()">📸 Instagram</div>
-  <div class="config-item">📜 Política de privacidad</div>
-
-  <div id="langModal">
-    <select onchange="changeLang(this.value)">
+  <button class="close" onclick="goHome()">✕</button>
+  <div class="item" onclick="showLang()">🌍 <span id="t_lang">Cambiar idioma</span></div>
+  <div id="langBox" class="item" style="display:none;">
+    <select onchange="setLang(this.value)">
       <option value="es">Español</option>
       <option value="en">English</option>
       <option value="fr">Français</option>
@@ -249,61 +234,40 @@ footer{
       <option value="ar">العربية</option>
     </select>
   </div>
+  <div class="item" onclick="openIG()">📸 Instagram</div>
 </div>
-
-<!-- PREMIUM -->
-<div id="premium" class="screen">
-  <button class="back-btn" onclick="goHome()">⬅ Regresar</button>
-  <h2>⭐ Premium</h2>
-  <p>✔ IA ilimitada</p>
-  <p>✔ Sin anuncios</p>
-  <p>✔ Respuestas avanzadas</p>
-</div>
-
-<footer>© 2026 DecideFácil</footer>
 
 <script>
 let ads=0;
+const texts={
+es:{title:"DecideFácil",sub:"Decide sin complicarte",b1:"Pregunta a la IA",b2:"Decide por mí",b3:"Qué hago hoy",lang:"Cambiar idioma",ads:"Anuncios",p:"Premium"},
+en:{title:"DecideEasy",sub:"Decide without stress",b1:"Ask the AI",b2:"Decide for me",b3:"What should I do today",lang:"Change language",ads:"Ads",p:"Premium"},
+fr:{title:"DécideFacile",sub:"Décidez sans stress",b1:"Demander à l'IA",b2:"Décide pour moi",b3:"Que faire aujourd'hui",lang:"Changer la langue",ads:"Annonces",p:"Premium"},
+jp:{title:"決めやすい",sub:"簡単に決める",b1:"AIに聞く",b2:"決めて",b3:"今日は何する",lang:"言語変更",ads:"広告",p:"プレミアム"},
+ar:{title:"قرر بسهولة",sub:"قرر بدون تعقيد",b1:"اسأل الذكاء الاصطناعي",b2:"قرر لي",b3:"ماذا أفعل اليوم",lang:"تغيير اللغة",ads:"إعلانات",p:"بريميوم"}
+};
 
-function hideAll(){
-  document.querySelectorAll('#home,.screen').forEach(e=>e.style.display='none');
-}
-function goHome(){
-  hideAll();
-  home.style.display='flex';
-}
-function openChat(t){
-  hideAll();
-  chat.style.display='block';
-  chatTitle.innerText=t;
-}
-function openConfig(){
-  hideAll();
-  config.style.display='block';
-}
-function openPremium(){
-  hideAll();
-  premium.style.display='block';
-}
-function openLang(){
-  document.getElementById('langModal').style.display='block';
-}
-function openInstagram(){
-  window.open("https://www.instagram.com/tez_zxyt?igsh=MTg1Z2tycWJ1c28wYg==","_blank");
-}
-function watchAd(){
-  if(ads<50){
-    ads++;
-    bar.style.width=(ads*2)+"%";
-    adsText.innerText=ads+" / 50 anuncios";
-  }
-}
-function changeLang(l){
-  if(l==="en"){title.innerText="DecideEasy";subtitle.innerText="Decide without stress";}
-  if(l==="fr"){title.innerText="DécideFacile";subtitle.innerText="Décidez sans stress";}
-  if(l==="jp"){title.innerText="決めやすい";subtitle.innerText="簡単に決める";}
-  if(l==="ar"){title.innerText="قرر بسهولة";subtitle.innerText="قرر بدون تعقيد";}
-  if(l==="es"){title.innerText="DecideFácil";subtitle.innerText="Decide sin complicarte";}
+function hideAll(){home.style.display="none";document.querySelectorAll(".screen").forEach(e=>e.style.display="none");}
+function goHome(){hideAll();home.style.display="flex";}
+function openChat(t){hideAll();chat.style.display="block";chatTitle.innerText=texts[lang].b1;}
+function openPremium(){hideAll();premium.style.display="block";}
+function openAds(){hideAll();adsDiv.style.display="block";}
+function openConfig(){hideAll();config.style.display="block";}
+function showLang(){langBox.style.display="block";}
+function watchAd(){if(ads<50){ads++;bar.style.width=(ads*2)+"%";adsCount.innerText=ads+" / 50";}}
+function openIG(){window.open("https://www.instagram.com/tez_zxyt?igsh=MTg1Z2tycWJ1c28wYg==","_blank");}
+
+let lang="es";
+function setLang(l){
+  lang=l;
+  t_title.innerText=texts[l].title;
+  t_sub.innerText=texts[l].sub;
+  t_btn1.innerText=texts[l].b1;
+  t_btn2.innerText=texts[l].b2;
+  t_btn3.innerText=texts[l].b3;
+  t_lang.innerText=texts[l].lang;
+  t_ads.innerText=texts[l].ads;
+  p_title.innerText=texts[l].p;
 }
 </script>
 
