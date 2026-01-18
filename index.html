@@ -6,200 +6,206 @@
 <title>DecideFácil</title>
 
 <style>
-body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:linear-gradient(135deg,#0f1025,#2a1a4a,#1e3c72);
-  color:white;
-  min-height:100vh;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #1e1e2f, #3a3a6a);
+  color: white;
 }
 
-.topbar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:15px;
+/* HEADER */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
 }
 
-.icon-btn{
-  width:45px;
-  height:45px;
-  border-radius:50%;
-  border:none;
-  background:rgba(255,255,255,.15);
-  color:white;
-  font-size:20px;
+header button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
 }
 
-.premium-btn{
-  padding:10px 18px;
-  border:none;
-  border-radius:20px;
-  background:linear-gradient(45deg,#ffd700,#ff9f00);
-  font-weight:bold;
+#premiumBtn {
+  background: gold;
+  color: black;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: bold;
 }
 
-.center{
-  text-align:center;
-  padding:40px 20px;
+/* CONTENEDORES */
+.container {
+  padding: 20px;
+  text-align: center;
 }
 
-h1{
-  font-size:36px;
-  margin-bottom:5px;
+h1 {
+  font-size: 34px;
+  margin-bottom: 10px;
 }
 
-.subtitle{
-  opacity:.8;
-  margin-bottom:30px;
+.main-buttons button {
+  width: 90%;
+  max-width: 400px;
+  margin: 10px auto;
+  padding: 15px;
+  font-size: 18px;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  background: #6c63ff;
+  color: white;
 }
 
-.main-btn{
-  width:100%;
-  max-width:320px;
-  padding:15px;
-  margin:10px auto;
-  border:none;
-  border-radius:25px;
-  font-size:18px;
-  color:white;
-  background:linear-gradient(45deg,#6a11cb,#2575fc);
+/* SECCIONES */
+.section {
+  display: none;
 }
 
-#resultado{
-  max-width:320px;
-  margin:20px auto;
-  background:rgba(255,255,255,.15);
-  padding:15px;
-  border-radius:15px;
-  display:none;
-  font-size:18px;
+textarea {
+  width: 95%;
+  height: 100px;
+  border-radius: 10px;
+  border: none;
+  padding: 10px;
+  font-size: 16px;
 }
 
-.footer{
-  text-align:center;
-  opacity:.6;
-  font-size:14px;
-  margin-top:40px;
+.send-btn {
+  margin-top: 10px;
+  padding: 12px 20px;
+  border-radius: 12px;
+  border: none;
+  background: #00d4ff;
+  font-size: 16px;
+  cursor: pointer;
 }
 
-/* MODAL */
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.6);
-  display:none;
-  align-items:center;
-  justify-content:center;
+.response {
+  margin-top: 15px;
+  background: rgba(0,0,0,0.3);
+  padding: 12px;
+  border-radius: 10px;
 }
 
-.modal-content{
-  background:linear-gradient(135deg,#1e1f3a,#3b1f5f);
-  padding:20px;
-  border-radius:20px;
-  width:90%;
-  max-width:340px;
+/* IDIOMAS */
+select {
+  background: #222;
+  color: white;
+  border-radius: 8px;
+  padding: 5px;
 }
 
-.setting-btn{
-  width:100%;
-  padding:14px;
-  margin:8px 0;
-  border:none;
-  border-radius:15px;
-  color:white;
-  background:rgba(255,255,255,.15);
-  text-align:left;
-  font-size:16px;
-}
-
-.close{
-  text-align:center;
-  margin-top:10px;
+/* CONFIG */
+#configMenu {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.85);
+  padding: 20px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- BARRA SUPERIOR -->
-<div class="topbar">
-  <button class="icon-btn" onclick="abrirConfig()">⚙️</button>
-  <button class="premium-btn" onclick="abrirPremium()">⭐ Premium</button>
-</div>
+<header>
+  <button onclick="openConfig()">⚙️</button>
 
-<!-- CONTENIDO -->
-<div class="center">
+  <select onchange="changeLanguage(this.value)">
+    <option value="es">Español</option>
+    <option value="en">English</option>
+    <option value="fr">Français</option>
+    <option value="jp">日本語</option>
+    <option value="ar">العربية</option>
+  </select>
+
+  <button id="premiumBtn">⭐ Premium</button>
+</header>
+
+<!-- PORTADA -->
+<div class="container" id="home">
   <h1>DecideFácil</h1>
-  <div class="subtitle">Decide sin complicarte</div>
+  <p>La IA que te ayuda a decidir mejor</p>
 
-  <button class="main-btn" onclick="preguntarIA()">🤖 Preguntar a la IA</button>
-  <button class="main-btn" onclick="decidirPorMi()">🎲 Decidir por mí</button>
-  <button class="main-btn" onclick="decidaIA()">🧠 Que decida la IA</button>
-
-  <div id="resultado"></div>
-
-  <div class="footer">© 2026 DecideFácil</div>
-</div>
-
-<!-- CONFIGURACIÓN -->
-<div class="modal" id="config">
-  <div class="modal-content">
-    <h3>Configuración</h3>
-
-    <button class="setting-btn">🌐 Cambiar idioma</button>
-    <button class="setting-btn">📱 Síguenos en TikTok</button>
-    <button class="setting-btn">📸 Síguenos en Instagram</button>
-    <button class="setting-btn">🔒 Política de privacidad</button>
-
-    <div class="close">
-      <button class="icon-btn" onclick="cerrarConfig()">✖</button>
-    </div>
+  <div class="main-buttons">
+    <button onclick="openSection('dia')">¿Qué hago hoy?</button>
+    <button onclick="openSection('dinero')">Decidir con poco dinero</button>
+    <button onclick="openSection('comida')">¿Qué puedo comer?</button>
   </div>
 </div>
 
-<!-- PREMIUM -->
-<div class="modal" id="premium">
-  <div class="modal-content">
-    <h3>⭐ Premium</h3>
-    <p>✔ Decisiones ilimitadas<br>
-       ✔ Sin anuncios<br>
-       ✔ IA avanzada</p>
+<!-- SECCIONES -->
+<div class="container section" id="dia">
+  <h2>¿Qué hago hoy?</h2>
+  <textarea placeholder="Escribe tu situación..."></textarea>
+  <br>
+  <button class="send-btn" onclick="reply(this)">Enviar</button>
+  <div class="response"></div>
+  <br><button onclick="goHome()">⬅ Volver</button>
+</div>
 
-    <button class="main-btn">Comprar Premium</button>
+<div class="container section" id="dinero">
+  <h2>Decidir con poco dinero</h2>
+  <textarea placeholder="¿Qué quieres comprar o decidir?"></textarea>
+  <br>
+  <button class="send-btn" onclick="reply(this)">Enviar</button>
+  <div class="response"></div>
+  <br><button onclick="goHome()">⬅ Volver</button>
+</div>
 
-    <div class="close">
-      <button class="icon-btn" onclick="cerrarPremium()">✖</button>
-    </div>
-  </div>
+<div class="container section" id="comida">
+  <h2>¿Qué puedo comer?</h2>
+  <textarea placeholder="¿Qué ingredientes tienes?"></textarea>
+  <br>
+  <button class="send-btn" onclick="reply(this)">Enviar</button>
+  <div class="response"></div>
+  <br><button onclick="goHome()">⬅ Volver</button>
+</div>
+
+<!-- CONFIG -->
+<div id="configMenu">
+  <h2>Configuración</h2>
+  <p>DecideFácil</p>
+  <p>Versión inicial</p>
+  <button onclick="closeConfig()">Cerrar</button>
 </div>
 
 <script>
-function mostrarResultado(texto){
-  const r=document.getElementById("resultado");
-  r.innerHTML=texto;
-  r.style.display="block";
+function openSection(id) {
+  document.getElementById("home").style.display = "none";
+  document.querySelectorAll(".section").forEach(s => s.style.display = "none");
+  document.getElementById(id).style.display = "block";
 }
 
-function decidirPorMi(){
-  const o=["Sí, hazlo ✅","No, mejor espera ❌","Tal vez 🤔"];
-  mostrarResultado(o[Math.floor(Math.random()*o.length)]);
+function goHome() {
+  document.querySelectorAll(".section").forEach(s => s.style.display = "none");
+  document.getElementById("home").style.display = "block";
 }
 
-function decidaIA(){
-  const r=["La IA recomienda avanzar 🧠","No es el momento ⏳","Buena oportunidad 👍"];
-  mostrarResultado(r[Math.floor(Math.random()*r.length)]);
+function reply(btn) {
+  const response = btn.nextElementSibling;
+  response.innerText = "🤖 IA: Analizando tu situación... (respuesta simulada)";
 }
 
-function preguntarIA(){
-  const p=prompt("¿Qué quieres preguntar?");
-  if(p) mostrarResultado("Pregunta:<br>"+p+"<br><br>Respuesta:<br>Confía en tu intuición.");
+function openConfig() {
+  document.getElementById("configMenu").style.display = "block";
 }
 
-function abrirConfig(){document.getElementById("config").style.display="flex";}
-function cerrarConfig(){document.getElementById("config").style.display="none";}
-function abrirPremium(){document.getElementById("premium").style.display="flex";}
-function cerrarPremium(){document.getElementById("premium").style.display="none";}
+function closeConfig() {
+  document.getElementById("configMenu").style.display = "none";
+}
+
+function changeLanguage(lang) {
+  alert("Idioma cambiado a: " + lang + " (luego se conecta a traducción real)");
+}
 </script>
 
 </body>
