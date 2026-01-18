@@ -6,17 +6,46 @@
 <title>DecideFácil</title>
 
 <style>
+/* ================= RESET ================= */
 *{
-  box-sizing:border-box;
-  font-family: Arial, sans-serif;
-}
-body{
   margin:0;
-  background: radial-gradient(circle at top, #2b1a55, #0b0b18);
-  color:white;
+  padding:0;
+  box-sizing:border-box;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-/* HEADER */
+/* ================= BODY ================= */
+body{
+  background: radial-gradient(circle at top,#2b1a55,#0b0b18);
+  color:white;
+  overflow-x:hidden;
+}
+
+/* ================= SPLASH ================= */
+#splash{
+  position:fixed;
+  inset:0;
+  background:#0b0b18;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:999;
+  animation:hideSplash 1s ease forwards;
+  animation-delay:2.5s;
+}
+#splash h1{
+  font-size:48px;
+  animation:fadeInScale 2s ease;
+}
+@keyframes fadeInScale{
+  from{opacity:0;transform:scale(0.5);}
+  to{opacity:1;transform:scale(1);}
+}
+@keyframes hideSplash{
+  to{opacity:0;visibility:hidden;}
+}
+
+/* ================= HEADER ================= */
 header{
   display:flex;
   justify-content:space-between;
@@ -39,27 +68,26 @@ header{
   font-weight:bold;
 }
 
-/* HOME */
+/* ================= HOME ================= */
 #home{
   min-height:100vh;
   display:flex;
   flex-direction:column;
-  align-items:center;
   justify-content:center;
+  align-items:center;
   text-align:center;
   padding:20px;
 }
-h1{
-  font-size:40px;
-  margin-bottom:5px;
+#home h1{
+  font-size:42px;
 }
-.subtitle{
-  opacity:0.8;
+#home p{
+  opacity:.8;
   margin-bottom:30px;
 }
 .main-btn{
   width:90%;
-  max-width:400px;
+  max-width:420px;
   padding:18px;
   margin:10px 0;
   border:none;
@@ -68,8 +96,11 @@ h1{
   background:linear-gradient(45deg,#7b3cff,#3b82f6);
   color:white;
 }
+.ad-btn{
+  background:linear-gradient(45deg,#00f2fe,#4facfe);
+}
 
-/* PANTALLAS */
+/* ================= SCREENS ================= */
 .screen{
   display:none;
   min-height:100vh;
@@ -80,18 +111,19 @@ h1{
   border:none;
   color:white;
   font-size:18px;
+  margin-bottom:10px;
 }
 
-/* CHAT */
+/* ================= CHAT ================= */
 .chat-box{
-  max-width:800px;
+  max-width:900px;
   margin:auto;
 }
 .chat-log{
   background:#0f172a;
   border-radius:15px;
   padding:15px;
-  min-height:300px;
+  min-height:350px;
   margin-bottom:10px;
 }
 .chat-input{
@@ -112,17 +144,27 @@ h1{
   color:white;
 }
 
-/* CONFIG */
+/* ================= CONFIG ================= */
 .config-item{
   background:rgba(255,255,255,0.08);
   padding:15px;
   border-radius:20px;
   margin:10px 0;
-  display:flex;
-  justify-content:space-between;
+  cursor:pointer;
 }
 
-/* PREMIUM */
+/* ================= LANG MODAL ================= */
+#langModal{
+  display:none;
+}
+select{
+  width:100%;
+  padding:15px;
+  border-radius:15px;
+  border:none;
+}
+
+/* ================= PREMIUM ================= */
 .progress{
   background:#222;
   border-radius:20px;
@@ -135,24 +177,21 @@ h1{
   background:linear-gradient(45deg,#00f2fe,#4facfe);
 }
 
-/* LANGUAGE */
-select{
-  width:100%;
-  padding:12px;
-  border-radius:15px;
-  border:none;
-  margin-top:10px;
-}
-
+/* ================= FOOTER ================= */
 footer{
   text-align:center;
-  opacity:0.5;
+  opacity:.5;
   padding:20px;
 }
 </style>
 </head>
 
 <body>
+
+<!-- SPLASH -->
+<div id="splash">
+  <h1>DecideFácil</h1>
+</div>
 
 <!-- HEADER -->
 <header>
@@ -163,11 +202,17 @@ footer{
 <!-- HOME -->
 <div id="home">
   <h1 id="title">DecideFácil</h1>
-  <p class="subtitle" id="subtitle">Decide sin complicarte</p>
+  <p id="subtitle">Decide sin complicarte</p>
 
   <button class="main-btn" onclick="openChat('Pregunta a la IA')">🤖 Pregunta a la IA</button>
   <button class="main-btn" onclick="openChat('Decide por mí')">🎯 Decide por mí</button>
   <button class="main-btn" onclick="openChat('Qué hago hoy')">📅 Qué hago hoy</button>
+
+  <button class="main-btn ad-btn" onclick="watchAd()">🎬 Ver anuncio</button>
+  <p id="adsText">0 / 50 anuncios</p>
+  <div class="progress">
+    <div class="progress-bar" id="bar"></div>
+  </div>
 </div>
 
 <!-- CHAT -->
@@ -176,8 +221,8 @@ footer{
   <h2 id="chatTitle"></h2>
 
   <div class="chat-box">
-    <div class="chat-log" id="chatLog">
-      <p>🤖 DecideFácil: Aquí irá la IA real</p>
+    <div class="chat-log">
+      🤖 DecideFácil: aquí irá la IA real
     </div>
     <div class="chat-input">
       <input placeholder="Escribe aquí...">
@@ -191,78 +236,74 @@ footer{
   <button class="back-btn" onclick="goHome()">⬅ Regresar</button>
   <h2>Configuración</h2>
 
-  <div class="config-item">Cambiar idioma 🌍</div>
-  <select onchange="changeLang(this.value)">
-    <option value="es">Español</option>
-    <option value="en">English</option>
-    <option value="fr">Français</option>
-    <option value="jp">日本語</option>
-    <option value="ar">العربية</option>
-  </select>
+  <div class="config-item" onclick="openLang()">🌍 Cambiar idioma</div>
+  <div class="config-item" onclick="openInstagram()">📸 Instagram</div>
+  <div class="config-item">📜 Política de privacidad</div>
 
-  <div class="config-item">Instagram ➜</div>
-  <div class="config-item">Política de privacidad ➜</div>
+  <div id="langModal">
+    <select onchange="changeLang(this.value)">
+      <option value="es">Español</option>
+      <option value="en">English</option>
+      <option value="fr">Français</option>
+      <option value="jp">日本語</option>
+      <option value="ar">العربية</option>
+    </select>
+  </div>
 </div>
 
 <!-- PREMIUM -->
 <div id="premium" class="screen">
   <button class="back-btn" onclick="goHome()">⬅ Regresar</button>
   <h2>⭐ Premium</h2>
-
-  <p>• IA ilimitada</p>
-  <p>• Sin anuncios</p>
-  <p>• Respuestas avanzadas</p>
-
-  <h3>🎬 Ver anuncios</h3>
-  <button class="main-btn" onclick="watchAd()">Ver anuncio</button>
-
-  <div class="progress">
-    <div class="progress-bar" id="bar"></div>
-  </div>
-  <p id="adsText">0 / 50 anuncios</p>
+  <p>✔ IA ilimitada</p>
+  <p>✔ Sin anuncios</p>
+  <p>✔ Respuestas avanzadas</p>
 </div>
 
 <footer>© 2026 DecideFácil</footer>
 
 <script>
-let ads = 0;
+let ads=0;
 
-function openChat(title){
-  hideAll();
-  document.getElementById("chat").style.display="block";
-  document.getElementById("chatTitle").innerText=title;
-}
-function openConfig(){
-  hideAll();
-  document.getElementById("config").style.display="block";
-}
-function openPremium(){
-  hideAll();
-  document.getElementById("premium").style.display="block";
+function hideAll(){
+  document.querySelectorAll('#home,.screen').forEach(e=>e.style.display='none');
 }
 function goHome(){
   hideAll();
-  document.getElementById("home").style.display="flex";
+  home.style.display='flex';
 }
-function hideAll(){
-  document.querySelectorAll(".screen,#home").forEach(e=>e.style.display="none");
+function openChat(t){
+  hideAll();
+  chat.style.display='block';
+  chatTitle.innerText=t;
+}
+function openConfig(){
+  hideAll();
+  config.style.display='block';
+}
+function openPremium(){
+  hideAll();
+  premium.style.display='block';
+}
+function openLang(){
+  document.getElementById('langModal').style.display='block';
+}
+function openInstagram(){
+  window.open("https://www.instagram.com/tez_zxyt?igsh=MTg1Z2tycWJ1c28wYg==","_blank");
 }
 function watchAd(){
   if(ads<50){
     ads++;
-    document.getElementById("bar").style.width=(ads*2)+"%";
-    document.getElementById("adsText").innerText=ads+" / 50 anuncios";
+    bar.style.width=(ads*2)+"%";
+    adsText.innerText=ads+" / 50 anuncios";
   }
 }
-function changeLang(lang){
-  if(lang==="en"){
-    title.innerText="DecideEasy";
-    subtitle.innerText="Decide without stress";
-  }
-  if(lang==="es"){
-    title.innerText="DecideFácil";
-    subtitle.innerText="Decide sin complicarte";
-  }
+function changeLang(l){
+  if(l==="en"){title.innerText="DecideEasy";subtitle.innerText="Decide without stress";}
+  if(l==="fr"){title.innerText="DécideFacile";subtitle.innerText="Décidez sans stress";}
+  if(l==="jp"){title.innerText="決めやすい";subtitle.innerText="簡単に決める";}
+  if(l==="ar"){title.innerText="قرر بسهولة";subtitle.innerText="قرر بدون تعقيد";}
+  if(l==="es"){title.innerText="DecideFácil";subtitle.innerText="Decide sin complicarte";}
 }
 </script>
 
