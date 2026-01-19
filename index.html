@@ -8,8 +8,9 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
 body{
-  background:radial-gradient(circle at top,#5b21b6,#020617);
+  background:radial-gradient(circle at top,#6d28d9,#020617);
   color:white;
+  overflow-x:hidden;
 }
 
 /* SPLASH */
@@ -18,11 +19,11 @@ body{
   background:linear-gradient(135deg,#7c3aed,#2563eb);
   display:flex;align-items:center;justify-content:center;
   z-index:999;
-  animation:hide 1s forwards 2.5s;
+  animation:fadeOut 1s forwards 2.5s;
 }
-#splash h1{font-size:56px;animation:pop 2s}
-@keyframes pop{from{opacity:0;transform:scale(.6)}to{opacity:1}}
-@keyframes hide{to{opacity:0;visibility:hidden}}
+#splash h1{font-size:56px;animation:zoom 2s}
+@keyframes zoom{from{opacity:0;transform:scale(.6)}to{opacity:1}}
+@keyframes fadeOut{to{opacity:0;visibility:hidden}}
 
 /* HEADER */
 header{
@@ -32,13 +33,15 @@ header{
   padding:15px;
 }
 .icon{
-  background:rgba(255,255,255,.15);
+  background:rgba(255,255,255,.18);
   border:none;
   color:white;
   padding:12px 18px;
   border-radius:30px;
   font-size:15px;
+  transition:.3s;
 }
+.icon:active{transform:scale(.92)}
 
 /* HOME */
 #home{
@@ -49,10 +52,12 @@ header{
   justify-content:center;
   text-align:center;
   padding:20px;
+  animation:slideIn .5s;
 }
+@keyframes slideIn{from{opacity:0;transform:translateY(20px)}to{opacity:1}}
+
 #home h1{font-size:46px}
-#home p{opacity:.9;margin:10px 0}
-.example{opacity:.7;font-size:14px;margin-bottom:25px}
+#phrase{opacity:.85;margin:12px 0;transition:.5s}
 
 .btn{
   width:90%;max-width:420px;
@@ -63,7 +68,19 @@ header{
   font-size:18px;
   background:linear-gradient(45deg,#22d3ee,#6366f1);
   color:white;
+  transition:.3s;
 }
+.btn:active{transform:scale(.94)}
+
+.btn-premium{
+  background:linear-gradient(45deg,#facc15,#f97316);
+  color:#000;
+}
+
+.btn-ads{
+  background:linear-gradient(45deg,#10b981,#22c55e);
+}
+
 .quick{
   display:flex;
   gap:10px;
@@ -78,10 +95,12 @@ header{
   padding:10px 16px;
   border-radius:20px;
   font-size:14px;
+  transition:.3s;
 }
+.quick button:active{transform:scale(.9)}
 
 /* SCREENS */
-.screen{display:none;min-height:100vh;padding:20px}
+.screen{display:none;min-height:100vh;padding:20px;animation:slideIn .4s}
 .close{
   font-size:32px;
   background:none;
@@ -121,17 +140,6 @@ header{
 .premium-box ul{list-style:none;font-size:20px;margin:20px 0}
 .premium-box li{margin:10px 0}
 
-.ads-btn{
-  width:100%;
-  padding:18px;
-  border:none;
-  border-radius:35px;
-  background:linear-gradient(45deg,#facc15,#f97316);
-  font-size:18px;
-  color:#000;
-  margin-top:15px;
-}
-
 /* ADS */
 .progress{
   background:#111827;
@@ -143,6 +151,7 @@ header{
   height:20px;
   width:0%;
   background:linear-gradient(45deg,#22d3ee,#6366f1);
+  transition:.5s;
 }
 
 /* CONFIG */
@@ -172,19 +181,21 @@ select{
 
 <!-- HOME -->
 <div id="home">
-  <h1 id="t_title"></h1>
-  <p id="t_sub"></p>
-  <p class="example" id="t_examples"></p>
+  <h1 id="title"></h1>
+  <p id="phrase"></p>
 
-  <button class="btn" onclick="openChat()">🤖 <span id="t_btn1"></span></button>
-  <button class="btn" onclick="openChat()">🎯 <span id="t_btn2"></span></button>
-  <button class="btn" onclick="openChat()">📅 <span id="t_btn3"></span></button>
+  <button class="btn" onclick="openChat()" id="b1"></button>
+  <button class="btn" onclick="openChat()" id="b2"></button>
+  <button class="btn" onclick="openChat()" id="b3"></button>
+
+  <button class="btn btn-premium" onclick="openPremium()" id="premiumBtn"></button>
+  <button class="btn btn-ads" onclick="openAds()" id="adsBtn"></button>
 
   <div class="quick">
-    <button>🍳 <span id="q1"></span></button>
-    <button>💸 <span id="q2"></span></button>
-    <button>⏱️ <span id="q3"></span></button>
-    <button>🎯 <span id="q4"></span></button>
+    <button id="q1"></button>
+    <button id="q2"></button>
+    <button id="q3"></button>
+    <button id="q4"></button>
   </div>
 </div>
 
@@ -195,8 +206,8 @@ select{
   <div class="chat">
     <div class="chat-log">🤖 DecideFácil</div>
     <div class="chat-input">
-      <input id="input">
-      <button id="sendBtn"></button>
+      <input>
+      <button id="send"></button>
     </div>
   </div>
 </div>
@@ -205,25 +216,24 @@ select{
 <div id="premium" class="screen">
   <button class="close" onclick="goHome()">✕</button>
   <div class="premium-box">
-    <h1 id="p_title"></h1>
-    <ul id="p_list"></ul>
-    <button class="ads-btn" onclick="openAds()" id="p_ads"></button>
+    <h1 id="pTitle"></h1>
+    <ul id="pList"></ul>
   </div>
 </div>
 
 <!-- ADS -->
 <div id="ads" class="screen">
-  <button class="close" onclick="openPremium()">✕</button>
+  <button class="close" onclick="goHome()">✕</button>
   <h2 id="adsCount">0 / 50</h2>
   <div class="progress"><div class="bar" id="bar"></div></div>
-  <button class="btn" onclick="watchAd()" id="watchAdBtn"></button>
+  <button class="btn" onclick="watchAd()" id="watch"></button>
 </div>
 
 <!-- CONFIG -->
 <div id="config" class="screen">
   <button class="close" onclick="goHome()">✕</button>
-  <div class="item" onclick="toggleLang()">🌍 <span id="t_lang"></span></div>
-  <div id="langBox" class="item" style="display:none">
+  <div class="item" onclick="toggleLang()">🌍 Cambiar idioma</div>
+  <div class="item" id="langBox" style="display:none">
     <select onchange="setLang(this.value)">
       <option value="es">Español</option>
       <option value="en">English</option>
@@ -233,78 +243,93 @@ select{
 </div>
 
 <script>
-let ads=0,lang="es";
+let lang="es",ads=0,phraseIndex=0;
 
-const T={
+const data={
 es:{
 title:"DecideFácil",
-sub:"Cuando no sabes qué hacer, DecideFácil decide por ti.",
-examples:"¿Qué cocino? · ¿Qué compro con poco dinero? · ¿Qué hago hoy?",
-b1:"Pregunta a la IA",b2:"Decide por mí",b3:"Qué hago hoy",
-q:["Comida","Dinero","Tiempo","Decisiones"],
-send:"Enviar",
+phrases:[
+"No sabes qué hacer? DecideFácil decide por ti.",
+"Convierte dudas en decisiones claras.",
+"Menos pensar, más hacer.",
+"Tu asistente para la vida diaria.",
+"Decisiones inteligentes en segundos."
+],
+b1:"Pregunta a la IA",
+b2:"Decide por mí",
+b3:"Qué hago hoy",
 premium:"Premium ⭐",
-plist:["IA ilimitada","Respuestas avanzadas","Sin anuncios","Funciones exclusivas"],
+pList:["IA ilimitada","Respuestas más inteligentes","Sin anuncios","Funciones exclusivas"],
 ads:"Anuncios",
 watch:"Ver anuncio",
-lang:"Cambiar idioma"
+send:"Enviar",
+q:["Comida","Dinero","Tiempo","Decisiones"]
 },
 en:{
 title:"DecideEasy",
-sub:"When you don't know what to do, DecideEasy decides for you.",
-examples:"What can I cook? · I have little money · What should I do today?",
-b1:"Ask the AI",b2:"Decide for me",b3:"What should I do today",
-q:["Food","Money","Time","Decisions"],
-send:"Send",
+phrases:[
+"Don't know what to do? DecideEasy decides for you.",
+"Turn doubts into clear decisions.",
+"Think less, act more.",
+"Your assistant for daily life.",
+"Smart decisions in seconds."
+],
+b1:"Ask the AI",
+b2:"Decide for me",
+b3:"What should I do today",
 premium:"Premium ⭐",
-plist:["Unlimited AI","Advanced answers","No ads","Exclusive features"],
+pList:["Unlimited AI","Smarter answers","No ads","Exclusive features"],
 ads:"Ads",
 watch:"Watch ad",
-lang:"Change language"
+send:"Send",
+q:["Food","Money","Time","Decisions"]
 }
 };
 
-function applyLang(){
-  const t=T[lang];
-  t_title.innerText=t.title;
-  t_sub.innerText=t.sub;
-  t_examples.innerText=t.examples;
-  t_btn1.innerText=t.b1;
-  t_btn2.innerText=t.b2;
-  t_btn3.innerText=t.b3;
-  q1.innerText=t.q[0];q2.innerText=t.q[1];q3.innerText=t.q[2];q4.innerText=t.q[3];
-  sendBtn.innerText=t.send;
-  premiumTop.innerText=t.premium;
-  p_title.innerText=t.premium;
-  p_list.innerHTML=t.plist.map(x=>`<li>✔ ${x}</li>`).join("");
-  p_ads.innerText=t.ads;
-  watchAdBtn.innerText=t.watch;
-  t_lang.innerText=t.lang;
+function apply(){
+const t=data[lang];
+title.innerText=t.title;
+phrase.innerText=t.phrases[0];
+b1.innerText=t.b1;b2.innerText=t.b2;b3.innerText=t.b3;
+premiumTop.innerText=t.premium;
+premiumBtn.innerText=t.premium;
+adsBtn.innerText=t.ads;
+pTitle.innerText=t.premium;
+pList.innerHTML=t.pList.map(x=>`<li>✔ ${x}</li>`).join("");
+watch.innerText=t.watch;
+send.innerText=t.send;
+[q1,q2,q3,q4].forEach((e,i)=>e.innerText=t.q[i]);
 }
 
+setInterval(()=>{
+  const p=data[lang].phrases;
+  phraseIndex=(phraseIndex+1)%p.length;
+  phrase.style.opacity=0;
+  setTimeout(()=>{phrase.innerText=p[phraseIndex];phrase.style.opacity=1},300);
+},10000);
+
 function hideAll(){
-  home.style.display="none";
-  document.querySelectorAll(".screen").forEach(e=>e.style.display="none");
+home.style.display="none";
+document.querySelectorAll(".screen").forEach(s=>s.style.display="none");
 }
 function goHome(){hideAll();home.style.display="flex"}
 function openChat(){hideAll();chat.style.display="block"}
 function openPremium(){hideAll();premium.style.display="block"}
-function openAds(){hideAll();adsDiv.style.display="block"}
+function openAds(){hideAll();ads.style.display="block"}
 function openConfig(){hideAll();config.style.display="block"}
 function toggleLang(){langBox.style.display=langBox.style.display=="none"?"block":"none"}
-function setLang(l){lang=l;applyLang()}
+function setLang(l){lang=l;apply()}
 function watchAd(){
-  if(ads<50){
-    ads++;
-    bar.style.width=(ads*2)+"%";
-    adsCount.innerText=ads+" / 50";
-  }
-}
+if(ads<50){
+ads++;
+bar.style.width=(ads*2)+"%";
+adsCount.innerText=ads+" / 50";
+}}
 function openIG(){
-  window.open("https://www.instagram.com/tez_zxyt?igsh=MTg1Z2tycWJ1c28wYg==","_blank");
+window.open("https://www.instagram.com/tez_zxyt?igsh=MTg1Z2tycWJ1c28wYg==","_blank");
 }
 
-applyLang();
+apply();
 </script>
 
 </body>
