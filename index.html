@@ -6,79 +6,158 @@
 <title>DecideFácil</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;}
-body{background:radial-gradient(circle at top,#2d1b5a,#090914);color:white}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+body{
+  background:radial-gradient(circle at top,#5b21b6,#020617);
+  color:white;
+}
 
 /* SPLASH */
 #splash{
-  position:fixed;inset:0;background:#090914;
+  position:fixed;inset:0;
+  background:linear-gradient(135deg,#7c3aed,#2563eb);
   display:flex;align-items:center;justify-content:center;
-  z-index:999;animation:hide 1s forwards 2.5s;
+  z-index:999;
+  animation:hide 1s forwards 2.5s;
 }
-#splash h1{font-size:52px;animation:pop 2s}
+#splash h1{font-size:56px;animation:pop 2s}
 @keyframes pop{from{opacity:0;transform:scale(.6)}to{opacity:1}}
 @keyframes hide{to{opacity:0;visibility:hidden}}
 
 /* HEADER */
-header{display:flex;justify-content:space-between;align-items:center;padding:15px}
-.icon{background:rgba(255,255,255,.1);border:none;color:white;padding:12px;border-radius:50%;font-size:20px}
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px;
+}
+.icon{
+  background:rgba(255,255,255,.15);
+  border:none;
+  color:white;
+  padding:12px 18px;
+  border-radius:30px;
+  font-size:15px;
+}
 
 /* HOME */
 #home{
-  min-height:100vh;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;text-align:center;padding:20px
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:20px;
 }
-#home h1{font-size:44px}
-#home p{opacity:.85;margin:10px 0}
+#home h1{font-size:46px}
+#home p{opacity:.9;margin:10px 0}
 .example{opacity:.7;font-size:14px;margin-bottom:25px}
+
 .btn{
-  width:90%;max-width:420px;padding:18px;margin:10px 0;
-  border:none;border-radius:30px;font-size:18px;
-  background:linear-gradient(45deg,#7c3aed,#2563eb);color:white
+  width:90%;max-width:420px;
+  padding:18px;
+  margin:10px 0;
+  border:none;
+  border-radius:35px;
+  font-size:18px;
+  background:linear-gradient(45deg,#22d3ee,#6366f1);
+  color:white;
 }
-.quick{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap;justify-content:center}
+.quick{
+  display:flex;
+  gap:10px;
+  margin-top:10px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
 .quick button{
-  background:rgba(255,255,255,.12);border:none;color:white;
-  padding:10px 16px;border-radius:20px;font-size:14px
+  background:rgba(255,255,255,.18);
+  border:none;
+  color:white;
+  padding:10px 16px;
+  border-radius:20px;
+  font-size:14px;
 }
 
 /* SCREENS */
 .screen{display:none;min-height:100vh;padding:20px}
-.close{font-size:30px;background:none;border:none;color:white;margin-bottom:15px}
+.close{
+  font-size:32px;
+  background:none;
+  border:none;
+  color:white;
+  margin-bottom:15px;
+}
 
 /* CHAT */
 .chat{max-width:900px;margin:auto}
 .chat-log{
-  background:#0f172a;border-radius:15px;
-  padding:20px;min-height:350px;margin-bottom:10px
+  background:#020617;
+  border-radius:18px;
+  padding:20px;
+  min-height:350px;
+  margin-bottom:10px;
 }
 .chat-input{display:flex}
-.chat-input input{flex:1;padding:15px;border-radius:20px;border:none}
+.chat-input input{
+  flex:1;
+  padding:15px;
+  border-radius:25px;
+  border:none;
+}
 .chat-input button{
-  margin-left:8px;padding:15px;border:none;
-  border-radius:20px;background:#2563eb;color:white
+  margin-left:8px;
+  padding:15px 22px;
+  border:none;
+  border-radius:25px;
+  background:#2563eb;
+  color:white;
 }
 
 /* PREMIUM */
 .premium-box{text-align:center}
-.premium-box h1{font-size:42px;margin-bottom:10px}
+.premium-box h1{font-size:44px;margin-bottom:10px}
 .premium-box ul{list-style:none;font-size:20px;margin:20px 0}
 .premium-box li{margin:10px 0}
+
 .ads-btn{
-  width:100%;padding:18px;border:none;border-radius:30px;
-  background:linear-gradient(45deg,#06b6d4,#3b82f6);font-size:18px
+  width:100%;
+  padding:18px;
+  border:none;
+  border-radius:35px;
+  background:linear-gradient(45deg,#facc15,#f97316);
+  font-size:18px;
+  color:#000;
+  margin-top:15px;
 }
 
 /* ADS */
-.progress{background:#222;border-radius:20px;overflow:hidden;margin:15px 0}
-.bar{height:20px;width:0%;background:linear-gradient(45deg,#22d3ee,#3b82f6)}
+.progress{
+  background:#111827;
+  border-radius:20px;
+  overflow:hidden;
+  margin:15px 0;
+}
+.bar{
+  height:20px;
+  width:0%;
+  background:linear-gradient(45deg,#22d3ee,#6366f1);
+}
 
 /* CONFIG */
 .item{
-  background:rgba(255,255,255,.1);
-  padding:18px;border-radius:20px;margin:12px 0
+  background:rgba(255,255,255,.15);
+  padding:18px;
+  border-radius:20px;
+  margin:12px 0;
 }
-select{width:100%;padding:15px;border-radius:15px;border:none}
+select{
+  width:100%;
+  padding:15px;
+  border-radius:15px;
+  border:none;
+}
 </style>
 </head>
 
@@ -88,7 +167,7 @@ select{width:100%;padding:15px;border-radius:15px;border:none}
 
 <header>
   <button class="icon" onclick="openConfig()">⚙️</button>
-  <button class="icon" onclick="openPremium()">⭐</button>
+  <button class="icon" onclick="openPremium()" id="premiumTop"></button>
 </header>
 
 <!-- HOME -->
@@ -97,15 +176,15 @@ select{width:100%;padding:15px;border-radius:15px;border:none}
   <p id="t_sub"></p>
   <p class="example" id="t_examples"></p>
 
-  <button class="btn" onclick="openChat('ia')">🤖 <span id="t_btn1"></span></button>
-  <button class="btn" onclick="openChat('decide')">🎯 <span id="t_btn2"></span></button>
-  <button class="btn" onclick="openChat('hoy')">📅 <span id="t_btn3"></span></button>
+  <button class="btn" onclick="openChat()">🤖 <span id="t_btn1"></span></button>
+  <button class="btn" onclick="openChat()">🎯 <span id="t_btn2"></span></button>
+  <button class="btn" onclick="openChat()">📅 <span id="t_btn3"></span></button>
 
   <div class="quick">
-    <button onclick="autoMsg('food')">🍳 <span id="q1"></span></button>
-    <button onclick="autoMsg('money')">💸 <span id="q2"></span></button>
-    <button onclick="autoMsg('time')">⏱️ <span id="q3"></span></button>
-    <button onclick="autoMsg('decision')">🎯 <span id="q4"></span></button>
+    <button>🍳 <span id="q1"></span></button>
+    <button>💸 <span id="q2"></span></button>
+    <button>⏱️ <span id="q3"></span></button>
+    <button>🎯 <span id="q4"></span></button>
   </div>
 </div>
 
@@ -114,7 +193,7 @@ select{width:100%;padding:15px;border-radius:15px;border:none}
   <button class="close" onclick="goHome()">✕</button>
   <h2 id="chatTitle"></h2>
   <div class="chat">
-    <div class="chat-log" id="chatLog"></div>
+    <div class="chat-log">🤖 DecideFácil</div>
     <div class="chat-input">
       <input id="input">
       <button id="sendBtn"></button>
@@ -128,14 +207,14 @@ select{width:100%;padding:15px;border-radius:15px;border:none}
   <div class="premium-box">
     <h1 id="p_title"></h1>
     <ul id="p_list"></ul>
-    <button class="ads-btn" onclick="openAds()">📺 <span id="t_ads"></span></button>
+    <button class="ads-btn" onclick="openAds()" id="p_ads"></button>
   </div>
 </div>
 
 <!-- ADS -->
 <div id="ads" class="screen">
   <button class="close" onclick="openPremium()">✕</button>
-  <h2 id="adsCount"></h2>
+  <h2 id="adsCount">0 / 50</h2>
   <div class="progress"><div class="bar" id="bar"></div></div>
   <button class="btn" onclick="watchAd()" id="watchAdBtn"></button>
 </div>
@@ -148,9 +227,6 @@ select{width:100%;padding:15px;border-radius:15px;border:none}
     <select onchange="setLang(this.value)">
       <option value="es">Español</option>
       <option value="en">English</option>
-      <option value="fr">Français</option>
-      <option value="jp">日本語</option>
-      <option value="ar">العربية</option>
     </select>
   </div>
   <div class="item" onclick="openIG()">📸 Instagram</div>
@@ -163,22 +239,28 @@ const T={
 es:{
 title:"DecideFácil",
 sub:"Cuando no sabes qué hacer, DecideFácil decide por ti.",
-examples:"Ejemplos: ¿Qué puedo cocinar con lo que tengo? · Tengo poco dinero, ¿qué compro? · ¿Qué hago hoy?",
+examples:"¿Qué cocino? · ¿Qué compro con poco dinero? · ¿Qué hago hoy?",
 b1:"Pregunta a la IA",b2:"Decide por mí",b3:"Qué hago hoy",
 q:["Comida","Dinero","Tiempo","Decisiones"],
-chat:"Escribe aquí…",send:"Enviar",
-p:"Premium",plist:["IA ilimitada","Respuestas avanzadas","Sin anuncios","Acceso anticipado"],
-ads:"Anuncios",watch:"Ver anuncio",lang:"Cambiar idioma"
+send:"Enviar",
+premium:"Premium ⭐",
+plist:["IA ilimitada","Respuestas avanzadas","Sin anuncios","Funciones exclusivas"],
+ads:"Anuncios",
+watch:"Ver anuncio",
+lang:"Cambiar idioma"
 },
 en:{
 title:"DecideEasy",
 sub:"When you don't know what to do, DecideEasy decides for you.",
-examples:"Examples: What can I cook? · I have little money, what should I buy? · What should I do today?",
+examples:"What can I cook? · I have little money · What should I do today?",
 b1:"Ask the AI",b2:"Decide for me",b3:"What should I do today",
 q:["Food","Money","Time","Decisions"],
-chat:"Type here…",send:"Send",
-p:"Premium",plist:["Unlimited AI","Advanced answers","No ads","Early access"],
-ads:"Ads",watch:"Watch ad",lang:"Change language"
+send:"Send",
+premium:"Premium ⭐",
+plist:["Unlimited AI","Advanced answers","No ads","Exclusive features"],
+ads:"Ads",
+watch:"Watch ad",
+lang:"Change language"
 }
 };
 
@@ -191,25 +273,36 @@ function applyLang(){
   t_btn2.innerText=t.b2;
   t_btn3.innerText=t.b3;
   q1.innerText=t.q[0];q2.innerText=t.q[1];q3.innerText=t.q[2];q4.innerText=t.q[3];
-  input.placeholder=t.chat;sendBtn.innerText=t.send;
-  p_title.innerText=t.p;
+  sendBtn.innerText=t.send;
+  premiumTop.innerText=t.premium;
+  p_title.innerText=t.premium;
   p_list.innerHTML=t.plist.map(x=>`<li>✔ ${x}</li>`).join("");
-  t_ads.innerText=t.ads;
+  p_ads.innerText=t.ads;
   watchAdBtn.innerText=t.watch;
   t_lang.innerText=t.lang;
 }
 
-function hideAll(){home.style.display="none";document.querySelectorAll(".screen").forEach(e=>e.style.display="none")}
+function hideAll(){
+  home.style.display="none";
+  document.querySelectorAll(".screen").forEach(e=>e.style.display="none");
+}
 function goHome(){hideAll();home.style.display="flex"}
-function openChat(){hideAll();chat.style.display="block";chatLog.innerText="🤖 DecideFácil"}
+function openChat(){hideAll();chat.style.display="block"}
 function openPremium(){hideAll();premium.style.display="block"}
 function openAds(){hideAll();adsDiv.style.display="block"}
 function openConfig(){hideAll();config.style.display="block"}
 function toggleLang(){langBox.style.display=langBox.style.display=="none"?"block":"none"}
 function setLang(l){lang=l;applyLang()}
-function watchAd(){if(ads<50){ads++;bar.style.width=(ads*2)+"%";adsCount.innerText=ads+" / 50"}}
-function openIG(){window.open("https://www.instagram.com/tez_zxyt?igsh=MTg1Z2tycWJ1c28wYg==","_blank")}
-function autoMsg(type){openChat();}
+function watchAd(){
+  if(ads<50){
+    ads++;
+    bar.style.width=(ads*2)+"%";
+    adsCount.innerText=ads+" / 50";
+  }
+}
+function openIG(){
+  window.open("https://www.instagram.com/tez_zxyt?igsh=MTg1Z2tycWJ1c28wYg==","_blank");
+}
 
 applyLang();
 </script>
