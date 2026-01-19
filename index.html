@@ -56,13 +56,13 @@ header{
 }
 @keyframes slideIn{from{opacity:0;transform:translateY(20px)}to{opacity:1}}
 
-#home h1{font-size:46px}
-#phrase{opacity:.85;margin:12px 0;transition:.5s}
+#home h1{font-size:48px}
+#phrase{opacity:.85;margin:14px 0;transition:.5s;max-width:500px}
 
 .btn{
   width:90%;max-width:420px;
   padding:18px;
-  margin:10px 0;
+  margin:12px 0;
   border:none;
   border-radius:35px;
   font-size:18px;
@@ -77,27 +77,21 @@ header{
   color:#000;
 }
 
-.btn-ads{
+/* FLOAT ADS BUTTON */
+#adsFloat{
+  position:fixed;
+  right:16px;
+  bottom:16px;
   background:linear-gradient(45deg,#10b981,#22c55e);
-}
-
-.quick{
-  display:flex;
-  gap:10px;
-  margin-top:10px;
-  flex-wrap:wrap;
-  justify-content:center;
-}
-.quick button{
-  background:rgba(255,255,255,.18);
+  color:#000;
   border:none;
-  color:white;
-  padding:10px 16px;
-  border-radius:20px;
-  font-size:14px;
+  padding:16px 18px;
+  border-radius:50%;
+  font-size:18px;
+  box-shadow:0 10px 30px rgba(0,0,0,.4);
   transition:.3s;
 }
-.quick button:active{transform:scale(.9)}
+#adsFloat:active{transform:scale(.9)}
 
 /* SCREENS */
 .screen{display:none;min-height:100vh;padding:20px;animation:slideIn .4s}
@@ -115,7 +109,7 @@ header{
   background:#020617;
   border-radius:18px;
   padding:20px;
-  min-height:350px;
+  min-height:380px;
   margin-bottom:10px;
 }
 .chat-input{display:flex}
@@ -186,18 +180,12 @@ select{
 
   <button class="btn" onclick="openChat()" id="b1"></button>
   <button class="btn" onclick="openChat()" id="b2"></button>
-  <button class="btn" onclick="openChat()" id="b3"></button>
 
   <button class="btn btn-premium" onclick="openPremium()" id="premiumBtn"></button>
-  <button class="btn btn-ads" onclick="openAds()" id="adsBtn"></button>
-
-  <div class="quick">
-    <button id="q1"></button>
-    <button id="q2"></button>
-    <button id="q3"></button>
-    <button id="q4"></button>
-  </div>
 </div>
+
+<!-- FLOAT ADS -->
+<button id="adsFloat" onclick="openAds()">🎬</button>
 
 <!-- CHAT -->
 <div id="chat" class="screen">
@@ -250,39 +238,31 @@ es:{
 title:"DecideFácil",
 phrases:[
 "No sabes qué hacer? DecideFácil decide por ti.",
-"Convierte dudas en decisiones claras.",
-"Menos pensar, más hacer.",
-"Tu asistente para la vida diaria.",
-"Decisiones inteligentes en segundos."
+"Menos pensar, más decidir.",
+"Decisiones claras en segundos.",
+"Tu asistente para la vida diaria."
 ],
 b1:"Pregunta a la IA",
 b2:"Decide por mí",
-b3:"Qué hago hoy",
 premium:"Premium ⭐",
 pList:["IA ilimitada","Respuestas más inteligentes","Sin anuncios","Funciones exclusivas"],
-ads:"Anuncios",
 watch:"Ver anuncio",
-send:"Enviar",
-q:["Comida","Dinero","Tiempo","Decisiones"]
+send:"Enviar"
 },
 en:{
 title:"DecideEasy",
 phrases:[
 "Don't know what to do? DecideEasy decides for you.",
-"Turn doubts into clear decisions.",
-"Think less, act more.",
-"Your assistant for daily life.",
-"Smart decisions in seconds."
+"Think less, decide more.",
+"Clear decisions in seconds.",
+"Your daily life assistant."
 ],
 b1:"Ask the AI",
 b2:"Decide for me",
-b3:"What should I do today",
 premium:"Premium ⭐",
 pList:["Unlimited AI","Smarter answers","No ads","Exclusive features"],
-ads:"Ads",
 watch:"Watch ad",
-send:"Send",
-q:["Food","Money","Time","Decisions"]
+send:"Send"
 }
 };
 
@@ -290,15 +270,14 @@ function apply(){
 const t=data[lang];
 title.innerText=t.title;
 phrase.innerText=t.phrases[0];
-b1.innerText=t.b1;b2.innerText=t.b2;b3.innerText=t.b3;
+b1.innerText=t.b1;
+b2.innerText=t.b2;
 premiumTop.innerText=t.premium;
 premiumBtn.innerText=t.premium;
-adsBtn.innerText=t.ads;
 pTitle.innerText=t.premium;
 pList.innerHTML=t.pList.map(x=>`<li>✔ ${x}</li>`).join("");
 watch.innerText=t.watch;
 send.innerText=t.send;
-[q1,q2,q3,q4].forEach((e,i)=>e.innerText=t.q[i]);
 }
 
 setInterval(()=>{
