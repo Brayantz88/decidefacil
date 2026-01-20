@@ -2,185 +2,281 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>DecideFácil</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Decide Fácil</title>
+
 <style>
-*{box-sizing:border-box;font-family:Arial}
-body{margin:0;background:linear-gradient(135deg,#1f1f3a,#2e2e5f);color:#fff}
-.hidden{display:none}
-button{cursor:pointer;border:none;border-radius:12px}
-header{display:flex;justify-content:space-between;align-items:center;padding:10px 15px}
-.btn{background:#5a7cff;color:#fff;padding:10px 16px}
-.small{font-size:13px;padding:6px 10px}
-main{padding:40px 20px;text-align:center}
-h1{font-size:38px;margin-bottom:8px}
-.sub{opacity:.8;margin-bottom:30px}
-.actions button{margin:10px 0;width:100%}
-.screen{position:fixed;top:0;left:0;width:100%;height:100%;background:#14142b;display:none;flex-direction:column}
-.chatHeader{display:flex;align-items:center;gap:10px;padding:10px}
-.messages{flex:1;overflow:auto;padding:15px}
-.msg{margin:8px 0;padding:10px 14px;border-radius:14px;max-width:80%}
-.user{background:#5a7cff;margin-left:auto}
-.ai{background:#333}
-.inputBar{display:flex;gap:5px;padding:10px}
-input{flex:1;padding:10px;border-radius:10px;border:none}
-.panel{position:fixed;top:0;left:0;width:100%;height:100%;background:#000a;display:none;align-items:center;justify-content:center}
-.card{background:#1f1f3a;padding:20px;border-radius:16px;width:90%;max-width:420px}
-.lang{display:flex;align-items:center;gap:10px;padding:6px 0;cursor:pointer}
-.progress{height:10px;background:#333;border-radius:10px;overflow:hidden}
-.bar{height:100%;background:#5a7cff;width:0%}
+:root{
+  --bg:#0f172a;
+  --card:#1e293b;
+  --primary:#38bdf8;
+  --accent:#facc15;
+  --text:#e5e7eb;
+}
+
+*{box-sizing:border-box;font-family:system-ui,-apple-system,BlinkMacSystemFont;}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  overflow:hidden;
+}
+
+/* HEADER */
+header{
+  position:fixed;
+  top:0; left:0;
+  width:100%;
+  padding:12px 16px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:10;
+}
+
+.icon-btn{
+  font-size:26px;
+  cursor:pointer;
+  transition:transform .2s;
+}
+.icon-btn:hover{transform:scale(1.15);}
+
+/* MAIN */
+#main{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:20px;
+}
+
+h1{
+  font-size:42px;
+  margin-bottom:10px;
+  animation:fadeIn 1.2s;
+}
+
+.subtitle{
+  opacity:.8;
+  margin-bottom:30px;
+}
+
+button{
+  border:none;
+  border-radius:14px;
+  padding:14px 20px;
+  margin:8px;
+  font-size:16px;
+  cursor:pointer;
+  background:var(--primary);
+  color:#000;
+  transition:transform .2s, box-shadow .2s;
+}
+button:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 15px var(--primary);
+}
+
+#adsBtn{
+  background:var(--accent);
+}
+
+/* SCREENS */
+.screen{
+  position:fixed;
+  inset:0;
+  background:var(--bg);
+  display:none;
+  flex-direction:column;
+  padding:20px;
+  z-index:20;
+}
+
+.screen.active{display:flex;}
+
+.top-bar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.close{
+  font-size:30px;
+  cursor:pointer;
+}
+
+/* CHAT */
+.chat-box{
+  flex:1;
+  margin-top:20px;
+  background:var(--card);
+  border-radius:16px;
+  padding:15px;
+  overflow-y:auto;
+}
+
+.input-box{
+  display:flex;
+  gap:10px;
+  margin-top:10px;
+}
+
+input{
+  flex:1;
+  padding:14px;
+  border-radius:14px;
+  border:none;
+}
+
+/* LANGUAGE */
+.lang{
+  padding:14px;
+  background:var(--card);
+  border-radius:14px;
+  margin:8px 0;
+  cursor:pointer;
+}
+
+/* PREMIUM */
+.premium-box{
+  background:var(--card);
+  border-radius:20px;
+  padding:20px;
+  margin-top:20px;
+  font-size:18px;
+}
 </style>
 </head>
 
 <body>
 
 <header>
-  <button class="btn small" onclick="openLogin()">👤 <span id="userLabel">Invitado</span></button>
-  <button class="btn small" onclick="openSettings()">⚙️</button>
+  <div class="icon-btn" onclick="openSettings()">⚙️</div>
+  <div class="icon-btn" onclick="openPremium()">⭐ Premium</div>
 </header>
 
-<main id="home">
-  <h1 id="t_title">DecideFácil</h1>
-  <div class="sub" id="t_sub">Decide sin pensar demasiado</div>
+<div id="main">
+  <h1 id="title">Decide Fácil</h1>
+  <div class="subtitle" id="subtitle">Toma mejores decisiones con ayuda inteligente</div>
 
-  <div class="actions">
-    <button class="btn" onclick="openChat('ask')" id="t_ask">Pregunta a la IA</button>
-    <button class="btn" onclick="openChat('decide')" id="t_decide">Decide por mí</button>
-    <button class="btn small" onclick="openPremium()">⭐ Premium</button>
-    <button class="btn small">🎬 Anuncios</button>
-  </div>
-</main>
+  <button onclick="openChat('ask')">Pregunta a la IA</button>
+  <button onclick="openChat('decide')">Decide por mí</button>
 
-<!-- CHAT -->
-<div id="chat" class="screen">
-  <div class="chatHeader">
-    <button class="btn small" onclick="back()">❌</button>
-    <strong id="chatTitle"></strong>
-  </div>
-  <div class="messages" id="messages"></div>
-  <div class="inputBar">
-    <input id="input" placeholder="Escribe aquí…">
-    <button class="btn" onclick="send()">➤</button>
-  </div>
-</div>
-
-<!-- LOGIN -->
-<div id="login" class="panel">
-  <div class="card">
-    <h3>Cuenta</h3>
-    <input id="name" placeholder="Nombre"><br><br>
-    <input id="email" placeholder="Email Google"><br><br>
-    <button class="btn" onclick="saveUser()">Guardar</button>
-  </div>
+  <button id="adsBtn" onclick="openAds()">📢 Anuncios</button>
 </div>
 
 <!-- SETTINGS -->
-<div id="settings" class="panel">
-  <div class="card">
-    <h3 id="t_lang">Cambiar idioma</h3>
-    <div class="lang" onclick="setLang('es')">🇪🇸 Español</div>
-    <div class="lang" onclick="setLang('en')">🇺🇸 English</div>
-    <div class="lang" onclick="setLang('fr')">🇫🇷 Français</div>
-    <div class="lang" onclick="setLang('ar')">🇸🇦 العربية</div>
-    <div class="lang" onclick="setLang('ja')">🇯🇵 日本語</div>
-    <br>
-    <button class="btn small" onclick="closeSettings()">Cerrar</button>
+<div class="screen" id="settings">
+  <div class="top-bar">
+    <h2>⚙️ Ajustes</h2>
+    <div class="close" onclick="closeAll()">✖</div>
+  </div>
+
+  <div class="lang" onclick="openLanguages()">🌍 Cambiar idioma</div>
+  <div class="lang" onclick="window.open('https://www.instagram.com/tez_zxyt?igsh=MTg1Z2tycWJ1c28wYg==')">📸 Instagram</div>
+</div>
+
+<!-- LANGUAGES -->
+<div class="screen" id="languages">
+  <div class="top-bar">
+    <h2>🌍 Idiomas</h2>
+    <div class="close" onclick="closeAll()">✖</div>
+  </div>
+
+  <div class="lang" onclick="setLang('es')">🇪🇸 Español</div>
+  <div class="lang" onclick="setLang('en')">🇺🇸 English</div>
+  <div class="lang" onclick="setLang('fr')">🇫🇷 Français</div>
+  <div class="lang" onclick="setLang('jp')">🇯🇵 日本語</div>
+  <div class="lang" onclick="setLang('ar')">🇸🇦 العربية</div>
+</div>
+
+<!-- CHAT -->
+<div class="screen" id="chat">
+  <div class="top-bar">
+    <h2 id="chatTitle"></h2>
+    <div class="close" onclick="closeAll()">✖</div>
+  </div>
+
+  <div class="chat-box" id="chatBox"></div>
+
+  <div class="input-box">
+    <input id="chatInput" placeholder="Escribe aquí...">
+    <button onclick="sendMsg()">Enviar</button>
   </div>
 </div>
 
 <!-- PREMIUM -->
-<div id="premium" class="panel">
-  <div class="card">
-    <h3 id="t_premium">Beneficios Premium</h3>
-    <ul id="t_premium_list">
-      <li id="p1">Uso ilimitado</li>
-      <li id="p2">Sin anuncios</li>
-      <li id="p3">IA prioritaria</li>
-    </ul>
-    <div class="progress"><div class="bar" id="bar" style="width:40%"></div></div><br>
-    <button class="btn small">Ver anuncios</button><br><br>
-    <button class="btn small" onclick="closePremium()">Cerrar</button>
+<div class="screen" id="premium">
+  <div class="top-bar">
+    <h2>⭐ Premium</h2>
+    <div class="close" onclick="closeAll()">✖</div>
+  </div>
+
+  <div class="premium-box">
+    ✔ Respuestas ilimitadas  
+    ✔ Prioridad IA  
+    ✔ Sin anuncios  
+    ✔ Funciones exclusivas  
   </div>
 </div>
 
 <script>
-let lang=localStorage.getItem("lang")||"es"
-let user=JSON.parse(localStorage.getItem("user"))||{name:"Invitado",email:"local"}
-let chats=JSON.parse(localStorage.getItem("chats"))||{}
-let drafts=JSON.parse(localStorage.getItem("drafts"))||{}
-let currentChat=null
+let currentChat="";
 
-userLabel.innerText=user.name
-
-const T={
-es:{title:"DecideFácil",sub:"Decide sin pensar demasiado",ask:"Pregunta a la IA",decide:"Decide por mí",premium:"Beneficios Premium",p1:"Uso ilimitado",p2:"Sin anuncios",p3:"IA prioritaria"},
-en:{title:"DecideEasy",sub:"Decide easily",ask:"Ask the AI",decide:"Decide for me",premium:"Premium benefits",p1:"Unlimited use",p2:"No ads",p3:"Priority AI"},
-fr:{title:"DécideFacile",sub:"Décidez facilement",ask:"Demander à l’IA",decide:"Décide pour moi",premium:"Avantages Premium",p1:"Utilisation illimitée",p2:"Sans publicité",p3:"IA prioritaire"},
-ar:{title:"قرر بسهولة",sub:"اتخذ القرار بسهولة",ask:"اسأل الذكاء الاصطناعي",decide:"قرر عني",premium:"مزايا بريميوم",p1:"استخدام غير محدود",p2:"بدون إعلانات",p3:"ذكاء اصطناعي مميز"},
-ja:{title:"ディサイド・ファシル",sub:"簡単に決めよう",ask:"AIに質問する",decide:"AIに任せる",premium:"プレミアム特典",p1:"無制限利用",p2:"広告なし",p3:"優先AI"}
-}
-
-function applyLang(){
-  t("t_title","title");t("t_sub","sub");t("t_ask","ask");t("t_decide","decide")
-  t("t_premium","premium");t("p1","p1");t("p2","p2");t("p3","p3")
-}
-function t(id,k){document.getElementById(id).innerText=T[lang][k]}
-applyLang()
-
-function setLang(l){lang=l;localStorage.setItem("lang",l);applyLang();closeSettings()}
-
+function openSettings(){show('settings')}
+function openLanguages(){show('languages')}
+function openPremium(){show('premium')}
+function openAds(){alert("Simulación de anuncios")}
 function openChat(type){
-  currentChat=type
-  home.style.display="none"
-  chat.style.display="flex"
-  chatTitle.innerText=T[lang][type]
-  messages.innerHTML=""
-  const key=user.email+"_"+type
-  chats[key]=chats[key]||[]
-  chats[key].forEach(m=>addMsg(m.t,m.f))
-  input.value=drafts[key]||""
+  currentChat=type;
+  document.getElementById('chatTitle').innerText =
+    type==="ask" ? "Pregunta a la IA" : "Decide por mí";
+  loadChat();
+  show('chat');
 }
 
-function send(){
-  if(!input.value)return
-  const key=user.email+"_"+currentChat
-  addMsg(input.value,"user")
-  chats[key].push({t:input.value,f:"user"})
-  drafts[key]=""
-  setTimeout(()=>{
-    addMsg("Respuesta IA","ai")
-    chats[key].push({t:"Respuesta IA",f:"ai"})
-    localStorage.setItem("chats",JSON.stringify(chats))
-  },500)
-  input.value=""
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
 }
 
-input.addEventListener("input",()=>{
-  if(currentChat){
-    drafts[user.email+"_"+currentChat]=input.value
-    localStorage.setItem("drafts",JSON.stringify(drafts))
-  }
-})
-
-function addMsg(t,f){
-  const d=document.createElement("div")
-  d.className="msg "+f
-  d.innerText=t
-  messages.appendChild(d)
+function closeAll(){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
 }
 
-function back(){chat.style.display="none";home.style.display="block"}
-function openLogin(){login.style.display="flex"}
-function saveUser(){
-  user={name:name.value||"Usuario",email:email.value||"local"}
-  localStorage.setItem("user",JSON.stringify(user))
-  userLabel.innerText=user.name
-  login.style.display="none"
+function sendMsg(){
+  const input=document.getElementById('chatInput');
+  if(!input.value) return;
+  saveMsg(input.value);
+  input.value="";
+  loadChat();
 }
-function openSettings(){settings.style.display="flex"}
-function closeSettings(){settings.style.display="none"}
-function openPremium(){premium.style.display="flex"}
-function closePremium(){premium.style.display="none"}
+
+function saveMsg(text){
+  const key="chat_"+currentChat;
+  let arr=JSON.parse(localStorage.getItem(key)||"[]");
+  arr.push(text);
+  localStorage.setItem(key,JSON.stringify(arr));
+}
+
+function loadChat(){
+  const box=document.getElementById('chatBox');
+  box.innerHTML="";
+  const key="chat_"+currentChat;
+  let arr=JSON.parse(localStorage.getItem(key)||"[]");
+  arr.forEach(m=>{
+    const d=document.createElement('div');
+    d.textContent=m;
+    box.appendChild(d);
+  });
+}
+
+function setLang(l){
+  alert("Idioma cambiado a: "+l);
+}
 </script>
 
 </body>
