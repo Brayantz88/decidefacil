@@ -6,41 +6,14 @@
 <title>DecideFácil</title>
 
 <style>
-:root{
-  --bg:#020617;
-  --card:#020617;
-  --accent:#22d3ee;
-  --blue:#2563eb;
-  --yellow:#facc15;
+body{
+  margin:0;
+  background:#050817;
+  color:white;
+  font-family:Arial,Helvetica,sans-serif;
 }
 
 *{box-sizing:border-box}
-
-body{
-  margin:0;
-  background:var(--bg);
-  color:white;
-  font-family:Arial,Helvetica,sans-serif;
-  overflow:hidden;
-}
-
-/* ANIMACIÓN INICIAL */
-#splash{
-  position:fixed;
-  inset:0;
-  background:var(--bg);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:44px;
-  font-weight:bold;
-  z-index:100;
-  animation:fadeOut 1s ease forwards;
-  animation-delay:2.2s;
-}
-@keyframes fadeOut{
-  to{opacity:0;visibility:hidden}
-}
 
 /* HEADER */
 header{
@@ -50,10 +23,12 @@ header{
   padding:14px 18px;
 }
 
-.icon-btn{
-  background:none;
-  border:none;
-  color:white;
+header h1{
+  font-size:18px;
+  opacity:.8;
+}
+
+.icon{
   font-size:22px;
   cursor:pointer;
 }
@@ -66,106 +41,145 @@ header{
   align-items:center;
   justify-content:center;
   gap:18px;
-  animation:fadeIn .8s ease;
+  animation:fade .8s ease;
 }
-@keyframes fadeIn{
+
+@keyframes fade{
   from{opacity:0;transform:translateY(10px)}
   to{opacity:1}
 }
 
-.main h1{
+.main h2{
   font-size:42px;
   margin:0;
 }
 
-#phrase{
-  opacity:.8;
-  font-size:15px;
-  transition:.4s;
+.main p{
+  opacity:.7;
 }
 
+/* BUTTONS */
 button{
   padding:16px 26px;
-  border:none;
   border-radius:30px;
+  border:none;
   font-size:16px;
-  background:var(--blue);
-  color:white;
   cursor:pointer;
   transition:.2s;
 }
-button:hover{transform:scale(1.06)}
 
-.small{
+button:hover{transform:scale(1.05)}
+
+.primary{background:#2563eb;color:white}
+.outline{
   background:none;
-  border:1px solid var(--accent);
-  color:var(--accent);
+  border:1px solid #22d3ee;
+  color:#22d3ee;
 }
 
-/* PANTALLAS */
+/* SCREENS */
 .screen{
   position:fixed;
   inset:0;
-  background:var(--bg);
+  background:rgba(5,8,23,.95);
   display:none;
   flex-direction:column;
-  padding:20px;
-  animation:fadeIn .3s ease;
+  align-items:center;
+  justify-content:center;
+  z-index:10;
 }
+
 .screen.active{display:flex}
 
 .close{
-  font-size:30px;
-  align-self:flex-end;
-  background:none;
-  border:none;
-  color:white;
+  position:absolute;
+  bottom:25px;
+  font-size:26px;
+  opacity:.7;
   cursor:pointer;
 }
 
-/* MENÚ */
-.menu a, .menu button{
-  background:none;
-  border:none;
-  color:white;
-  font-size:16px;
-  text-align:left;
-  padding:10px 0;
+/* CONFIG MENU */
+.config{
+  width:90%;
+  max-width:420px;
+  background:linear-gradient(180deg,#0b102a,#050817);
+  border-radius:22px;
+  padding:22px;
+  box-shadow:0 0 40px rgba(0,0,0,.6);
 }
 
-/* IDIOMAS */
-.lang-btn{
+.config h3{
+  text-align:center;
+  margin-bottom:20px;
+}
+
+.config-btn{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:14px;
+  border-radius:14px;
+  margin-bottom:12px;
+  cursor:pointer;
+  background:linear-gradient(90deg,#1e293b,#020617);
+}
+
+.config-btn span{
+  font-size:22px;
+}
+
+.config-btn small{
+  opacity:.7;
+}
+
+/* LANG */
+.lang{
+  width:90%;
+  max-width:360px;
+}
+
+.lang div{
+  padding:14px;
+  margin:8px 0;
+  background:#111827;
+  border-radius:14px;
   display:flex;
   align-items:center;
   gap:12px;
-  padding:14px;
-  border-radius:14px;
-  background:#111827;
-  margin-bottom:10px;
   cursor:pointer;
 }
-.lang-btn span{font-size:22px}
 
 /* CHAT */
 .chat{
+  width:100%;
+  max-width:600px;
+  height:70vh;
+  display:flex;
+  flex-direction:column;
+}
+
+.messages{
   flex:1;
   overflow:auto;
-  margin:12px 0;
+  padding:10px;
 }
+
 .msg{
   padding:10px 14px;
   border-radius:18px;
   margin:8px 0;
   max-width:80%;
 }
-.user{background:var(--blue);align-self:flex-end}
+
+.user{background:#2563eb;align-self:flex-end}
 .bot{background:#111827}
 
-/* INPUT */
-.input-box{
+.input{
   display:flex;
   gap:10px;
 }
+
 input{
   flex:1;
   padding:14px;
@@ -174,174 +188,132 @@ input{
 }
 
 /* PREMIUM */
-.premium-box h2{
-  color:var(--yellow);
+.premium{
   text-align:center;
 }
-
-/* ANUNCIOS */
-.progress{
-  height:10px;
-  background:#111827;
-  border-radius:10px;
-  margin-top:20px;
-}
-.progress div{
-  height:100%;
-  width:40%;
-  background:var(--accent);
-  border-radius:10px;
+.premium h2{
+  color:#facc15;
 }
 </style>
 </head>
 
 <body>
 
-<div id="splash">DecideFácil</div>
-
 <header>
-  <button class="icon-btn" onclick="openMenu()">⚙️</button>
-  <button class="icon-btn" onclick="openAds()" id="adsTop">Anuncios</button>
+  <span class="icon" onclick="openConfig()">⚙️</span>
+  <h1>TEXT AP IA</h1>
+  <span class="icon">💎</span>
 </header>
 
 <div class="main">
-  <h1 id="title">DecideFácil</h1>
+  <h2 id="title">DecideFácil</h2>
   <p id="phrase">Te ayudo a decidir mejor</p>
 
-  <button id="btnAsk" onclick="openChat('ask')">Pregunta a la IA</button>
-  <button id="btnDecide" onclick="openChat('decide')">Decide por mí</button>
+  <button class="primary" onclick="openChat()">Pregunta a la IA</button>
+  <button class="primary" onclick="openChat()">Decide por mí</button>
 
-  <button class="small" id="btnPremium" onclick="openPremium()">⭐ Premium</button>
+  <button class="outline" onclick="openPremium()">⭐ Premium</button>
 </div>
 
-<!-- MENU -->
-<div class="screen" id="menu">
-  <button class="close" onclick="closeAll()">✕</button>
-  <div class="menu">
-    <button onclick="openLang()">🌍 Cambiar idioma</button>
-    <a href="https://www.instagram.com/tez_zxyt?igsh=MTg1Z2tycWJ1c28wYg==" target="_blank">Instagram</a>
-    <a href="privacidad.html">Política de privacidad</a>
-    <a href="terminos.html">Términos</a>
+<!-- CONFIG -->
+<div class="screen" id="config">
+  <div class="config">
+    <h3>Configuración</h3>
+
+    <div class="config-btn" onclick="openLang()">
+      <span>🌍</span>
+      <div>
+        <div>Cambiar idioma</div>
+        <small>Elige tu idioma preferido</small>
+      </div>
+    </div>
+
+    <div class="config-btn" onclick="window.open('https://www.tiktok.com','_blank')">
+      <span>🎵</span>
+      <div>
+        <div>Síguenos en TikTok</div>
+        <small>@TEXTAPIA</small>
+      </div>
+    </div>
+
+    <div class="config-btn" onclick="window.open('https://www.instagram.com/tez_zxyt?igsh=MTg1Z2tycWJ1c28wYg==','_blank')">
+      <span>📸</span>
+      <div>
+        <div>Síguenos en Instagram</div>
+        <small>@tez_zxyt</small>
+      </div>
+    </div>
+
+    <div class="config-btn" onclick="alert('Aquí irá la política')">
+      <span>🛡️</span>
+      <div>
+        <div>Política de privacidad</div>
+        <small>Lee nuestra política</small>
+      </div>
+    </div>
   </div>
+
+  <div class="close" onclick="closeAll()">✕</div>
 </div>
 
-<!-- IDIOMAS -->
+<!-- LANG -->
 <div class="screen" id="lang">
-  <button class="close" onclick="closeAll()">✕</button>
+  <div class="lang">
+    <div onclick="setLang('es')">🇪🇸 Español</div>
+    <div onclick="setLang('en')">🇺🇸 English</div>
+    <div onclick="setLang('fr')">🇫🇷 Français</div>
+    <div onclick="setLang('pt')">🇧🇷 Português</div>
+    <div onclick="setLang('de')">🇩🇪 Deutsch</div>
+    <div onclick="setLang('jp')">🇯🇵 日本語</div>
+    <div onclick="setLang('ar')">🇸🇦 العربية</div>
+  </div>
+  <div class="close" onclick="closeAll()">✕</div>
+</div>
 
-  <div class="lang-btn" onclick="setLang('es')"><span>🇪🇸</span> Español</div>
-  <div class="lang-btn" onclick="setLang('en')"><span>🇺🇸</span> English</div>
-  <div class="lang-btn" onclick="setLang('fr')"><span>🇫🇷</span> Français</div>
-  <div class="lang-btn" onclick="setLang('pt')"><span>🇧🇷</span> Português</div>
-  <div class="lang-btn" onclick="setLang('de')"><span>🇩🇪</span> Deutsch</div>
-  <div class="lang-btn" onclick="setLang('it')"><span>🇮🇹</span> Italiano</div>
-  <div class="lang-btn" onclick="setLang('ar')"><span>🇸🇦</span> العربية</div>
-  <div class="lang-btn" onclick="setLang('jp')"><span>🇯🇵</span> 日本語</div>
+<!-- CHAT -->
+<div class="screen" id="chat">
+  <div class="chat">
+    <div class="messages" id="msgs"></div>
+    <div class="input">
+      <input placeholder="Escribe..." onkeydown="send(event)">
+      <button onclick="send()">➤</button>
+    </div>
+  </div>
+  <div class="close" onclick="closeAll()">✕</div>
 </div>
 
 <!-- PREMIUM -->
 <div class="screen" id="premium">
-  <button class="close" onclick="closeAll()">✕</button>
-  <div class="premium-box">
-    <h2 id="premiumTitle">Premium</h2>
-    <p id="p1">✔ Uso ilimitado</p>
-    <p id="p2">✔ Más decisiones</p>
-    <p id="p3">✔ Acceso prioritario</p>
+  <div class="premium">
+    <h2>Premium</h2>
+    <p>✔ Uso ilimitado</p>
+    <p>✔ Decisiones avanzadas</p>
+    <p>✔ Acceso prioritario</p>
   </div>
-</div>
-
-<!-- ANUNCIOS -->
-<div class="screen" id="ads">
-  <button class="close" onclick="closeAll()">✕</button>
-  <h2 id="adsTitle">Anuncios</h2>
-  <p id="adsText">Mira anuncios para desbloquear Premium</p>
-  <div class="progress"><div></div></div>
-</div>
-
-<!-- CHAT ASK -->
-<div class="screen" id="chat-ask">
-  <button class="close" onclick="closeAll()">✕</button>
-  <h2 id="askTitle">Pregunta a la IA</h2>
-  <div class="chat" id="askChat"></div>
-  <div class="input-box">
-    <input id="askInput" placeholder="Escribe..." onkeydown="send(event,'ask')">
-    <button onclick="send(null,'ask')">➤</button>
-  </div>
-</div>
-
-<!-- CHAT DECIDE -->
-<div class="screen" id="chat-decide">
-  <button class="close" onclick="closeAll()">✕</button>
-  <h2 id="decideTitle">Decide por mí</h2>
-  <div class="chat" id="decideChat"></div>
-  <div class="input-box">
-    <input id="decideInput" placeholder="¿Qué hago?" onkeydown="send(event,'decide')">
-    <button onclick="send(null,'decide')">➤</button>
-  </div>
+  <div class="close" onclick="closeAll()">✕</div>
 </div>
 
 <script>
-/* FRASES */
-const phrases={
-  es:["Te ayudo a decidir mejor","Menos dudas, mejores opciones"],
-  en:["I help you decide better","Less doubt, better choices"],
-  fr:["Je t’aide à décider","Moins de doutes, meilleurs choix"],
-  pt:["Te ajudo a decidir","Menos dúvida, melhores escolhas"],
-  de:["Ich helfe dir zu entscheiden","Weniger Zweifel"],
-  it:["Ti aiuto a decidere","Meno dubbi"],
-  ar:["أساعدك على الاختيار","قرارات أفضل"],
-  jp:["決断を助けます","より良い選択"]
-};
-let pi=0,lang="es";
-
-/* TEXTOS */
-const t={
-es:{title:"DecideFácil",ask:"Pregunta a la IA",decide:"Decide por mí",ads:"Anuncios",adst:"Mira anuncios para desbloquear Premium"},
-en:{title:"DecideEasy",ask:"Ask the AI",decide:"Decide for me",ads:"Ads",adst:"Watch ads to unlock Premium"},
-fr:{title:"DécideFacile",ask:"Demander à l'IA",decide:"Décide pour moi",ads:"Publicités",adst:"Regardez des pubs"},
-pt:{title:"DecideFácil",ask:"Perguntar à IA",decide:"Decida por mim",ads:"Anúncios",adst:"Assista anúncios"},
-de:{title:"DecideLeicht",ask:"KI fragen",decide:"Entscheide für mich",ads:"Werbung",adst:"Werbung ansehen"},
-it:{title:"DecidiFacile",ask:"Chiedi all'IA",decide:"Decidi per me",ads:"Annunci",adst:"Guarda annunci"},
-ar:{title:"قرر بسهولة",ask:"اسأل الذكاء",decide:"قرر عني",ads:"إعلانات",adst:"شاهد الإعلانات"},
-jp:{title:"簡単に決める",ask:"AIに聞く",decide:"決めて",ads:"広告",adst:"広告を見る"}
-};
-
-setInterval(()=>{
-  document.getElementById("phrase").innerText=phrases[lang][pi++%phrases[lang].length];
-},10000);
-
-function setLang(l){
-  lang=l;
-  title.innerText=t[l].title;
-  btnAsk.innerText=t[l].ask;
-  btnDecide.innerText=t[l].decide;
-  adsTitle.innerText=t[l].ads;
-  adsText.innerText=t[l].adst;
-  closeAll();
-}
-
-/* NAV */
 function closeAll(){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
 }
-function openMenu(){closeAll();menu.classList.add('active')}
-function openLang(){closeAll();langScreen=document.getElementById('lang');langScreen.classList.add('active')}
+function openConfig(){closeAll();config.classList.add('active')}
+function openLang(){closeAll();lang.classList.add('active')}
+function openChat(){closeAll();chat.classList.add('active')}
 function openPremium(){closeAll();premium.classList.add('active')}
-function openAds(){closeAll();ads.classList.add('active')}
-function openChat(t){
-  closeAll();
-  document.getElementById('chat-'+t).classList.add('active');
+
+function send(e){
+  if(e && e.key!=="Enter")return;
+  let m=document.querySelector("input");
+  if(!m.value)return;
+  msgs.innerHTML+=`<div class="msg user">${m.value}</div><div class="msg bot">(Respuesta IA)</div>`;
+  m.value="";
+  msgs.scrollTop=msgs.scrollHeight;
 }
 
-/* CHAT */
-function send(e,t){
-  if(e && e.key!=="Enter")return;
-  let input=document.getElementById(t+"Input");
-  let chat=document.getElementById(t+"Chat");
-  if(!input.value)return;
-  chat.innerHTML+=`<div class="msg user">${input.value}</div><div class="msg bot">(Respuesta simulada)</div>`;
-  input.value="";
-  chat.scrollTop=chat.scrollHeight;
+function setLang(l){
+  alert("Idioma cambiado a "+l+" (aquí se conectan los textos)");
+  closeAll();
 }
 </script>
 
