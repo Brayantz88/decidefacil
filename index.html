@@ -2,178 +2,374 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>DecideFácil</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DecideFácil</title>
 
 <style>
-*{box-sizing:border-box;font-family:Arial}
-body{margin:0;background:linear-gradient(135deg,#1e1e2f,#2b2b4f);color:#fff}
-header{display:flex;justify-content:space-between;align-items:center;padding:10px 15px}
-.btn{background:#4f7cff;border:none;color:#fff;padding:10px 14px;border-radius:10px;cursor:pointer}
-.small{font-size:13px;padding:6px 10px}
-.hidden{display:none}
-main{text-align:center;padding:40px 15px}
-h1{font-size:36px;margin-bottom:5px}
-.sub{opacity:.8}
-.actions{margin-top:30px}
-.chatBox{display:none;flex-direction:column;height:100vh}
-.messages{flex:1;overflow:auto;padding:10px}
-.msg{margin:8px 0;padding:10px;border-radius:10px;max-width:80%}
-.user{background:#4f7cff;margin-left:auto}
-.ai{background:#333}
-.inputBar{display:flex;padding:10px;gap:5px}
-input{flex:1;padding:10px;border-radius:8px;border:none}
-.panel{position:fixed;top:0;left:0;width:100%;height:100%;background:#000c;display:flex;justify-content:center;align-items:center}
-.card{background:#222;padding:20px;border-radius:15px;width:90%;max-width:400px}
-.langBtn{display:flex;align-items:center;gap:8px;margin:5px 0}
-.progress{height:10px;background:#333;border-radius:10px;overflow:hidden}
-.bar{height:100%;width:0;background:#4f7cff}
+:root{
+  --bg:#0f1229;
+  --bg2:#1b1f4a;
+  --card:#1e2357;
+  --accent:#6c7cff;
+  --gold:#ffd54f;
+  --green:#2ecc71;
+  --text:#ffffff;
+}
+
+*{box-sizing:border-box;font-family:system-ui}
+
+body{
+  margin:0;
+  background:linear-gradient(160deg,var(--bg),var(--bg2));
+  color:var(--text);
+  min-height:100vh;
+}
+
+/* HEADER */
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 16px;
+}
+
+.icon-btn{
+  border:none;
+  background:rgba(255,255,255,.08);
+  color:white;
+  padding:10px 14px;
+  border-radius:14px;
+  font-size:16px;
+  cursor:pointer;
+}
+
+#adsBtn{
+  background:linear-gradient(90deg,#00c853,#64dd17);
+  color:#000;
+  font-weight:600;
+}
+
+/* HOME */
+#home{
+  padding:30px 20px 80px;
+  text-align:center;
+}
+
+h1{
+  font-size:40px;
+  margin:20px 0 10px;
+}
+
+.subtitle{
+  opacity:.85;
+  margin-bottom:35px;
+}
+
+.main-btn{
+  width:100%;
+  max-width:360px;
+  margin:12px auto;
+  padding:18px;
+  border:none;
+  border-radius:28px;
+  font-size:18px;
+  color:white;
+  background:linear-gradient(90deg,#6c7cff,#4fc3f7);
+  cursor:pointer;
+}
+
+#premiumMini{
+  margin-top:28px;
+  background:linear-gradient(90deg,#ffeb3b,#ff9800);
+  color:#000;
+  font-weight:700;
+}
+
+/* CHAT */
+#chat{
+  display:none;
+  height:100vh;
+  flex-direction:column;
+}
+
+.chat-header{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px;
+  background:var(--card);
+}
+
+.chat-messages{
+  flex:1;
+  padding:16px;
+  overflow-y:auto;
+}
+
+.msg{
+  max-width:80%;
+  margin-bottom:12px;
+  padding:12px 14px;
+  border-radius:16px;
+}
+
+.user{background:#4fc3f7;color:#000;margin-left:auto}
+.ai{background:#2a2f77}
+
+.chat-input{
+  display:flex;
+  gap:10px;
+  padding:12px;
+  background:var(--card);
+}
+
+.chat-input input{
+  flex:1;
+  padding:12px;
+  border-radius:20px;
+  border:none;
+}
+
+/* PREMIUM */
+#premium{
+  display:none;
+  padding:30px 20px;
+}
+
+.premium-card{
+  max-width:420px;
+  margin:auto;
+  background:linear-gradient(160deg,#2a2f77,#1e2357);
+  border-radius:28px;
+  padding:25px;
+}
+
+/* SETTINGS */
+#settings,#lang{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:linear-gradient(160deg,var(--bg),var(--bg2));
+  padding:20px;
+}
+
+.settings-card{
+  max-width:420px;
+  margin:auto;
+  background:rgba(255,255,255,.06);
+  border-radius:26px;
+  padding:22px;
+}
+
+.settings-item{
+  padding:16px;
+  border-radius:18px;
+  margin:10px 0;
+  background:linear-gradient(90deg,#3f51b5,#6c7cff);
+  cursor:pointer;
+}
+
+.lang-btn{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px;
+  border-radius:18px;
+  background:rgba(255,255,255,.08);
+  margin:8px 0;
+  cursor:pointer;
+}
 </style>
 </head>
 
 <body>
 
 <header>
-  <button class="btn small" onclick="openLogin()">👤 <span id="userName">Invitado</span></button>
-  <button class="btn small" onclick="openSettings()">⚙️</button>
+  <button class="icon-btn" onclick="openSettings()">⚙️</button>
+  <button id="adsBtn" class="icon-btn" onclick="watchAd()">🎬 Ads</button>
 </header>
 
-<main id="home">
-  <h1 id="t_title">DecideFácil</h1>
-  <div class="sub" id="t_sub">Decide sin pensar demasiado</div>
+<!-- HOME -->
+<div id="home">
+  <h1 id="t_title"></h1>
+  <div class="subtitle" id="t_sub"></div>
 
-  <div class="actions">
-    <button class="btn" onclick="openChat('ask')" id="t_ask">Pregunta a la IA</button><br><br>
-    <button class="btn" onclick="openChat('decide')" id="t_decide">Decide por mí</button><br><br>
-    <button class="btn small" onclick="openPremium()">⭐ Premium</button><br><br>
-    <button class="btn small">🎬 Anuncios</button>
-  </div>
-</main>
+  <button class="main-btn" id="t_ask" onclick="openChat('ask')"></button>
+  <button class="main-btn" id="t_decide" onclick="openChat('decide')"></button>
+
+  <button id="premiumMini" class="main-btn" onclick="openPremium()">⭐ <span id="t_premium_btn"></span></button>
+</div>
 
 <!-- CHAT -->
-<div id="chat" class="chatBox">
-  <header>
-    <button class="btn small" onclick="back()">❌</button>
-    <div id="chatTitle"></div>
-  </header>
-  <div class="messages" id="messages"></div>
-  <div class="inputBar">
-    <input id="input" placeholder="Escribe...">
-    <button class="btn" onclick="send()">➤</button>
+<div id="chat">
+  <div class="chat-header">
+    <button class="icon-btn" onclick="backHome()">❌</button>
+    <strong id="chatTitle"></strong>
   </div>
-</div>
-
-<!-- LOGIN -->
-<div id="login" class="panel hidden">
-  <div class="card">
-    <h3>Iniciar sesión</h3>
-    <input id="loginName" placeholder="Nombre"><br><br>
-    <input id="loginEmail" placeholder="Email Google"><br><br>
-    <button class="btn" onclick="saveUser()">Guardar</button>
-  </div>
-</div>
-
-<!-- SETTINGS -->
-<div id="settings" class="panel hidden">
-  <div class="card">
-    <h3>Cambiar idioma</h3>
-    <div class="langBtn" onclick="setLang('es')">🇪🇸 Español</div>
-    <div class="langBtn" onclick="setLang('en')">🇺🇸 English</div>
-    <div class="langBtn" onclick="setLang('fr')">🇫🇷 Français</div>
-    <div class="langBtn" onclick="setLang('ar')">🇸🇦 العربية</div>
-    <div class="langBtn" onclick="setLang('ja')">🇯🇵 日本語</div>
-    <br>
-    <button class="btn small" onclick="closeSettings()">Cerrar</button>
+  <div class="chat-messages" id="messages"></div>
+  <div class="chat-input">
+    <input id="input">
+    <button onclick="send()">➤</button>
   </div>
 </div>
 
 <!-- PREMIUM -->
-<div id="premium" class="panel hidden">
-  <div class="card">
-    <h3 id="t_premium">Beneficios Premium</h3>
-    <ul id="t_premium_list">
-      <li>Respuestas ilimitadas</li>
-      <li>Sin anuncios</li>
-      <li>Prioridad IA</li>
+<div id="premium">
+  <div class="premium-card">
+    <button class="icon-btn" onclick="backHome()">❌</button>
+    <h2 id="t_premium_title"></h2>
+    <ul>
+      <li id="p1"></li>
+      <li id="p2"></li>
+      <li id="p3"></li>
     </ul>
-    <div class="progress"><div class="bar" style="width:40%"></div></div><br>
-    <button class="btn small">Ver anuncios</button><br><br>
-    <button class="btn small" onclick="closePremium()">Cerrar</button>
+  </div>
+</div>
+
+<!-- SETTINGS -->
+<div id="settings">
+  <div class="settings-card">
+    <h3>⚙️</h3>
+    <div class="settings-item" onclick="openLang()">🌍 Idioma</div>
+    <div class="settings-item" onclick="window.open('https://www.instagram.com/tez_zxyt?igsh=MTg1Z2tycWJ1c28wYg==','_blank')">📸 Instagram</div>
+    <button class="icon-btn" onclick="closeAll()">❌</button>
+  </div>
+</div>
+
+<!-- LANG -->
+<div id="lang">
+  <div class="settings-card">
+    <div class="lang-btn" onclick="setLang('es')">🇪🇸 Español</div>
+    <div class="lang-btn" onclick="setLang('en')">🇺🇸 English</div>
+    <div class="lang-btn" onclick="setLang('fr')">🇫🇷 Français</div>
+    <div class="lang-btn" onclick="setLang('ja')">🇯🇵 日本語</div>
+    <div class="lang-btn" onclick="setLang('ar')">🇸🇦 العربية</div>
   </div>
 </div>
 
 <script>
 let lang="es"
-let currentChat=null
-let user=JSON.parse(localStorage.getItem("df_user"))||{name:"Invitado",email:null}
-let chats=JSON.parse(localStorage.getItem("df_chats"))||{}
-
-document.getElementById("userName").innerText=user.name
 
 const T={
-es:{title:"DecideFácil",sub:"Decide sin pensar demasiado",ask:"Pregunta a la IA",decide:"Decide por mí",premium:"Beneficios Premium"},
-en:{title:"DecideEasy",sub:"Decide easily",ask:"Ask AI",decide:"Decide for me",premium:"Premium benefits"},
-fr:{title:"DécideFacile",sub:"Décidez facilement",ask:"Demander à l'IA",decide:"Décide pour moi",premium:"Avantages Premium"},
-ar:{title:"قرر بسهولة",sub:"اتخذ القرار بسهولة",ask:"اسأل الذكاء الاصطناعي",decide:"قرر عني",premium:"مزايا بريميوم"},
-ja:{title:"ディサイド・ファシル",sub:"簡単に決めよう",ask:"AIに質問",decide:"AIに任せる",premium:"プレミアム特典"}
+es:{
+ title:"DecideFácil",
+ sub:"Decide sin complicarte",
+ ask:"Pregunta a la IA",
+ decide:"Decide por mí",
+ premium:"Premium",
+ p1:"Uso ilimitado",
+ p2:"Sin anuncios",
+ p3:"Respuestas avanzadas",
+ auto:"Te recomiendo pensar con calma 🤔"
+},
+en:{
+ title:"DecideEasy",
+ sub:"Decide without stress",
+ ask:"Ask the AI",
+ decide:"Decide for me",
+ premium:"Premium",
+ p1:"Unlimited use",
+ p2:"No ads",
+ p3:"Advanced answers",
+ auto:"I suggest taking it calmly 🤔"
+},
+fr:{
+ title:"DécideFacile",
+ sub:"Décidez sans stress",
+ ask:"Demander à l'IA",
+ decide:"Décide pour moi",
+ premium:"Premium",
+ p1:"Utilisation illimitée",
+ p2:"Sans publicité",
+ p3:"Réponses avancées",
+ auto:"Réfléchis calmement 🤔"
+},
+ja:{
+ title:"ディサイド・ファシル",
+ sub:"迷わず決断しよう",
+ ask:"AIに質問する",
+ decide:"AIに任せる",
+ premium:"プレミアム",
+ p1:"無制限利用",
+ p2:"広告なし",
+ p3:"高度な回答",
+ auto:"落ち着いて考えてみて 🤔"
+},
+ar:{
+ title:"قرر بسهولة",
+ sub:"اتخذ قرارك بدون تعقيد",
+ ask:"اسأل الذكاء الاصطناعي",
+ decide:"قرر عني",
+ premium:"بريميوم",
+ p1:"استخدام غير محدود",
+ p2:"بدون إعلانات",
+ p3:"إجابات متقدمة",
+ auto:"أنصحك بالتفكير بهدوء 🤔"
+}
 }
 
 function applyLang(){
-  t("t_title",T[lang].title)
-  t("t_sub",T[lang].sub)
-  t("t_ask",T[lang].ask)
-  t("t_decide",T[lang].decide)
-  t("t_premium",T[lang].premium)
+ document.getElementById("t_title").innerText=T[lang].title
+ document.getElementById("t_sub").innerText=T[lang].sub
+ document.getElementById("t_ask").innerText=T[lang].ask
+ document.getElementById("t_decide").innerText=T[lang].decide
+ document.getElementById("t_premium_btn").innerText=T[lang].premium
+ document.getElementById("t_premium_title").innerText="⭐ "+T[lang].premium
+ document.getElementById("p1").innerText=T[lang].p1
+ document.getElementById("p2").innerText=T[lang].p2
+ document.getElementById("p3").innerText=T[lang].p3
 }
-function t(id,txt){document.getElementById(id).innerText=txt}
 
-function setLang(l){lang=l;applyLang();closeSettings()}
 applyLang()
 
+function setLang(l){lang=l;closeAll();applyLang()}
+
 function openChat(type){
-  currentChat=type
-  home.style.display="none"
-  chat.style.display="flex"
-  chatTitle.innerText=T[lang][type]
-  messages.innerHTML=""
-  const key=user.email+"_"+type
-  chats[key]=(chats[key]||[])
-  chats[key].forEach(m=>addMsg(m.text,m.from))
+ document.getElementById("home").style.display="none"
+ document.getElementById("premium").style.display="none"
+ document.getElementById("chat").style.display="flex"
+ document.getElementById("messages").innerHTML=""
+ document.getElementById("chatTitle").innerText=T[lang][type]
+ if(type==="decide") addMsg(T[lang].auto,"ai")
 }
 
 function send(){
-  const val=input.value
-  if(!val)return
-  addMsg(val,"user")
-  const key=user.email+"_"+currentChat
-  chats[key].push({text:val,from:"user"})
-  setTimeout(()=>{
-    addMsg("Respuesta IA","ai")
-    chats[key].push({text:"Respuesta IA",from:"ai"})
-    localStorage.setItem("df_chats",JSON.stringify(chats))
-  },500)
-  input.value=""
+ const i=document.getElementById("input")
+ if(!i.value)return
+ addMsg(i.value,"user")
+ setTimeout(()=>addMsg("Respuesta IA","ai"),500)
+ i.value=""
 }
 
-function addMsg(t,f){
-  const d=document.createElement("div")
-  d.className="msg "+f
-  d.innerText=t
-  messages.appendChild(d)
+function addMsg(t,type){
+ const d=document.createElement("div")
+ d.className="msg "+type
+ d.innerText=t
+ document.getElementById("messages").appendChild(d)
 }
 
-function back(){chat.style.display="none";home.style.display="block"}
-function openLogin(){login.classList.remove("hidden")}
-function saveUser(){
-  user={name:loginName.value||"Usuario",email:loginEmail.value||"local"}
-  localStorage.setItem("df_user",JSON.stringify(user))
-  document.getElementById("userName").innerText=user.name
-  login.classList.add("hidden")
+function backHome(){
+ chat.style.display="none"
+ premium.style.display="none"
+ home.style.display="block"
 }
-function openSettings(){settings.classList.remove("hidden")}
-function closeSettings(){settings.classList.add("hidden")}
-function openPremium(){premium.classList.remove("hidden")}
-function closePremium(){premium.classList.add("hidden")}
+
+function openPremium(){
+ home.style.display="none"
+ premium.style.display="block"
+}
+
+function openSettings(){settings.style.display="block"}
+function openLang(){settings.style.display="none";langDiv.style.display="block"}
+function closeAll(){settings.style.display="none";langDiv.style.display="none"}
+
+const chat=document.getElementById("chat")
+const home=document.getElementById("home")
+const premium=document.getElementById("premium")
+const settings=document.getElementById("settings")
+const langDiv=document.getElementById("lang")
+
+function watchAd(){alert("Anuncio simulado")}
 </script>
 
 </body>
