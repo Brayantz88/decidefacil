@@ -7,87 +7,93 @@
 
 <style>
 :root{
-  --bg1:#0f1026;
-  --bg2:#1b1e4b;
-  --card:#1e214f;
-  --accent:#7a5cff;
-  --gold:#ffcc33;
+  --bg:#0f1229;
+  --bg2:#1b1f4a;
+  --card:#1e2357;
+  --accent:#6c7cff;
+  --gold:#ffd54f;
+  --green:#2ecc71;
   --text:#ffffff;
 }
 
-*{box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+*{box-sizing:border-box;font-family:system-ui,-apple-system,BlinkMacSystemFont}
 
 body{
   margin:0;
-  background:linear-gradient(160deg,var(--bg1),var(--bg2));
+  background:linear-gradient(160deg,var(--bg),var(--bg2));
   color:var(--text);
-  overflow-x:hidden;
+  min-height:100vh;
 }
 
-/* HEADER */
+/* ---------- HEADER ---------- */
 header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:15px;
+  padding:14px 16px;
+}
+
+.header-left,
+.header-right{
+  display:flex;
+  gap:10px;
 }
 
 .icon-btn{
+  border:none;
   background:rgba(255,255,255,.08);
-  border:none;
   color:white;
-  padding:10px;
-  border-radius:12px;
-  font-size:18px;
+  padding:10px 14px;
+  border-radius:14px;
+  font-size:16px;
+  cursor:pointer;
 }
 
-/* PREMIUM */
-#premiumBtn{
-  background:linear-gradient(45deg,#ffd700,#ff9f00);
-  border:none;
-  padding:10px 16px;
-  border-radius:20px;
-  font-weight:bold;
+#adsBtn{
+  background:linear-gradient(90deg,#00c853,#64dd17);
   color:#000;
+  font-weight:600;
 }
 
-/* MAIN */
-main{
+/* ---------- HOME ---------- */
+#home{
+  padding:30px 20px 80px;
   text-align:center;
-  padding:40px 20px;
 }
 
 h1{
   font-size:42px;
-  animation:fadeIn 1.2s ease;
+  margin:20px 0 10px;
+  animation:fadeUp 1s ease;
 }
 
 .subtitle{
-  opacity:.8;
-  margin-bottom:40px;
+  opacity:.85;
+  margin-bottom:35px;
 }
 
-/* MAIN BUTTONS */
 .main-btn{
   width:100%;
-  max-width:340px;
+  max-width:360px;
   margin:12px auto;
   padding:18px;
   border:none;
-  border-radius:30px;
+  border-radius:28px;
   font-size:18px;
-  background:linear-gradient(90deg,#6a5cff,#4da3ff);
   color:white;
-  animation:pop 0.5s ease;
+  background:linear-gradient(90deg,#6c7cff,#4fc3f7);
+  cursor:pointer;
+  animation:pop .4s ease;
 }
 
-/* ADS BUTTON */
-#adsBtn{
-  margin-top:25px;
-  background:linear-gradient(90deg,#00c853,#64dd17);
+#premiumMini{
+  margin-top:28px;
+  background:linear-gradient(90deg,#ffeb3b,#ff9800);
+  color:#000;
+  font-weight:700;
 }
 
-/* CHAT */
+/* ---------- CHAT ---------- */
 #chat{
   display:none;
   height:100vh;
@@ -95,32 +101,38 @@ h1{
 }
 
 .chat-header{
-  padding:15px;
-  background:var(--card);
   display:flex;
   align-items:center;
-  gap:10px;
+  gap:12px;
+  padding:14px;
+  background:var(--card);
+}
+
+.chat-header strong{
+  font-size:18px;
 }
 
 .chat-messages{
   flex:1;
-  padding:15px;
+  padding:16px;
   overflow-y:auto;
 }
 
-.message{
-  margin-bottom:12px;
-  padding:12px;
-  border-radius:15px;
+.msg{
   max-width:80%;
+  margin-bottom:12px;
+  padding:12px 14px;
+  border-radius:16px;
+  animation:fadeUp .3s ease;
 }
 
-.user{background:#4da3ff;margin-left:auto}
-.ai{background:#2e326f}
+.user{background:#4fc3f7;color:#000;margin-left:auto}
+.ai{background:#2a2f77}
 
 .chat-input{
   display:flex;
-  padding:10px;
+  gap:10px;
+  padding:12px;
   background:var(--card);
 }
 
@@ -129,10 +141,10 @@ h1{
   padding:12px;
   border-radius:20px;
   border:none;
+  font-size:15px;
 }
 
 .chat-input button{
-  margin-left:10px;
   border:none;
   background:var(--accent);
   color:white;
@@ -140,50 +152,83 @@ h1{
   border-radius:20px;
 }
 
-/* SETTINGS */
+/* ---------- PREMIUM ---------- */
+#premium{
+  display:none;
+  padding:30px 20px;
+}
+
+.premium-card{
+  max-width:420px;
+  margin:auto;
+  background:linear-gradient(160deg,#2a2f77,#1e2357);
+  border-radius:28px;
+  padding:25px;
+  text-align:left;
+}
+
+.premium-card h2{
+  text-align:center;
+  margin-top:0;
+}
+
+.premium-card ul{
+  padding-left:18px;
+}
+
+.premium-card li{
+  margin:10px 0;
+}
+
+/* ---------- SETTINGS ---------- */
 #settings{
   display:none;
   position:fixed;
   inset:0;
-  background:linear-gradient(160deg,#0f1026,#1b1e4b);
+  background:linear-gradient(160deg,var(--bg),var(--bg2));
   padding:20px;
 }
 
 .settings-card{
   max-width:420px;
   margin:auto;
-  background:rgba(255,255,255,.05);
-  border-radius:25px;
-  padding:20px;
+  background:rgba(255,255,255,.06);
+  border-radius:26px;
+  padding:22px;
 }
 
 .settings-item{
-  margin:10px 0;
-  padding:15px;
+  padding:16px;
   border-radius:18px;
-  background:linear-gradient(90deg,#3f51b5,#7a5cff);
+  margin:10px 0;
+  background:linear-gradient(90deg,#3f51b5,#6c7cff);
+  cursor:pointer;
 }
 
-.settings-item.red{
-  background:linear-gradient(90deg,#c62828,#ff5252);
-}
-
-/* LANGUAGE */
-.lang{
+/* ---------- LANG ---------- */
+.lang-list{
   display:flex;
-  align-items:center;
+  flex-direction:column;
   gap:10px;
 }
 
-.lang span{font-size:22px}
+.lang-btn{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px;
+  border-radius:18px;
+  background:rgba(255,255,255,.08);
+  cursor:pointer;
+}
 
-/* ANIMATIONS */
-@keyframes fadeIn{
+/* ---------- ANIM ---------- */
+@keyframes fadeUp{
   from{opacity:0;transform:translateY(20px)}
   to{opacity:1}
 }
 @keyframes pop{
-  from{transform:scale(.9)}
+  from{transform:scale(.95)}
   to{transform:scale(1)}
 }
 </style>
@@ -192,25 +237,30 @@ h1{
 <body>
 
 <header>
-  <button class="icon-btn" onclick="openSettings()">⚙️</button>
-  <button id="premiumBtn" onclick="openPremium()">⭐ Premium</button>
+  <div class="header-left">
+    <button class="icon-btn" onclick="openSettings()">⚙️</button>
+  </div>
+  <div class="header-right">
+    <button id="adsBtn" onclick="watchAd()">🎬 Ads</button>
+  </div>
 </header>
 
-<main id="home">
-  <h1 id="title">DecideFácil</h1>
-  <div class="subtitle" id="subtitle">Decide sin complicarte</div>
+<!-- HOME -->
+<div id="home">
+  <h1 id="t_title">DecideFácil</h1>
+  <div class="subtitle" id="t_sub">Decide sin complicarte</div>
 
-  <button class="main-btn" onclick="openChat('ask')">🤖 Pregunta a la IA</button>
-  <button class="main-btn" onclick="openChat('decide')">🎯 Decide por mí</button>
+  <button class="main-btn" onclick="openChat('ask')" id="t_ask">Pregunta a la IA</button>
+  <button class="main-btn" onclick="openChat('decide')" id="t_decide">Decide por mí</button>
 
-  <button id="adsBtn" class="main-btn" onclick="openAds()">🎬 Anuncios</button>
-</main>
+  <button id="premiumMini" class="main-btn" onclick="openPremium()">⭐ Premium</button>
+</div>
 
 <!-- CHAT -->
 <div id="chat">
   <div class="chat-header">
     <button class="icon-btn" onclick="backHome()">❌</button>
-    <strong id="chatTitle">DecideFácil</strong>
+    <strong id="chatTitle"></strong>
   </div>
   <div class="chat-messages" id="messages"></div>
   <div class="chat-input">
@@ -219,88 +269,116 @@ h1{
   </div>
 </div>
 
+<!-- PREMIUM -->
+<div id="premium">
+  <div class="premium-card">
+    <button class="icon-btn" onclick="backHome()">❌</button>
+    <h2>⭐ Premium</h2>
+    <ul>
+      <li>Uso ilimitado de la IA</li>
+      <li>Respuestas más detalladas</li>
+      <li>Sin anuncios</li>
+      <li>Funciones exclusivas futuras</li>
+    </ul>
+  </div>
+</div>
+
 <!-- SETTINGS -->
 <div id="settings">
   <div class="settings-card">
-    <h2>⚙️ Configuración</h2>
-
-    <div class="settings-item" onclick="openLanguages()">🌍 Cambiar idioma</div>
+    <h3>⚙️ Configuración</h3>
+    <div class="settings-item" onclick="openLang()">🌍 Cambiar idioma</div>
     <div class="settings-item" onclick="window.open('https://www.instagram.com/tez_zxyt?igsh=MTg1Z2tycWJ1c28wYg==','_blank')">📸 Instagram</div>
-    <div class="settings-item red">🔐 Política de privacidad</div>
-
     <button class="icon-btn" onclick="closeSettings()">❌</button>
   </div>
 </div>
 
-<script>
-const texts={
-  es:{
-    title:"DecideFácil",
-    subtitle:"Decide sin complicarte",
-    ask:"Pregunta a la IA",
-    decide:"Decide por mí"
-  },
-  en:{
-    title:"DecideEasy",
-    subtitle:"Decide without stress",
-    ask:"Ask the AI",
-    decide:"Decide for me"
-  },
-  fr:{
-    title:"DécideFacile",
-    subtitle:"Décidez sans stress",
-    ask:"Demander à l'IA",
-    decide:"Décide pour moi"
-  }
-}
+<!-- LANG -->
+<div id="lang" style="display:none" class="settings-card">
+  <h3>🌍 Idiomas</h3>
+  <div class="lang-list">
+    <div class="lang-btn" onclick="setLang('es')">🇪🇸 Español</div>
+    <div class="lang-btn" onclick="setLang('en')">🇺🇸 English</div>
+    <div class="lang-btn" onclick="setLang('fr')">🇫🇷 Français</div>
+    <div class="lang-btn" onclick="setLang('ja')">🇯🇵 日本語</div>
+    <div class="lang-btn" onclick="setLang('ar')">🇸🇦 العربية</div>
+  </div>
+</div>
 
+<script>
+let currentChat=""
 let lang="es"
 
-function applyLang(){
-  document.getElementById("title").innerText=texts[lang].title
-  document.getElementById("subtitle").innerText=texts[lang].subtitle
+const T={
+  es:{title:"DecideFácil",sub:"Decide sin complicarte",ask:"Pregunta a la IA",decide:"Decide por mí"},
+  en:{title:"DecideEasy",sub:"Decide without stress",ask:"Ask the AI",decide:"Decide for me"},
+  fr:{title:"DécideFacile",sub:"Décidez sans stress",ask:"Demander à l'IA",decide:"Décide pour moi"},
+  ja:{title:"DecideEasy",sub:"簡単に決めよう",ask:"AIに聞く",decide:"代わりに決める"},
+  ar:{title:"DecideEasy",sub:"اتخذ قرارك بسهولة",ask:"اسأل الذكاء الاصطناعي",decide:"قرر عني"}
 }
+
+function applyLang(){
+  t("t_title",T[lang].title)
+  t("t_sub",T[lang].sub)
+  t("t_ask",T[lang].ask)
+  t("t_decide",T[lang].decide)
+}
+
+function t(id,val){document.getElementById(id).innerText=val}
 
 applyLang()
 
 function openChat(type){
+  currentChat=type
   document.getElementById("home").style.display="none"
+  document.getElementById("premium").style.display="none"
   document.getElementById("chat").style.display="flex"
-  document.getElementById("chatTitle").innerText=type==="ask"?texts[lang].ask:texts[lang].decide
+  document.getElementById("messages").innerHTML=""
+  document.getElementById("chatTitle").innerText= type==="ask"?T[lang].ask:T[lang].decide
 }
 
 function backHome(){
   document.getElementById("chat").style.display="none"
+  document.getElementById("premium").style.display="none"
   document.getElementById("home").style.display="block"
 }
 
 function send(){
-  const input=document.getElementById("input")
-  if(!input.value)return
-  const msg=document.createElement("div")
-  msg.className="message user"
-  msg.innerText=input.value
-  document.getElementById("messages").appendChild(msg)
-  input.value=""
+  const i=document.getElementById("input")
+  if(!i.value)return
+  addMsg(i.value,"user")
+  setTimeout(()=>addMsg("Respuesta simulada de la IA","ai"),500)
+  i.value=""
 }
 
-function openSettings(){
-  document.getElementById("settings").style.display="block"
-}
-function closeSettings(){
-  document.getElementById("settings").style.display="none"
-}
-
-function openLanguages(){
-  lang=lang==="es"?"en":lang==="en"?"fr":"es"
-  applyLang()
+function addMsg(txt,type){
+  const d=document.createElement("div")
+  d.className="msg "+type
+  d.innerText=txt
+  document.getElementById("messages").appendChild(d)
 }
 
 function openPremium(){
-  alert("Premium: más usos, sin límites y funciones avanzadas")
+  document.getElementById("home").style.display="none"
+  document.getElementById("premium").style.display="block"
 }
-function openAds(){
-  alert("Mira anuncios y gana Premium")
+
+function openSettings(){document.getElementById("settings").style.display="block"}
+function closeSettings(){document.getElementById("settings").style.display="none"}
+
+function openLang(){
+  document.getElementById("settings").style.display="none"
+  document.getElementById("lang").style.display="block"
+}
+
+function setLang(l){
+  lang=l
+  document.getElementById("lang").style.display="none"
+  applyLang()
+}
+
+function watchAd(){
+  alert("Anuncio visto ✔️ (simulado)")
 }
 </script>
 
