@@ -6,193 +6,185 @@
 <title>DecideFácil</title>
 
 <style>
-body{
-  margin:0;
-  background:#050817;
-  color:white;
-  font-family:Arial,Helvetica,sans-serif;
+:root{
+  --bg1:#0f1026;
+  --bg2:#1b1e4b;
+  --card:#1e214f;
+  --accent:#7a5cff;
+  --gold:#ffcc33;
+  --text:#ffffff;
 }
 
-*{box-sizing:border-box}
+*{box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+
+body{
+  margin:0;
+  background:linear-gradient(160deg,var(--bg1),var(--bg2));
+  color:var(--text);
+  overflow-x:hidden;
+}
 
 /* HEADER */
 header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:14px 18px;
+  padding:15px;
 }
 
-header h1{
-  font-size:18px;
-  opacity:.8;
-}
-
-.icon{
-  font-size:22px;
-  cursor:pointer;
-}
-
-/* MAIN */
-.main{
-  height:calc(100vh - 60px);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:18px;
-  animation:fade .8s ease;
-}
-
-@keyframes fade{
-  from{opacity:0;transform:translateY(10px)}
-  to{opacity:1}
-}
-
-.main h2{
-  font-size:42px;
-  margin:0;
-}
-
-.main p{
-  opacity:.7;
-}
-
-/* BUTTONS */
-button{
-  padding:16px 26px;
-  border-radius:30px;
+.icon-btn{
+  background:rgba(255,255,255,.08);
   border:none;
-  font-size:16px;
-  cursor:pointer;
-  transition:.2s;
-}
-
-button:hover{transform:scale(1.05)}
-
-.primary{background:#2563eb;color:white}
-.outline{
-  background:none;
-  border:1px solid #22d3ee;
-  color:#22d3ee;
-}
-
-/* SCREENS */
-.screen{
-  position:fixed;
-  inset:0;
-  background:rgba(5,8,23,.95);
-  display:none;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  z-index:10;
-}
-
-.screen.active{display:flex}
-
-.close{
-  position:absolute;
-  bottom:25px;
-  font-size:26px;
-  opacity:.7;
-  cursor:pointer;
-}
-
-/* CONFIG MENU */
-.config{
-  width:90%;
-  max-width:420px;
-  background:linear-gradient(180deg,#0b102a,#050817);
-  border-radius:22px;
-  padding:22px;
-  box-shadow:0 0 40px rgba(0,0,0,.6);
-}
-
-.config h3{
-  text-align:center;
-  margin-bottom:20px;
-}
-
-.config-btn{
-  display:flex;
-  align-items:center;
-  gap:14px;
-  padding:14px;
-  border-radius:14px;
-  margin-bottom:12px;
-  cursor:pointer;
-  background:linear-gradient(90deg,#1e293b,#020617);
-}
-
-.config-btn span{
-  font-size:22px;
-}
-
-.config-btn small{
-  opacity:.7;
-}
-
-/* LANG */
-.lang{
-  width:90%;
-  max-width:360px;
-}
-
-.lang div{
-  padding:14px;
-  margin:8px 0;
-  background:#111827;
-  border-radius:14px;
-  display:flex;
-  align-items:center;
-  gap:12px;
-  cursor:pointer;
-}
-
-/* CHAT */
-.chat{
-  width:100%;
-  max-width:600px;
-  height:70vh;
-  display:flex;
-  flex-direction:column;
-}
-
-.messages{
-  flex:1;
-  overflow:auto;
+  color:white;
   padding:10px;
-}
-
-.msg{
-  padding:10px 14px;
-  border-radius:18px;
-  margin:8px 0;
-  max-width:80%;
-}
-
-.user{background:#2563eb;align-self:flex-end}
-.bot{background:#111827}
-
-.input{
-  display:flex;
-  gap:10px;
-}
-
-input{
-  flex:1;
-  padding:14px;
-  border-radius:30px;
-  border:none;
+  border-radius:12px;
+  font-size:18px;
 }
 
 /* PREMIUM */
-.premium{
-  text-align:center;
+#premiumBtn{
+  background:linear-gradient(45deg,#ffd700,#ff9f00);
+  border:none;
+  padding:10px 16px;
+  border-radius:20px;
+  font-weight:bold;
+  color:#000;
 }
-.premium h2{
-  color:#facc15;
+
+/* MAIN */
+main{
+  text-align:center;
+  padding:40px 20px;
+}
+
+h1{
+  font-size:42px;
+  animation:fadeIn 1.2s ease;
+}
+
+.subtitle{
+  opacity:.8;
+  margin-bottom:40px;
+}
+
+/* MAIN BUTTONS */
+.main-btn{
+  width:100%;
+  max-width:340px;
+  margin:12px auto;
+  padding:18px;
+  border:none;
+  border-radius:30px;
+  font-size:18px;
+  background:linear-gradient(90deg,#6a5cff,#4da3ff);
+  color:white;
+  animation:pop 0.5s ease;
+}
+
+/* ADS BUTTON */
+#adsBtn{
+  margin-top:25px;
+  background:linear-gradient(90deg,#00c853,#64dd17);
+}
+
+/* CHAT */
+#chat{
+  display:none;
+  height:100vh;
+  flex-direction:column;
+}
+
+.chat-header{
+  padding:15px;
+  background:var(--card);
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.chat-messages{
+  flex:1;
+  padding:15px;
+  overflow-y:auto;
+}
+
+.message{
+  margin-bottom:12px;
+  padding:12px;
+  border-radius:15px;
+  max-width:80%;
+}
+
+.user{background:#4da3ff;margin-left:auto}
+.ai{background:#2e326f}
+
+.chat-input{
+  display:flex;
+  padding:10px;
+  background:var(--card);
+}
+
+.chat-input input{
+  flex:1;
+  padding:12px;
+  border-radius:20px;
+  border:none;
+}
+
+.chat-input button{
+  margin-left:10px;
+  border:none;
+  background:var(--accent);
+  color:white;
+  padding:12px 18px;
+  border-radius:20px;
+}
+
+/* SETTINGS */
+#settings{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:linear-gradient(160deg,#0f1026,#1b1e4b);
+  padding:20px;
+}
+
+.settings-card{
+  max-width:420px;
+  margin:auto;
+  background:rgba(255,255,255,.05);
+  border-radius:25px;
+  padding:20px;
+}
+
+.settings-item{
+  margin:10px 0;
+  padding:15px;
+  border-radius:18px;
+  background:linear-gradient(90deg,#3f51b5,#7a5cff);
+}
+
+.settings-item.red{
+  background:linear-gradient(90deg,#c62828,#ff5252);
+}
+
+/* LANGUAGE */
+.lang{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.lang span{font-size:22px}
+
+/* ANIMATIONS */
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1}
+}
+@keyframes pop{
+  from{transform:scale(.9)}
+  to{transform:scale(1)}
 }
 </style>
 </head>
@@ -200,120 +192,115 @@ input{
 <body>
 
 <header>
-  <span class="icon" onclick="openConfig()">⚙️</span>
-  <h1>TEXT AP IA</h1>
-  <span class="icon">💎</span>
+  <button class="icon-btn" onclick="openSettings()">⚙️</button>
+  <button id="premiumBtn" onclick="openPremium()">⭐ Premium</button>
 </header>
 
-<div class="main">
-  <h2 id="title">DecideFácil</h2>
-  <p id="phrase">Te ayudo a decidir mejor</p>
+<main id="home">
+  <h1 id="title">DecideFácil</h1>
+  <div class="subtitle" id="subtitle">Decide sin complicarte</div>
 
-  <button class="primary" onclick="openChat()">Pregunta a la IA</button>
-  <button class="primary" onclick="openChat()">Decide por mí</button>
+  <button class="main-btn" onclick="openChat('ask')">🤖 Pregunta a la IA</button>
+  <button class="main-btn" onclick="openChat('decide')">🎯 Decide por mí</button>
 
-  <button class="outline" onclick="openPremium()">⭐ Premium</button>
-</div>
-
-<!-- CONFIG -->
-<div class="screen" id="config">
-  <div class="config">
-    <h3>Configuración</h3>
-
-    <div class="config-btn" onclick="openLang()">
-      <span>🌍</span>
-      <div>
-        <div>Cambiar idioma</div>
-        <small>Elige tu idioma preferido</small>
-      </div>
-    </div>
-
-    <div class="config-btn" onclick="window.open('https://www.tiktok.com','_blank')">
-      <span>🎵</span>
-      <div>
-        <div>Síguenos en TikTok</div>
-        <small>@TEXTAPIA</small>
-      </div>
-    </div>
-
-    <div class="config-btn" onclick="window.open('https://www.instagram.com/tez_zxyt?igsh=MTg1Z2tycWJ1c28wYg==','_blank')">
-      <span>📸</span>
-      <div>
-        <div>Síguenos en Instagram</div>
-        <small>@tez_zxyt</small>
-      </div>
-    </div>
-
-    <div class="config-btn" onclick="alert('Aquí irá la política')">
-      <span>🛡️</span>
-      <div>
-        <div>Política de privacidad</div>
-        <small>Lee nuestra política</small>
-      </div>
-    </div>
-  </div>
-
-  <div class="close" onclick="closeAll()">✕</div>
-</div>
-
-<!-- LANG -->
-<div class="screen" id="lang">
-  <div class="lang">
-    <div onclick="setLang('es')">🇪🇸 Español</div>
-    <div onclick="setLang('en')">🇺🇸 English</div>
-    <div onclick="setLang('fr')">🇫🇷 Français</div>
-    <div onclick="setLang('pt')">🇧🇷 Português</div>
-    <div onclick="setLang('de')">🇩🇪 Deutsch</div>
-    <div onclick="setLang('jp')">🇯🇵 日本語</div>
-    <div onclick="setLang('ar')">🇸🇦 العربية</div>
-  </div>
-  <div class="close" onclick="closeAll()">✕</div>
-</div>
+  <button id="adsBtn" class="main-btn" onclick="openAds()">🎬 Anuncios</button>
+</main>
 
 <!-- CHAT -->
-<div class="screen" id="chat">
-  <div class="chat">
-    <div class="messages" id="msgs"></div>
-    <div class="input">
-      <input placeholder="Escribe..." onkeydown="send(event)">
-      <button onclick="send()">➤</button>
-    </div>
+<div id="chat">
+  <div class="chat-header">
+    <button class="icon-btn" onclick="backHome()">❌</button>
+    <strong id="chatTitle">DecideFácil</strong>
   </div>
-  <div class="close" onclick="closeAll()">✕</div>
+  <div class="chat-messages" id="messages"></div>
+  <div class="chat-input">
+    <input id="input" placeholder="Escribe aquí...">
+    <button onclick="send()">➤</button>
+  </div>
 </div>
 
-<!-- PREMIUM -->
-<div class="screen" id="premium">
-  <div class="premium">
-    <h2>Premium</h2>
-    <p>✔ Uso ilimitado</p>
-    <p>✔ Decisiones avanzadas</p>
-    <p>✔ Acceso prioritario</p>
+<!-- SETTINGS -->
+<div id="settings">
+  <div class="settings-card">
+    <h2>⚙️ Configuración</h2>
+
+    <div class="settings-item" onclick="openLanguages()">🌍 Cambiar idioma</div>
+    <div class="settings-item" onclick="window.open('https://www.instagram.com/tez_zxyt?igsh=MTg1Z2tycWJ1c28wYg==','_blank')">📸 Instagram</div>
+    <div class="settings-item red">🔐 Política de privacidad</div>
+
+    <button class="icon-btn" onclick="closeSettings()">❌</button>
   </div>
-  <div class="close" onclick="closeAll()">✕</div>
 </div>
 
 <script>
-function closeAll(){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+const texts={
+  es:{
+    title:"DecideFácil",
+    subtitle:"Decide sin complicarte",
+    ask:"Pregunta a la IA",
+    decide:"Decide por mí"
+  },
+  en:{
+    title:"DecideEasy",
+    subtitle:"Decide without stress",
+    ask:"Ask the AI",
+    decide:"Decide for me"
+  },
+  fr:{
+    title:"DécideFacile",
+    subtitle:"Décidez sans stress",
+    ask:"Demander à l'IA",
+    decide:"Décide pour moi"
+  }
 }
-function openConfig(){closeAll();config.classList.add('active')}
-function openLang(){closeAll();lang.classList.add('active')}
-function openChat(){closeAll();chat.classList.add('active')}
-function openPremium(){closeAll();premium.classList.add('active')}
 
-function send(e){
-  if(e && e.key!=="Enter")return;
-  let m=document.querySelector("input");
-  if(!m.value)return;
-  msgs.innerHTML+=`<div class="msg user">${m.value}</div><div class="msg bot">(Respuesta IA)</div>`;
-  m.value="";
-  msgs.scrollTop=msgs.scrollHeight;
+let lang="es"
+
+function applyLang(){
+  document.getElementById("title").innerText=texts[lang].title
+  document.getElementById("subtitle").innerText=texts[lang].subtitle
 }
 
-function setLang(l){
-  alert("Idioma cambiado a "+l+" (aquí se conectan los textos)");
-  closeAll();
+applyLang()
+
+function openChat(type){
+  document.getElementById("home").style.display="none"
+  document.getElementById("chat").style.display="flex"
+  document.getElementById("chatTitle").innerText=type==="ask"?texts[lang].ask:texts[lang].decide
+}
+
+function backHome(){
+  document.getElementById("chat").style.display="none"
+  document.getElementById("home").style.display="block"
+}
+
+function send(){
+  const input=document.getElementById("input")
+  if(!input.value)return
+  const msg=document.createElement("div")
+  msg.className="message user"
+  msg.innerText=input.value
+  document.getElementById("messages").appendChild(msg)
+  input.value=""
+}
+
+function openSettings(){
+  document.getElementById("settings").style.display="block"
+}
+function closeSettings(){
+  document.getElementById("settings").style.display="none"
+}
+
+function openLanguages(){
+  lang=lang==="es"?"en":lang==="en"?"fr":"es"
+  applyLang()
+}
+
+function openPremium(){
+  alert("Premium: más usos, sin límites y funciones avanzadas")
+}
+function openAds(){
+  alert("Mira anuncios y gana Premium")
 }
 </script>
 
