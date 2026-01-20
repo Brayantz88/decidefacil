@@ -16,7 +16,7 @@
   --text:#ffffff;
 }
 
-*{box-sizing:border-box;font-family:system-ui,-apple-system,BlinkMacSystemFont}
+*{box-sizing:border-box;font-family:system-ui,-apple-system}
 
 body{
   margin:0;
@@ -25,18 +25,12 @@ body{
   min-height:100vh;
 }
 
-/* ---------- HEADER ---------- */
+/* HEADER */
 header{
   display:flex;
   justify-content:space-between;
   align-items:center;
   padding:14px 16px;
-}
-
-.header-left,
-.header-right{
-  display:flex;
-  gap:10px;
 }
 
 .icon-btn{
@@ -55,7 +49,7 @@ header{
   font-weight:600;
 }
 
-/* ---------- HOME ---------- */
+/* HOME */
 #home{
   padding:30px 20px 80px;
   text-align:center;
@@ -83,7 +77,6 @@ h1{
   color:white;
   background:linear-gradient(90deg,#6c7cff,#4fc3f7);
   cursor:pointer;
-  animation:pop .4s ease;
 }
 
 #premiumMini{
@@ -93,7 +86,7 @@ h1{
   font-weight:700;
 }
 
-/* ---------- CHAT ---------- */
+/* CHAT */
 #chat{
   display:none;
   height:100vh;
@@ -108,10 +101,6 @@ h1{
   background:var(--card);
 }
 
-.chat-header strong{
-  font-size:18px;
-}
-
 .chat-messages{
   flex:1;
   padding:16px;
@@ -123,7 +112,6 @@ h1{
   margin-bottom:12px;
   padding:12px 14px;
   border-radius:16px;
-  animation:fadeUp .3s ease;
 }
 
 .user{background:#4fc3f7;color:#000;margin-left:auto}
@@ -141,18 +129,9 @@ h1{
   padding:12px;
   border-radius:20px;
   border:none;
-  font-size:15px;
 }
 
-.chat-input button{
-  border:none;
-  background:var(--accent);
-  color:white;
-  padding:12px 18px;
-  border-radius:20px;
-}
-
-/* ---------- PREMIUM ---------- */
+/* PREMIUM */
 #premium{
   display:none;
   padding:30px 20px;
@@ -164,24 +143,10 @@ h1{
   background:linear-gradient(160deg,#2a2f77,#1e2357);
   border-radius:28px;
   padding:25px;
-  text-align:left;
 }
 
-.premium-card h2{
-  text-align:center;
-  margin-top:0;
-}
-
-.premium-card ul{
-  padding-left:18px;
-}
-
-.premium-card li{
-  margin:10px 0;
-}
-
-/* ---------- SETTINGS ---------- */
-#settings{
+/* SETTINGS */
+#settings,#lang{
   display:none;
   position:fixed;
   inset:0;
@@ -205,13 +170,6 @@ h1{
   cursor:pointer;
 }
 
-/* ---------- LANG ---------- */
-.lang-list{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-
 .lang-btn{
   display:flex;
   align-items:center;
@@ -219,17 +177,14 @@ h1{
   padding:14px;
   border-radius:18px;
   background:rgba(255,255,255,.08);
+  margin:8px 0;
   cursor:pointer;
 }
 
-/* ---------- ANIM ---------- */
+/* ANIM */
 @keyframes fadeUp{
   from{opacity:0;transform:translateY(20px)}
   to{opacity:1}
-}
-@keyframes pop{
-  from{transform:scale(.95)}
-  to{transform:scale(1)}
 }
 </style>
 </head>
@@ -237,12 +192,8 @@ h1{
 <body>
 
 <header>
-  <div class="header-left">
-    <button class="icon-btn" onclick="openSettings()">⚙️</button>
-  </div>
-  <div class="header-right">
-    <button id="adsBtn" onclick="watchAd()">🎬 Ads</button>
-  </div>
+  <button class="icon-btn" onclick="openSettings()">⚙️</button>
+  <button id="adsBtn" class="icon-btn" onclick="watchAd()">🎬 Ads</button>
 </header>
 
 <!-- HOME -->
@@ -250,8 +201,8 @@ h1{
   <h1 id="t_title">DecideFácil</h1>
   <div class="subtitle" id="t_sub">Decide sin complicarte</div>
 
-  <button class="main-btn" onclick="openChat('ask')" id="t_ask">Pregunta a la IA</button>
-  <button class="main-btn" onclick="openChat('decide')" id="t_decide">Decide por mí</button>
+  <button class="main-btn" id="t_ask" onclick="openChat('ask')">Pregunta a la IA</button>
+  <button class="main-btn" id="t_decide" onclick="openChat('decide')">Decide por mí</button>
 
   <button id="premiumMini" class="main-btn" onclick="openPremium()">⭐ Premium</button>
 </div>
@@ -275,10 +226,9 @@ h1{
     <button class="icon-btn" onclick="backHome()">❌</button>
     <h2>⭐ Premium</h2>
     <ul>
-      <li>Uso ilimitado de la IA</li>
-      <li>Respuestas más detalladas</li>
+      <li>Uso ilimitado</li>
+      <li>Mejores respuestas</li>
       <li>Sin anuncios</li>
-      <li>Funciones exclusivas futuras</li>
     </ul>
   </div>
 </div>
@@ -289,14 +239,14 @@ h1{
     <h3>⚙️ Configuración</h3>
     <div class="settings-item" onclick="openLang()">🌍 Cambiar idioma</div>
     <div class="settings-item" onclick="window.open('https://www.instagram.com/tez_zxyt?igsh=MTg1Z2tycWJ1c28wYg==','_blank')">📸 Instagram</div>
-    <button class="icon-btn" onclick="closeSettings()">❌</button>
+    <button class="icon-btn" onclick="closeAll()">❌</button>
   </div>
 </div>
 
 <!-- LANG -->
-<div id="lang" style="display:none" class="settings-card">
-  <h3>🌍 Idiomas</h3>
-  <div class="lang-list">
+<div id="lang">
+  <div class="settings-card">
+    <h3>🌍 Idiomas</h3>
     <div class="lang-btn" onclick="setLang('es')">🇪🇸 Español</div>
     <div class="lang-btn" onclick="setLang('en')">🇺🇸 English</div>
     <div class="lang-btn" onclick="setLang('fr')">🇫🇷 Français</div>
@@ -306,35 +256,37 @@ h1{
 </div>
 
 <script>
-let currentChat=""
 let lang="es"
 
 const T={
   es:{title:"DecideFácil",sub:"Decide sin complicarte",ask:"Pregunta a la IA",decide:"Decide por mí"},
   en:{title:"DecideEasy",sub:"Decide without stress",ask:"Ask the AI",decide:"Decide for me"},
   fr:{title:"DécideFacile",sub:"Décidez sans stress",ask:"Demander à l'IA",decide:"Décide pour moi"},
-  ja:{title:"DecideEasy",sub:"簡単に決めよう",ask:"AIに聞く",decide:"代わりに決める"},
+  ja:{title:"ディサイド・ファシル",sub:"迷わず決断しよう",ask:"AIに質問する",decide:"AIに任せる"},
   ar:{title:"DecideEasy",sub:"اتخذ قرارك بسهولة",ask:"اسأل الذكاء الاصطناعي",decide:"قرر عني"}
 }
 
 function applyLang(){
-  t("t_title",T[lang].title)
-  t("t_sub",T[lang].sub)
-  t("t_ask",T[lang].ask)
-  t("t_decide",T[lang].decide)
+  document.getElementById("t_title").innerText=T[lang].title
+  document.getElementById("t_sub").innerText=T[lang].sub
+  document.getElementById("t_ask").innerText=T[lang].ask
+  document.getElementById("t_decide").innerText=T[lang].decide
 }
-
-function t(id,val){document.getElementById(id).innerText=val}
 
 applyLang()
 
+function setLang(l){
+  lang=l
+  closeAll()
+  applyLang()
+}
+
 function openChat(type){
-  currentChat=type
   document.getElementById("home").style.display="none"
   document.getElementById("premium").style.display="none"
   document.getElementById("chat").style.display="flex"
   document.getElementById("messages").innerHTML=""
-  document.getElementById("chatTitle").innerText= type==="ask"?T[lang].ask:T[lang].decide
+  document.getElementById("chatTitle").innerText=T[lang][type]
 }
 
 function backHome(){
@@ -351,10 +303,10 @@ function send(){
   i.value=""
 }
 
-function addMsg(txt,type){
+function addMsg(t,type){
   const d=document.createElement("div")
   d.className="msg "+type
-  d.innerText=txt
+  d.innerText=t
   document.getElementById("messages").appendChild(d)
 }
 
@@ -363,22 +315,22 @@ function openPremium(){
   document.getElementById("premium").style.display="block"
 }
 
-function openSettings(){document.getElementById("settings").style.display="block"}
-function closeSettings(){document.getElementById("settings").style.display="none"}
+function openSettings(){
+  document.getElementById("settings").style.display="block"
+}
 
 function openLang(){
   document.getElementById("settings").style.display="none"
   document.getElementById("lang").style.display="block"
 }
 
-function setLang(l){
-  lang=l
+function closeAll(){
+  document.getElementById("settings").style.display="none"
   document.getElementById("lang").style.display="none"
-  applyLang()
 }
 
 function watchAd(){
-  alert("Anuncio visto ✔️ (simulado)")
+  alert("Anuncio simulado ✔️")
 }
 </script>
 
