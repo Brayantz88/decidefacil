@@ -10,6 +10,7 @@
   --bg:#020617;
   --card:#020617;
   --accent:#22d3ee;
+  --blue:#2563eb;
   --yellow:#facc15;
 }
 
@@ -17,25 +18,25 @@
 
 body{
   margin:0;
-  background:linear-gradient(135deg,#020617,#020617);
+  background:var(--bg);
   color:white;
   font-family:Arial,Helvetica,sans-serif;
   overflow:hidden;
 }
 
-/* ANIMACIÓN INICIO */
+/* ANIMACIÓN INICIAL */
 #splash{
   position:fixed;
   inset:0;
-  background:#020617;
+  background:var(--bg);
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:42px;
+  font-size:44px;
   font-weight:bold;
-  z-index:99;
+  z-index:100;
   animation:fadeOut 1s ease forwards;
-  animation-delay:2s;
+  animation-delay:2.2s;
 }
 @keyframes fadeOut{
   to{opacity:0;visibility:hidden}
@@ -46,7 +47,7 @@ header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:12px 16px;
+  padding:14px 18px;
 }
 
 .icon-btn{
@@ -54,20 +55,33 @@ header{
   border:none;
   color:white;
   font-size:22px;
+  cursor:pointer;
 }
 
-/* BOTONES PRINCIPALES */
+/* MAIN */
 .main{
   height:calc(100vh - 60px);
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  gap:16px;
+  gap:18px;
+  animation:fadeIn .8s ease;
+}
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1}
 }
 
 .main h1{
   font-size:42px;
+  margin:0;
+}
+
+#phrase{
+  opacity:.8;
+  font-size:15px;
+  transition:.4s;
 }
 
 button{
@@ -75,42 +89,68 @@ button{
   border:none;
   border-radius:30px;
   font-size:16px;
-  background:#2563eb;
+  background:var(--blue);
   color:white;
+  cursor:pointer;
   transition:.2s;
 }
-button:hover{transform:scale(1.05)}
+button:hover{transform:scale(1.06)}
 
 .small{
-  font-size:14px;
-  background:#020617;
-  border:1px solid #22d3ee;
+  background:none;
+  border:1px solid var(--accent);
+  color:var(--accent);
 }
 
 /* PANTALLAS */
 .screen{
   position:fixed;
   inset:0;
-  background:#020617;
+  background:var(--bg);
   display:none;
   flex-direction:column;
   padding:20px;
+  animation:fadeIn .3s ease;
 }
 .screen.active{display:flex}
 
 .close{
-  font-size:28px;
+  font-size:30px;
   align-self:flex-end;
   background:none;
   border:none;
   color:white;
+  cursor:pointer;
 }
+
+/* MENÚ */
+.menu a, .menu button{
+  background:none;
+  border:none;
+  color:white;
+  font-size:16px;
+  text-align:left;
+  padding:10px 0;
+}
+
+/* IDIOMAS */
+.lang-btn{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px;
+  border-radius:14px;
+  background:#111827;
+  margin-bottom:10px;
+  cursor:pointer;
+}
+.lang-btn span{font-size:22px}
 
 /* CHAT */
 .chat{
   flex:1;
   overflow:auto;
-  margin:10px 0;
+  margin:12px 0;
 }
 .msg{
   padding:10px 14px;
@@ -118,7 +158,7 @@ button:hover{transform:scale(1.05)}
   margin:8px 0;
   max-width:80%;
 }
-.user{background:#2563eb;align-self:flex-end}
+.user{background:var(--blue);align-self:flex-end}
 .bot{background:#111827}
 
 /* INPUT */
@@ -133,18 +173,11 @@ input{
   border:none;
 }
 
-/* MENÚ */
-.menu{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-
 /* PREMIUM */
-.premium-box{
+.premium-box h2{
+  color:var(--yellow);
   text-align:center;
 }
-.premium-box h2{color:var(--yellow)}
 
 /* ANUNCIOS */
 .progress{
@@ -155,13 +188,10 @@ input{
 }
 .progress div{
   height:100%;
-  width:20%;
+  width:40%;
   background:var(--accent);
   border-radius:10px;
 }
-
-/* FRASES */
-#phrase{opacity:.8;font-size:14px}
 </style>
 </head>
 
@@ -171,17 +201,17 @@ input{
 
 <header>
   <button class="icon-btn" onclick="openMenu()">⚙️</button>
-  <button class="icon-btn" onclick="openAds()">Anuncios</button>
+  <button class="icon-btn" onclick="openAds()" id="adsTop">Anuncios</button>
 </header>
 
 <div class="main">
   <h1 id="title">DecideFácil</h1>
   <p id="phrase">Te ayudo a decidir mejor</p>
 
-  <button onclick="openChat('ask')">Pregunta a la IA</button>
-  <button onclick="openChat('decide')">Decide por mí</button>
+  <button id="btnAsk" onclick="openChat('ask')">Pregunta a la IA</button>
+  <button id="btnDecide" onclick="openChat('decide')">Decide por mí</button>
 
-  <button class="small" onclick="openPremium()">⭐ Premium</button>
+  <button class="small" id="btnPremium" onclick="openPremium()">⭐ Premium</button>
 </div>
 
 <!-- MENU -->
@@ -198,39 +228,40 @@ input{
 <!-- IDIOMAS -->
 <div class="screen" id="lang">
   <button class="close" onclick="closeAll()">✕</button>
-  <button onclick="setLang('es')">Español</button>
-  <button onclick="setLang('en')">English</button>
-  <button onclick="setLang('fr')">Français</button>
-  <button onclick="setLang('pt')">Português</button>
-  <button onclick="setLang('de')">Deutsch</button>
-  <button onclick="setLang('it')">Italiano</button>
-  <button onclick="setLang('ar')">العربية</button>
-  <button onclick="setLang('jp')">日本語</button>
+
+  <div class="lang-btn" onclick="setLang('es')"><span>🇪🇸</span> Español</div>
+  <div class="lang-btn" onclick="setLang('en')"><span>🇺🇸</span> English</div>
+  <div class="lang-btn" onclick="setLang('fr')"><span>🇫🇷</span> Français</div>
+  <div class="lang-btn" onclick="setLang('pt')"><span>🇧🇷</span> Português</div>
+  <div class="lang-btn" onclick="setLang('de')"><span>🇩🇪</span> Deutsch</div>
+  <div class="lang-btn" onclick="setLang('it')"><span>🇮🇹</span> Italiano</div>
+  <div class="lang-btn" onclick="setLang('ar')"><span>🇸🇦</span> العربية</div>
+  <div class="lang-btn" onclick="setLang('jp')"><span>🇯🇵</span> 日本語</div>
 </div>
 
 <!-- PREMIUM -->
 <div class="screen" id="premium">
   <button class="close" onclick="closeAll()">✕</button>
   <div class="premium-box">
-    <h2>Premium</h2>
-    <p>✔ Uso ilimitado</p>
-    <p>✔ Respuestas prioritarias</p>
-    <p>✔ Sin límites diarios</p>
+    <h2 id="premiumTitle">Premium</h2>
+    <p id="p1">✔ Uso ilimitado</p>
+    <p id="p2">✔ Más decisiones</p>
+    <p id="p3">✔ Acceso prioritario</p>
   </div>
 </div>
 
 <!-- ANUNCIOS -->
 <div class="screen" id="ads">
   <button class="close" onclick="closeAll()">✕</button>
-  <h2>Anuncios</h2>
-  <p>Mira anuncios para desbloquear Premium</p>
+  <h2 id="adsTitle">Anuncios</h2>
+  <p id="adsText">Mira anuncios para desbloquear Premium</p>
   <div class="progress"><div></div></div>
 </div>
 
 <!-- CHAT ASK -->
 <div class="screen" id="chat-ask">
   <button class="close" onclick="closeAll()">✕</button>
-  <h2>Pregunta a la IA</h2>
+  <h2 id="askTitle">Pregunta a la IA</h2>
   <div class="chat" id="askChat"></div>
   <div class="input-box">
     <input id="askInput" placeholder="Escribe..." onkeydown="send(event,'ask')">
@@ -241,7 +272,7 @@ input{
 <!-- CHAT DECIDE -->
 <div class="screen" id="chat-decide">
   <button class="close" onclick="closeAll()">✕</button>
-  <h2>Decide por mí</h2>
+  <h2 id="decideTitle">Decide por mí</h2>
   <div class="chat" id="decideChat"></div>
   <div class="input-box">
     <input id="decideInput" placeholder="¿Qué hago?" onkeydown="send(event,'decide')">
@@ -250,47 +281,67 @@ input{
 </div>
 
 <script>
-const phrases=[
-"Decisiones claras, mente tranquila",
-"Menos dudas, mejores opciones",
-"Decide mejor hoy",
-"Piensa menos, elige mejor"
-];
-let i=0;
+/* FRASES */
+const phrases={
+  es:["Te ayudo a decidir mejor","Menos dudas, mejores opciones"],
+  en:["I help you decide better","Less doubt, better choices"],
+  fr:["Je t’aide à décider","Moins de doutes, meilleurs choix"],
+  pt:["Te ajudo a decidir","Menos dúvida, melhores escolhas"],
+  de:["Ich helfe dir zu entscheiden","Weniger Zweifel"],
+  it:["Ti aiuto a decidere","Meno dubbi"],
+  ar:["أساعدك على الاختيار","قرارات أفضل"],
+  jp:["決断を助けます","より良い選択"]
+};
+let pi=0,lang="es";
+
+/* TEXTOS */
+const t={
+es:{title:"DecideFácil",ask:"Pregunta a la IA",decide:"Decide por mí",ads:"Anuncios",adst:"Mira anuncios para desbloquear Premium"},
+en:{title:"DecideEasy",ask:"Ask the AI",decide:"Decide for me",ads:"Ads",adst:"Watch ads to unlock Premium"},
+fr:{title:"DécideFacile",ask:"Demander à l'IA",decide:"Décide pour moi",ads:"Publicités",adst:"Regardez des pubs"},
+pt:{title:"DecideFácil",ask:"Perguntar à IA",decide:"Decida por mim",ads:"Anúncios",adst:"Assista anúncios"},
+de:{title:"DecideLeicht",ask:"KI fragen",decide:"Entscheide für mich",ads:"Werbung",adst:"Werbung ansehen"},
+it:{title:"DecidiFacile",ask:"Chiedi all'IA",decide:"Decidi per me",ads:"Annunci",adst:"Guarda annunci"},
+ar:{title:"قرر بسهولة",ask:"اسأل الذكاء",decide:"قرر عني",ads:"إعلانات",adst:"شاهد الإعلانات"},
+jp:{title:"簡単に決める",ask:"AIに聞く",decide:"決めて",ads:"広告",adst:"広告を見る"}
+};
+
 setInterval(()=>{
- document.getElementById("phrase").innerText=phrases[i++%phrases.length];
+  document.getElementById("phrase").innerText=phrases[lang][pi++%phrases[lang].length];
 },10000);
 
+function setLang(l){
+  lang=l;
+  title.innerText=t[l].title;
+  btnAsk.innerText=t[l].ask;
+  btnDecide.innerText=t[l].decide;
+  adsTitle.innerText=t[l].ads;
+  adsText.innerText=t[l].adst;
+  closeAll();
+}
+
+/* NAV */
 function closeAll(){
- document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
 }
 function openMenu(){closeAll();menu.classList.add('active')}
-function openLang(){closeAll();lang.classList.add('active')}
+function openLang(){closeAll();langScreen=document.getElementById('lang');langScreen.classList.add('active')}
 function openPremium(){closeAll();premium.classList.add('active')}
 function openAds(){closeAll();ads.classList.add('active')}
 function openChat(t){
- closeAll();
- document.getElementById('chat-'+t).classList.add('active');
+  closeAll();
+  document.getElementById('chat-'+t).classList.add('active');
 }
 
+/* CHAT */
 function send(e,t){
- if(e && e.key!=="Enter")return;
- let input=document.getElementById(t+"Input");
- let chat=document.getElementById(t+"Chat");
- if(!input.value)return;
- let u=document.createElement("div");
- u.className="msg user";u.innerText=input.value;
- chat.appendChild(u);
- input.value="";
- let b=document.createElement("div");
- b.className="msg bot";b.innerText="(Respuesta simulada)";
- chat.appendChild(b);
- chat.scrollTop=chat.scrollHeight;
-}
-
-function setLang(l){
- alert("Idioma cambiado: "+l+" (estructura lista)");
- closeAll();
+  if(e && e.key!=="Enter")return;
+  let input=document.getElementById(t+"Input");
+  let chat=document.getElementById(t+"Chat");
+  if(!input.value)return;
+  chat.innerHTML+=`<div class="msg user">${input.value}</div><div class="msg bot">(Respuesta simulada)</div>`;
+  input.value="";
+  chat.scrollTop=chat.scrollHeight;
 }
 </script>
 
