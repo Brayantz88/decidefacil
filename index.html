@@ -10,7 +10,6 @@
 body{
   background:radial-gradient(circle at top,#6d28d9,#020617);
   color:white;
-  overflow-x:hidden;
 }
 
 /* SPLASH */
@@ -39,9 +38,7 @@ header{
   padding:12px 18px;
   border-radius:30px;
   font-size:15px;
-  transition:.3s;
 }
-.icon:active{transform:scale(.92)}
 
 /* HOME */
 #home{
@@ -52,13 +49,11 @@ header{
   justify-content:center;
   text-align:center;
   padding:20px;
-  animation:slideIn .5s;
 }
-@keyframes slideIn{from{opacity:0;transform:translateY(20px)}to{opacity:1}}
-
 #home h1{font-size:48px}
-#phrase{opacity:.85;margin:14px 0;transition:.5s;max-width:500px}
+#phrase{opacity:.85;margin:14px 0;max-width:520px}
 
+/* BUTTONS */
 .btn{
   width:90%;max-width:420px;
   padding:18px;
@@ -68,16 +63,13 @@ header{
   font-size:18px;
   background:linear-gradient(45deg,#22d3ee,#6366f1);
   color:white;
-  transition:.3s;
 }
-.btn:active{transform:scale(.94)}
-
 .btn-premium{
   background:linear-gradient(45deg,#facc15,#f97316);
   color:#000;
 }
 
-/* FLOAT ADS BUTTON */
+/* FLOAT ADS */
 #adsFloat{
   position:fixed;
   right:16px;
@@ -88,19 +80,15 @@ header{
   padding:16px 18px;
   border-radius:50%;
   font-size:18px;
-  box-shadow:0 10px 30px rgba(0,0,0,.4);
-  transition:.3s;
 }
-#adsFloat:active{transform:scale(.9)}
 
 /* SCREENS */
-.screen{display:none;min-height:100vh;padding:20px;animation:slideIn .4s}
+.screen{display:none;min-height:100vh;padding:20px}
 .close{
   font-size:32px;
   background:none;
   border:none;
   color:white;
-  margin-bottom:15px;
 }
 
 /* CHAT */
@@ -111,7 +99,11 @@ header{
   padding:20px;
   min-height:380px;
   margin-bottom:10px;
+  overflow-y:auto;
 }
+.msg-user{color:#22d3ee;margin:8px 0;text-align:right}
+.msg-ai{color:#facc15;margin:8px 0;text-align:left}
+
 .chat-input{display:flex}
 .chat-input input{
   flex:1;
@@ -130,9 +122,8 @@ header{
 
 /* PREMIUM */
 .premium-box{text-align:center}
-.premium-box h1{font-size:44px;margin-bottom:10px}
+.premium-box h1{font-size:44px}
 .premium-box ul{list-style:none;font-size:20px;margin:20px 0}
-.premium-box li{margin:10px 0}
 
 /* ADS */
 .progress{
@@ -145,7 +136,6 @@ header{
   height:20px;
   width:0%;
   background:linear-gradient(45deg,#22d3ee,#6366f1);
-  transition:.5s;
 }
 
 /* CONFIG */
@@ -173,34 +163,28 @@ select{
   <button class="icon" onclick="openPremium()" id="premiumTop"></button>
 </header>
 
-<!-- HOME -->
 <div id="home">
   <h1 id="title"></h1>
   <p id="phrase"></p>
 
   <button class="btn" onclick="openChat()" id="b1"></button>
   <button class="btn" onclick="openChat()" id="b2"></button>
-
   <button class="btn btn-premium" onclick="openPremium()" id="premiumBtn"></button>
 </div>
 
-<!-- FLOAT ADS -->
 <button id="adsFloat" onclick="openAds()">🎬</button>
 
-<!-- CHAT -->
 <div id="chat" class="screen">
   <button class="close" onclick="goHome()">✕</button>
-  <h2 id="chatTitle"></h2>
   <div class="chat">
-    <div class="chat-log">🤖 DecideFácil</div>
+    <div class="chat-log" id="chatLog"></div>
     <div class="chat-input">
-      <input>
-      <button id="send"></button>
+      <input id="chatInput">
+      <button onclick="sendMsg()" id="sendBtn"></button>
     </div>
   </div>
 </div>
 
-<!-- PREMIUM -->
 <div id="premium" class="screen">
   <button class="close" onclick="goHome()">✕</button>
   <div class="premium-box">
@@ -209,83 +193,58 @@ select{
   </div>
 </div>
 
-<!-- ADS -->
 <div id="ads" class="screen">
   <button class="close" onclick="goHome()">✕</button>
   <h2 id="adsCount">0 / 50</h2>
   <div class="progress"><div class="bar" id="bar"></div></div>
-  <button class="btn" onclick="watchAd()" id="watch"></button>
 </div>
 
-<!-- CONFIG -->
 <div id="config" class="screen">
   <button class="close" onclick="goHome()">✕</button>
-  <div class="item" onclick="toggleLang()">🌍 Cambiar idioma</div>
-  <div class="item" id="langBox" style="display:none">
+  <div class="item">
     <select onchange="setLang(this.value)">
       <option value="es">Español</option>
       <option value="en">English</option>
+      <option value="fr">Français</option>
+      <option value="pt">Português</option>
+      <option value="ja">日本語</option>
+      <option value="ar">العربية</option>
     </select>
   </div>
-  <div class="item" onclick="openIG()">📸 Instagram</div>
 </div>
 
 <script>
-let lang="es",ads=0,phraseIndex=0;
+let lang="es",ads=0;
 
-const data={
-es:{
-title:"DecideFácil",
-phrases:[
-"No sabes qué hacer? DecideFácil decide por ti.",
-"Menos pensar, más decidir.",
-"Decisiones claras en segundos.",
-"Tu asistente para la vida diaria."
-],
-b1:"Pregunta a la IA",
-b2:"Decide por mí",
-premium:"Premium ⭐",
-pList:["IA ilimitada","Respuestas más inteligentes","Sin anuncios","Funciones exclusivas"],
-watch:"Ver anuncio",
-send:"Enviar"
-},
-en:{
-title:"DecideEasy",
-phrases:[
-"Don't know what to do? DecideEasy decides for you.",
-"Think less, decide more.",
-"Clear decisions in seconds.",
-"Your daily life assistant."
-],
-b1:"Ask the AI",
-b2:"Decide for me",
-premium:"Premium ⭐",
-pList:["Unlimited AI","Smarter answers","No ads","Exclusive features"],
-watch:"Watch ad",
-send:"Send"
-}
+const T={
+es:{title:"DecideFácil",phrases:["Decide por ti.","Menos pensar, más decidir."],b1:"Pregunta a la IA",b2:"Decide por mí",premium:"Premium ⭐",p:["IA ilimitada","Sin anuncios"],send:"Enviar"},
+en:{title:"DecideEasy",phrases:["Decides for you.","Think less."],b1:"Ask the AI",b2:"Decide for me",premium:"Premium ⭐",p:["Unlimited AI","No ads"],send:"Send"},
+fr:{title:"DecideFacile",phrases:["Décidez facilement."],b1:"Demander à l'IA",b2:"Décide pour moi",premium:"Premium ⭐",p:["IA illimitée"],send:"Envoyer"},
+pt:{title:"DecideFácil",phrases:["Decida rápido."],b1:"Perguntar à IA",b2:"Decida por mim",premium:"Premium ⭐",p:["IA ilimitada"],send:"Enviar"},
+ja:{title:"DecideEasy",phrases:["簡単に決める"],b1:"AIに聞く",b2:"AIに任せる",premium:"プレミアム ⭐",p:["無制限AI"],send:"送信"},
+ar:{title:"DecideEasy",phrases:["اتخذ قرارك"],b1:"اسأل الذكاء الاصطناعي",b2:"قرر عني",premium:"بريميوم ⭐",p:["ذكاء اصطناعي غير محدود"],send:"إرسال"}
 };
 
 function apply(){
-const t=data[lang];
+const t=T[lang];
 title.innerText=t.title;
 phrase.innerText=t.phrases[0];
 b1.innerText=t.b1;
 b2.innerText=t.b2;
-premiumTop.innerText=t.premium;
 premiumBtn.innerText=t.premium;
+premiumTop.innerText=t.premium;
 pTitle.innerText=t.premium;
-pList.innerHTML=t.pList.map(x=>`<li>✔ ${x}</li>`).join("");
-watch.innerText=t.watch;
-send.innerText=t.send;
+pList.innerHTML=t.p.map(x=>`<li>✔ ${x}</li>`).join("");
+sendBtn.innerText=t.send;
 }
 
-setInterval(()=>{
-  const p=data[lang].phrases;
-  phraseIndex=(phraseIndex+1)%p.length;
-  phrase.style.opacity=0;
-  setTimeout(()=>{phrase.innerText=p[phraseIndex];phrase.style.opacity=1},300);
-},10000);
+function sendMsg(){
+const input=chatInput.value.trim();
+if(!input)return;
+chatLog.innerHTML+=`<div class="msg-user">${input}</div>`;
+chatInput.value="";
+setTimeout(()=>chatLog.innerHTML+=`<div class="msg-ai">🤖 ${T[lang].phrases[0]}</div>`,800);
+}
 
 function hideAll(){
 home.style.display="none";
@@ -296,17 +255,7 @@ function openChat(){hideAll();chat.style.display="block"}
 function openPremium(){hideAll();premium.style.display="block"}
 function openAds(){hideAll();ads.style.display="block"}
 function openConfig(){hideAll();config.style.display="block"}
-function toggleLang(){langBox.style.display=langBox.style.display=="none"?"block":"none"}
 function setLang(l){lang=l;apply()}
-function watchAd(){
-if(ads<50){
-ads++;
-bar.style.width=(ads*2)+"%";
-adsCount.innerText=ads+" / 50";
-}}
-function openIG(){
-window.open("https://www.instagram.com/tez_zxyt?igsh=MTg1Z2tycWJ1c28wYg==","_blank");
-}
 
 apply();
 </script>
