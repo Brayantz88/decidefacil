@@ -1,7 +1,7 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: #0f172a;
+  background: linear-gradient(135deg, #050510, #0a0a2a);
   color: white;
 }
 
@@ -9,19 +9,36 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 16px;
-  background: #020617;
+  padding: 15px;
 }
 
-button {
-  background: #facc15;
+#settingsBtn,
+#premiumBtn {
+  background: #a9791c;
   border: none;
-  padding: 8px 12px;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 14px;
 }
 
 #app {
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 80px;
+}
+
+#decideBtn {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 15px 25px;
+  border-radius: 12px;
+  font-size: 18px;
+}
+
+#result {
+  margin-top: 20px;
+  font-size: 20px;
 }
