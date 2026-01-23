@@ -1,44 +1,16 @@
 body {
-  margin: 0;
+  background: #111;
+  color: white;
   font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #050510, #0a0a2a);
-  color: white;
+  text-align: center;
+  padding-top: 60px;
 }
 
-.top-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 15px;
-}
-
-#settingsBtn,
-#premiumBtn {
-  background: #a9791c;
-  border: none;
-  color: white;
-  padding: 8px 14px;
-  border-radius: 10px;
-  font-size: 14px;
-}
-
-#app {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 80px;
-}
-
-#decideBtn {
-  background: #2563eb;
-  color: white;
-  border: none;
-  padding: 15px 25px;
-  border-radius: 12px;
-  font-size: 18px;
-}
-
-#result {
-  margin-top: 20px;
+button {
+  padding: 15px 30px;
   font-size: 20px;
+  background: #00ff88;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
 }
