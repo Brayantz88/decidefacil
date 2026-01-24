@@ -1,3 +1,4 @@
+
 const boton = document.getElementById("decidir");
 const resultado = document.getElementById("resultado");
 
@@ -10,12 +11,22 @@ const decisiones = [
   "Habla con alguien 💬"
 ];
 
+let ultimaDecision = "";
+
 boton.addEventListener("click", () => {
   resultado.style.opacity = 0;
 
   setTimeout(() => {
-    const random = Math.floor(Math.random() * decisiones.length);
-    resultado.textContent = decisiones[random];
+    let nuevaDecision = "";
+
+    // evita repetir la misma
+    do {
+      const random = Math.floor(Math.random() * decisiones.length);
+      nuevaDecision = decisiones[random];
+    } while (nuevaDecision === ultimaDecision);
+
+    ultimaDecision = nuevaDecision;
+    resultado.textContent = nuevaDecision;
     resultado.style.opacity = 1;
-  }, 200);
+  }, 300);
 });
