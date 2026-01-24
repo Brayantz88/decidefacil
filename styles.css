@@ -30,3 +30,11 @@ button:active {
   margin-top: 20px;
   font-size: 18px;
 }
+button:hover {
+  background-color: #ffffff;
+  color: #8b1d1d;
+}
+
+#resultado {
+  transition: opacity 0.3s ease;
+}
