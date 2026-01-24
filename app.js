@@ -30,3 +30,10 @@ boton.addEventListener("click", () => {
     resultado.style.opacity = 1;
   }, 300);
 });
+document.getElementById("premium").addEventListener("click", () => {
+  alert("Premium próximamente 👑");
+});
+
+document.getElementById("config").addEventListener("click", () => {
+  alert("Configuración ⚙️");
+});
