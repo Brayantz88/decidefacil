@@ -1,16 +1,32 @@
 body {
   margin: 0;
-  padding: 0;
-  background-color: #b30000;
-  color: white;
-  font-family: Arial, sans-serif;
-
+  height: 100vh;
+  background-color: #8b1d1d;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  font-family: Arial, sans-serif;
+  color: white;
 }
 
 .container {
   text-align: center;
+}
+
+button {
+  margin-top: 15px;
+  padding: 10px 25px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+#resultado {
+  margin-top: 20px;
+  font-size: 18px;
 }
