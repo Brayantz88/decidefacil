@@ -1,13 +1,15 @@
 const decisiones = [
-  "Sal a caminar 🚶‍♂️",
   "Quédate descansando 😴",
-  "Mira una serie 📺",
+  "Sal a caminar 🚶",
+  "Mira una peli 🎬",
   "Escucha música 🎧",
-  "Come algo rico 🍔",
-  "Ordena tu cuarto 🧹"
+  "Haz algo productivo 💪"
 ];
 
-document.getElementById("decidir").addEventListener("click", () => {
+const boton = document.getElementById("decidir");
+const resultado = document.getElementById("resultado");
+
+boton.addEventListener("click", () => {
   const random = Math.floor(Math.random() * decisiones.length);
-  document.getElementById("resultado").textContent = decisiones[random];
+  resultado.textContent = decisiones[random];
 });
