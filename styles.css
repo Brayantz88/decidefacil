@@ -54,3 +54,8 @@ button:hover {
   border-radius: 8px;
   font-size: 14px;
 }
+#decidir {
+  font-size: 20px;
+  padding: 16px 32px;
+  border-radius: 10px;
+}
