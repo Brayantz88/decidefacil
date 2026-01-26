@@ -59,3 +59,33 @@ openAds.addEventListener("click", () => {
 closeAds.addEventListener("click", () => {
   adsPanel.classList.add("hidden");
 });
+// ===== CHAT SIMPLE =====
+const chatText = document.getElementById("chat-text");
+const sendChat = document.getElementById("send-chat");
+const chatMessages = document.getElementById("chat-messages");
+
+sendChat.addEventListener("click", enviarMensaje);
+
+chatText.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") enviarMensaje();
+});
+
+function enviarMensaje() {
+  const texto = chatText.value.trim();
+  if (texto === "") return;
+
+  // mensaje usuario
+  const userMsg = document.createElement("div");
+  userMsg.className = "chat-message user";
+  userMsg.textContent = "Tú: " + texto;
+  chatMessages.appendChild(userMsg);
+
+  // respuesta falsa (por ahora)
+  const botMsg = document.createElement("div");
+  botMsg.className = "chat-message bot";
+  botMsg.textContent = "App: Entendido 👍";
+  chatMessages.appendChild(botMsg);
+
+  chatText.value = "";
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
