@@ -1,3 +1,40 @@
-body {
-  background: red !important;
+.icon-btn {
+  font-size: 28px;      /* más grande */
+  padding: 14px 18px;   /* más clicable */
+  border-radius: 14px;
+  border: none;
+  background: #1f2933;
+  color: white;
+  cursor: pointer;
+}
+
+.premium-btn {
+  font-size: 18px;
+  padding: 14px 22px;
+  border-radius: 16px;
+  border: none;
+  background: gold;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.ads-btn {
+  font-size: 16px;
+  padding: 12px 20px;
+  border-radius: 16px;
+  border: none;
+  background: #374151;
+  color: white;
+  cursor: pointer;
+}
+
+#decidir {
+  font-size: 24px;
+  padding: 18px 40px;
+  border-radius: 20px;
+  border: none;
+  background: #22c55e;
+  color: black;
+  cursor: pointer;
 }
