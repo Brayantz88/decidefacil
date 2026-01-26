@@ -5,9 +5,19 @@
   <title>Decide Fácil</title>
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-  <header class="top-bar">
-    <!-- PANEL DE CONFIGURACIÓN -->
+
+<header class="top-bar">
+  <button class="icon-btn" id="open-config">⚙️</button>
+
+  <div class="right-buttons">
+    <button class="premium-btn" id="open-premium">⭐ Premium</button>
+    <button class="ads-btn">📢 Anuncios</button>
+  </div>
+</header>
+
+<!-- PANEL CONFIGURACIÓN -->
 <div id="config-panel" class="panel hidden">
   <div class="panel-header">
     <button id="close-config" class="close-btn">❌</button>
@@ -15,27 +25,35 @@
   </div>
 
   <ul class="benefits">
-    <li>✔️ Decisiones más rápidas</li>
-    <li>✔️ Mejor experiencia sin distracciones</li>
-    <li>✔️ Acceso a funciones Premium</li>
+    <li>✔ Decisiones más rápidas</li>
+    <li>✔ Mejor experiencia</li>
+    <li>✔ Acceso Premium</li>
   </ul>
 </div>
-  <button class="icon-btn">⚙️</button>
 
-  <div class="right-buttons">
-    <button class="premium-btn">⭐ Premium</button>
-    <button class="ads-btn">🟨 Anuncios</button>
-  </div>
-  </header>
-
-  <div class="container">
-    <h1>Decide Fácil</h1>
-
-    <button id="decidir">DECIDIR</button>
-
-    <p id="resultado"></p>
+<!-- PANEL PREMIUM -->
+<div id="premium-panel" class="panel hidden">
+  <div class="panel-header">
+    <button id="close-premium" class="close-btn">❌</button>
+    <h2>Premium</h2>
   </div>
 
-  <script src="app.js"></script>
+  <ul class="benefits">
+    <li>⭐ Sin anuncios</li>
+    <li>🤖 Acceso a IA</li>
+    <li>⚡ Mejor experiencia</li>
+  </ul>
+
+  <button class="premium-buy">Obtener Premium</button>
+</div>
+
+<!-- CONTENIDO PRINCIPAL -->
+<div class="container">
+  <h1>Decide Fácil</h1>
+  <button id="decidir">DECIDIR</button>
+  <p id="resultado"></p>
+</div>
+
+<script src="app.js"></script>
 </body>
 </html>
