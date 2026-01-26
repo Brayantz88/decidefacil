@@ -89,3 +89,16 @@ function enviarMensaje() {
   chatText.value = "";
   chatMessages.scrollTop = chatMessages.scrollHeight;
 }
+// ===== PREMIUM GLOBAL =====
+let isPremium = localStorage.getItem("premium") === "true";
+
+// Botón comprar premium
+const buyPremiumBtn = document.querySelector(".premium-buy");
+
+if (buyPremiumBtn) {
+  buyPremiumBtn.addEventListener("click", () => {
+    isPremium = true;
+    localStorage.setItem("premium", "true");
+    alert("⭐ Premium activado. Disfruta los beneficios.");
+  });
+}
