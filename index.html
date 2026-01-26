@@ -8,7 +8,7 @@
 
 <body>
 
-<!-- HEADER CON BOTONES -->
+<!-- HEADER -->
 <header class="top-bar">
   <button class="icon-btn" id="open-config">⚙️</button>
 
@@ -59,8 +59,19 @@
 <!-- CONTENIDO PRINCIPAL -->
 <div class="container">
   <h1>Decide Fácil</h1>
+
   <button id="decidir">DECIDIR</button>
   <p id="resultado"></p>
+
+  <!-- CHAT -->
+  <div class="chat-box">
+    <div id="chat-messages" class="chat-messages"></div>
+
+    <div class="chat-input">
+      <input type="text" id="chat-text" placeholder="Escribe aquí..." />
+      <button id="send-chat">Enviar</button>
+    </div>
+  </div>
 </div>
 
 <script src="app.js"></script>
