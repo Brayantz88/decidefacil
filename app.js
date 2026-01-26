@@ -1,29 +1,61 @@
-const boton = document.getElementById("decidir");
-const resultado = document.getElementById("resultado");
-
-const opciones = [
-  "Sí",
-  "No",
-  "Tal vez",
-  "Mejor espera",
-  "Hazlo",
-  "No lo hagas"
+// ===== DECIDIR =====
+const decisiones = [
+  "Sal a caminar 🚶",
+  "Mira una peli 🎬",
+  "Descansa un rato 😴",
+  "Escucha música 🎧",
+  "Ordena tu cuarto 🧹"
 ];
 
-boton.addEventListener("click", () => {
-  const random = Math.floor(Math.random() * opciones.length);
-  resultado.textContent = opciones[random];
-});
-// ABRIR panel de configuración
-const configBtn = document.querySelector('.icon-btn');
-const configPanel = document.getElementById('config-panel');
-const closeConfig = document.getElementById('close-config');
+let ultimaDecision = "";
 
-configBtn.addEventListener('click', () => {
-  configPanel.classList.remove('hidden');
+const btnDecidir = document.getElementById("decidir");
+const resultado = document.getElementById("resultado");
+
+btnDecidir.addEventListener("click", () => {
+  let nueva;
+  do {
+    nueva = decisiones[Math.floor(Math.random() * decisiones.length)];
+  } while (nueva === ultimaDecision);
+  ultimaDecision = nueva;
+  resultado.textContent = nueva;
 });
 
-// CERRAR panel
-closeConfig.addEventListener('click', () => {
-  configPanel.classList.add('hidden');
+// ===== PANEL CONFIGURACIÓN =====
+const openConfig = document.getElementById("open-config");
+const closeConfig = document.getElementById("close-config");
+const configPanel = document.getElementById("config-panel");
+
+openConfig.addEventListener("click", () => {
+  configPanel.classList.remove("hidden");
+});
+
+closeConfig.addEventListener("click", () => {
+  configPanel.classList.add("hidden");
+});
+
+// ===== PANEL PREMIUM =====
+const openPremium = document.getElementById("open-premium");
+const closePremium = document.getElementById("close-premium");
+const premiumPanel = document.getElementById("premium-panel");
+
+openPremium.addEventListener("click", () => {
+  premiumPanel.classList.remove("hidden");
+});
+
+closePremium.addEventListener("click", () => {
+  premiumPanel.classList.add("hidden");
+});
+
+// ===== PANEL ANUNCIOS =====
+const openAds = document.getElementById("open-ads");
+const closeAds = document.getElementById("close-ads");
+const adsPanel = document.getElementById("ads-panel");
+
+openAds.addEventListener("click", () => {
+  adsPanel.classList.remove("hidden");
+});
+
+closeAds.addEventListener("click", () => {
+  adsPanel.classList.add("hidden");
 });
