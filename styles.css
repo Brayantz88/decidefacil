@@ -1,53 +1,34 @@
-body {
+/* ===== RESET ===== */
+* {
+  box-sizing: border-box;
   margin: 0;
+  padding: 0;
+}
+
+body {
   font-family: Arial, sans-serif;
-  background: #0f172a;
+  background: radial-gradient(circle at top, #0b1437, #020617);
   color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  min-height: 100vh;
 }
 
-.container {
-  text-align: center;
-}
-
-button {
-  padding: 20px 40px;
-  font-size: 24px;
-  border: none;
-  border-radius: 12px;
-  background: #22c55e;
-  color: black;
-  cursor: pointer;
-}
-
-button:hover {
-  background: #16a34a;
-}
-
-#resultado {
-  margin-top: 20px;
-  font-size: 22px;
-}
-/* ===== BARRA SUPERIOR ===== */
+/* ===== HEADER ===== */
 .top-bar {
   position: fixed;
   top: 0;
-  left: 0;
   width: 100%;
-  padding: 12px 16px;
+  padding: 16px;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  box-sizing: border-box;
+  align-items: center;
 }
 
 .icon-btn {
-  font-size: 22px;
-  background: none;
+  font-size: 24px;
+  padding: 10px 14px;
+  border-radius: 12px;
   border: none;
+  background: #1f2933;
   color: white;
   cursor: pointer;
 }
@@ -55,34 +36,58 @@ button:hover {
 .right-buttons {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 10px;
 }
 
 .premium-btn {
+  font-size: 16px;
+  padding: 12px 18px;
+  border-radius: 14px;
+  border: none;
   background: gold;
   color: black;
-  border: none;
-  padding: 6px 14px;
-  border-radius: 10px;
   font-weight: bold;
   cursor: pointer;
 }
 
 .ads-btn {
-  background: #facc15;
-  color: black;
-  border: none;
-  padding: 6px 14px;
-  border-radius: 10px;
   font-size: 14px;
+  padding: 10px 18px;
+  border-radius: 14px;
+  border: none;
+  background: #374151;
+  color: white;
   cursor: pointer;
 }
 
-/* Para que el contenido no quede debajo del header */
+/* ===== CONTENIDO ===== */
 .container {
-  margin-top: 100px;
+  min-height: 100vh;
+  padding-top: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  text-align: center;
 }
-/* ===== PANEL CONFIGURACIÓN ===== */
+
+#decidir {
+  font-size: 22px;
+  padding: 16px 34px;
+  border-radius: 18px;
+  border: none;
+  background: #22c55e;
+  color: black;
+  cursor: pointer;
+}
+
+#resultado {
+  font-size: 20px;
+  opacity: 0.9;
+}
+
+/* ===== PANELES ===== */
 .panel {
   position: fixed;
   top: 0;
@@ -90,10 +95,8 @@ button:hover {
   width: 100%;
   height: 100%;
   background: #020617;
-  color: white;
-  padding: 20px;
-  box-sizing: border-box;
-  z-index: 1000;
+  padding: 24px;
+  z-index: 100;
 }
 
 .hidden {
@@ -103,7 +106,7 @@ button:hover {
 .panel-header {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .close-btn {
@@ -117,5 +120,17 @@ button:hover {
 .benefits {
   margin-top: 30px;
   font-size: 18px;
-  line-height: 1.6;
+  line-height: 1.8;
+}
+
+.premium-buy {
+  margin-top: 40px;
+  width: 100%;
+  padding: 16px;
+  font-size: 18px;
+  border-radius: 16px;
+  border: none;
+  background: gold;
+  color: black;
+  cursor: pointer;
 }
