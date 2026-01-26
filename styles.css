@@ -82,3 +82,40 @@ button:hover {
 .container {
   margin-top: 100px;
 }
+/* ===== PANEL CONFIGURACIÓN ===== */
+.panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #020617;
+  color: white;
+  padding: 20px;
+  box-sizing: border-box;
+  z-index: 1000;
+}
+
+.hidden {
+  display: none;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.close-btn {
+  font-size: 22px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.benefits {
+  margin-top: 30px;
+  font-size: 18px;
+  line-height: 1.6;
+}
