@@ -1,4 +1,3 @@
-/* RESET BÁSICO */
 * {
   margin: 0;
   padding: 0;
@@ -6,90 +5,77 @@
   font-family: Arial, sans-serif;
 }
 
-/* FONDO GENERAL */
 body {
   background: #1f2933;
   color: white;
 }
 
-/* HEADER */
 .top-bar {
   display: flex;
-  justify-content: flex-start;
-  gap: 10px;
-  padding: 15px;
+  justify-content: space-between;
+  padding: 12px 20px;
   background: #111827;
 }
 
-.top-bar button {
-  padding: 10px 20px;
+.top-btn {
+  background: #374151;
+  color: white;
   border: none;
   border-radius: 8px;
-  cursor: pointer;
+  padding: 10px 20px;
   font-weight: bold;
+  cursor: pointer;
 }
 
-/* BOTONES ESPECÍFICOS */
-.config-btn {
-  background: #374151;
-  color: white;
-}
-
-.premium-btn {
-  background: gold;
-  color: black;
-}
-
-.ads-btn {
-  background: #374151;
-  color: white;
-}
-
-/* PANELES */
+/* PANEL */
 .panel {
   background: #111827;
-  padding: 20px;
-  border-radius: 12px;
-  margin: 15px;
-}
-
-.panel-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.close-btn {
-  background: red;
   color: white;
-  border: none;
-  padding: 6px 10px;
-  border-radius: 6px;
-  cursor: pointer;
+  padding: 20px;
+  margin: 15px;
+  border-radius: 12px;
+  text-align: left;
 }
 
-.hidden {
+.panel.hidden {
   display: none;
 }
 
-.benefits {
-  margin-top: 10px;
-  list-style: none;
+.panel h2 {
+  margin-bottom: 10px;
 }
 
-.benefits li {
-  margin-bottom: 8px;
+.panel ul {
+  list-style: disc;
+  margin-left: 20px;
+  margin-bottom: 15px;
 }
 
-/* CONTENEDOR PRINCIPAL */
+.close-panel {
+  background: #22c55e;
+  color: black;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+/* CONTENIDO PRINCIPAL */
 .container {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-top: 50px;
+}
+
+.container h1 {
+  font-size: 36px;
+  margin-bottom: 30px;
 }
 
 #decidir {
   font-size: 24px;
-  padding: 18px 40px;
+  padding: 18px 50px;
   border-radius: 20px;
   border: none;
   background: #22c55e;
@@ -113,17 +99,15 @@ body {
   background: #22c55e;
   color: black;
   cursor: pointer;
+  margin-bottom: 20px;
 }
 
 #chatBox {
-  margin-top: 20px;
   width: 90%;
   max-width: 500px;
-  margin-left: auto;
-  margin-right: auto;
   min-height: 150px;
   background: #374151;
-  padding: 10px;
   border-radius: 12px;
+  padding: 10px;
   overflow-y: auto;
 }
