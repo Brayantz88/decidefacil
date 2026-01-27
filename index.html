@@ -1,56 +1,56 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
+<head>
     <meta charset="UTF-8">
     <title>Decide Fácil</title>
     <link rel="stylesheet" href="styles.css">
-  </head>
-  <body>
+</head>
+<body>
     <header class="top-bar">
-      
-      <!-- PANEL DE CONFIGURACIÓN -->
-      <div id="config-panel" class="panel hidden">
-        <div class="panel-header">
-          <button id="close-config" class="close-btn">X</button>
-          <h2>Configuración</h2>
+        <!-- Panel Configuración -->
+        <div id="config-panel" class="panel hidden">
+            <div class="panel-header">
+                <button id="close-config" class="close-btn">X</button>
+                <h2>Configuración</h2>
+            </div>
+            <ul class="benefits">
+                <li>Decisiones más rápidas</li>
+                <li>Mejor experiencia sin distracciones</li>
+                <li>Acceso a funciones Premium</li>
+            </ul>
         </div>
-        <ul class="benefits">
-          <li>Decisiones más rápidas</li>
-          <li>Mejor experiencia sin distracciones</li>
-          <li>Acceso a funciones Premium</li>
-        </ul>
-      </div>
 
-      <!-- PANEL PREMIUM -->
-      <div id="premium-panel" class="panel hidden">
-        <div class="panel-header">
-          <button id="close-premium" class="close-btn">X</button>
-          <h2>Premium</h2>
+        <!-- Panel Premium -->
+        <div id="premium-panel" class="panel hidden">
+            <div class="panel-header">
+                <button id="close-premium" class="close-btn">X</button>
+                <h2>Premium</h2>
+            </div>
+            <ul class="benefits">
+                <li>Sin anuncios</li>
+                <li>Acceso a IA</li>
+                <li>Mejor experiencia</li>
+            </ul>
+            <button class="premium-buy">Obtener Premium</button>
         </div>
-        <ul class="benefits">
-          <li>Sin anuncios</li>
-          <li>Acceso a IA</li>
-          <li>Mejor experiencia</li>
-        </ul>
-        <button class="premium-buy">Obtener Premium</button>
-      </div>
 
-      <button class="icon-btn">⚙️</button>
-      <div class="right-buttons">
-        <button class="premium-btn">Premium</button>
-        <button class="ads-btn">Anuncios</button>
-      </div>
-
+        <button class="icon-btn">⚙</button>
+        <div class="right-buttons">
+            <button class="premium-btn">⭐ Premium</button>
+            <button class="ads-btn">🔊 Anuncios</button>
+        </div>
     </header>
 
     <div class="container">
-      <h1>Decide Fácil</h1>
-      <button id="decidir">DECIDIR</button>
-      <input type="text" id="chat-input" placeholder="Escribe aquí...">
-      <button id="send">Enviar</button>
-      <p id="resultado"></p>
+        <h1>Decide Fácil</h1>
+        <button id="decidir">DECIDIR</button>
+        <div class="chat-container hidden">
+            <input type="text" id="user-input" placeholder="Escribe aquí...">
+            <button id="send-btn">Enviar</button>
+            <div id="chat-output"></div>
+        </div>
     </div>
 
     <script src="app.js"></script>
-  </body>
+</body>
 </html>
