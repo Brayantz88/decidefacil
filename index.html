@@ -1,64 +1,69 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Decide Fácil</title>
-    <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<title>Decide Fácil</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <!-- Barra superior -->
-    <header class="top-bar">
-        <button class="icon-btn" id="open-config">⚙ Config</button>
-        <div class="right-buttons">
-            <button class="premium-btn" id="open-premium">Premium</button>
-            <button class="ads-btn" id="open-ads">Anuncios</button>
-        </div>
-    </header>
-
-    <!-- Panel Configuración -->
-    <div id="config-panel" class="panel hidden">
-        <div class="panel-header">
-            <button id="close-config" class="close-btn">X</button>
-            <h2>Configuración</h2>
-        </div>
-        <ul class="benefits">
-            <li>Decisiones más rápidas</li>
-            <li>Mejor experiencia sin distracciones</li>
-            <li>Acceso a funciones Premium</li>
-        </ul>
+<!-- Panel Configuración -->
+<div id="config-panel" class="panel hidden">
+    <div class="panel-header">
+        <button id="close-config" class="close-btn">X</button>
+        <h2>Configuración</h2>
     </div>
+    <ul class="benefits">
+        <li>Decisiones más rápidas</li>
+        <li>Mejor experiencia sin distracciones</li>
+        <li>Acceso a funciones Premium</li>
+    </ul>
+</div>
 
-    <!-- Panel Premium -->
-    <div id="premium-panel" class="panel hidden">
-        <div class="panel-header">
-            <button id="close-premium" class="close-btn">X</button>
-            <h2>Premium</h2>
-        </div>
-        <ul class="benefits">
-            <li>Sin anuncios</li>
-            <li>Acceso a IA</li>
-            <li>Mejor experiencia</li>
-        </ul>
-        <button class="premium-buy">Obtener Premium</button>
+<!-- Panel Premium -->
+<div id="premium-panel" class="panel hidden">
+    <div class="panel-header">
+        <button id="close-premium" class="close-btn">X</button>
+        <h2>Premium</h2>
     </div>
+    <ul class="benefits">
+        <li>Sin anuncios</li>
+        <li>Acceso a IA</li>
+        <li>Mejor experiencia</li>
+    </ul>
+    <button class="premium-buy">Obtener Premium</button>
+</div>
 
-    <!-- Panel Anuncios -->
-    <div id="ads-panel" class="panel hidden">
-        <div class="panel-header">
-            <button id="close-ads" class="close-btn">X</button>
-            <h2>Anuncios</h2>
-        </div>
-        <p>Aquí aparecerán los anuncios.</p>
+<!-- Panel Anuncios -->
+<div id="ads-panel" class="panel hidden">
+    <div class="panel-header">
+        <button id="close-ads" class="close-btn">X</button>
+        <h2>Anuncios</h2>
     </div>
+    <p>Aquí aparecerán los anuncios.</p>
+</div>
 
-    <!-- Contenedor principal -->
-    <div class="container">
-        <h1>Decide Fácil</h1>
-        <button id="decidir">DECIDIR</button>
-        <p id="resultado"></p>
+<!-- Barra superior -->
+<header class="top-bar">
+    <button class="icon-btn" id="open-config">⚙ Config</button>
+    <div class="right-buttons">
+        <button class="premium-btn" id="open-premium">Premium</button>
+        <button class="ads-btn" id="open-ads">Anuncios</button>
     </div>
+</header>
 
-    <script src="app.js"></script>
+<!-- Contenedor principal -->
+<div class="container">
+    <h1>Decide Fácil</h1>
+    <button id="decidir">DECIDIR</button>
+    <div id="chat-container">
+        <input type="text" id="user-input" placeholder="Escribe aquí...">
+        <button id="send-btn">Enviar</button>
+        <div id="chat-output"></div>
+    </div>
+    <p id="resultado"></p>
+</div>
+
+<script src="app.js"></script>
 </body>
 </html>
