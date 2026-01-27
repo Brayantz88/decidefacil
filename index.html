@@ -5,73 +5,41 @@
   <title>Decide Fácil</title>
   <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
 
-<!-- HEADER -->
 <header class="top-bar">
-  <button class="icon-btn" id="open-config">⚙️</button>
+  <button class="icon-btn">⚙</button>
 
   <div class="right-buttons">
-    <button class="premium-btn" id="open-premium">⭐ Premium</button>
-    <button class="ads-btn" id="open-ads">📢 Anuncios</button>
+    <button class="premium-btn">Premium</button>
+    <button class="ads-btn">Anuncios</button>
   </div>
 </header>
 
-<!-- PANEL CONFIGURACIÓN -->
-<div id="config-panel" class="panel hidden">
-  <div class="panel-header">
-    <button id="close-config" class="close-btn">❌</button>
-    <h2>Configuración</h2>
-  </div>
-  <p>Aquí puedes ajustar tus opciones.</p>
-</div>
-
-<!-- PANEL PREMIUM -->
-<div id="premium-panel" class="panel hidden">
-  <div class="panel-header">
-    <button id="close-premium" class="close-btn">❌</button>
-    <h2>Premium</h2>
-  </div>
-
-  <ul class="benefits">
-    <li>⭐ Sin anuncios</li>
-    <li>🤖 Acceso a IA</li>
-    <li>⚡ Mejor experiencia</li>
-  </ul>
-
-  <button class="premium-buy">Obtener Premium</button>
-</div>
-
-<!-- PANEL ANUNCIOS -->
-<div id="ads-panel" class="panel hidden">
-  <div class="panel-header">
-    <button id="close-ads" class="close-btn">❌</button>
-    <h2>Anuncios</h2>
-  </div>
-
-  <ul class="benefits">
-    <li>📢 Ver anuncios y ganar recompensas</li>
-    <li>💡 Sugerencias personalizadas</li>
-  </ul>
-</div>
-
-<!-- CONTENIDO PRINCIPAL -->
-<div class="container">
+<main class="container">
   <h1>Decide Fácil</h1>
-
   <button id="decidir">DECIDIR</button>
-  <p id="resultado"></p>
+</main>
 
-  <!-- CHAT -->
-  <div class="chat-box">
-    <div id="chat-messages" class="chat-messages"></div>
+<!-- CHAT PANTALLA COMPLETA -->
+<div id="chat-screen" class="chat hidden">
 
-    <div class="chat-input">
-      <input type="text" id="chat-text" placeholder="Escribe aquí..." />
-      <button id="send-chat">Enviar</button>
+  <div class="chat-header">
+    <button id="close-chat" class="close-btn">✕</button>
+    <h2>Decide Fácil</h2>
+  </div>
+
+  <div id="chat-messages" class="chat-messages">
+    <div class="message bot">
+      Hola 👋 escribe tu decisión y te ayudo
     </div>
   </div>
+
+  <div class="chat-input">
+    <input id="chat-text" type="text" placeholder="Escribe aquí..." />
+    <button id="send-chat">Enviar</button>
+  </div>
+
 </div>
 
 <script src="app.js"></script>
