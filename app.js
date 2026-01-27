@@ -138,3 +138,47 @@ function enviarAsistente() {
   assistantText.value = "";
   assistantMessages.scrollTop = assistantMessages.scrollHeight;
 }
+const decidirBtn = document.getElementById("decidir");
+const chatScreen = document.getElementById("chat-screen");
+const closeChat = document.getElementById("close-chat");
+const sendChat = document.getElementById("send-chat");
+const chatText = document.getElementById("chat-text");
+const chatMessages = document.getElementById("chat-messages");
+
+// abrir chat
+decidirBtn.addEventListener("click", () => {
+  chatScreen.classList.remove("hidden");
+});
+
+// cerrar chat
+closeChat.addEventListener("click", () => {
+  chatScreen.classList.add("hidden");
+});
+
+// enviar mensaje
+sendChat.addEventListener("click", sendMessage);
+
+chatText.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") sendMessage();
+});
+
+function sendMessage() {
+  if (chatText.value.trim() === "") return;
+
+  const userMsg = document.createElement("div");
+  userMsg.className = "message user";
+  userMsg.textContent = chatText.value;
+  chatMessages.appendChild(userMsg);
+
+  chatText.value = "";
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+
+  // respuesta fake (IA luego)
+  setTimeout(() => {
+    const botMsg = document.createElement("div");
+    botMsg.className = "message bot";
+    botMsg.textContent = "Analizando tu decisión 🤔...";
+    chatMessages.appendChild(botMsg);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }, 600);
+}
