@@ -11,25 +11,29 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 15px;
+    padding: 12px 20px;
     background-color: #111827;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
 }
 
 .icon-btn {
-    font-size: 20px;
-    padding: 8px 12px;
-    border-radius: 8px;
+    font-size: 24px;
+    padding: 12px 16px;
+    border-radius: 12px;
     border: none;
-    background: #374151;
+    background-color: #374151;
     color: white;
     cursor: pointer;
 }
 
 .right-buttons button {
-    font-size: 16px;
-    padding: 8px 12px;
-    margin-left: 8px;
-    border-radius: 8px;
+    font-size: 18px;
+    padding: 12px 20px;
+    margin-left: 10px;
+    border-radius: 12px;
     border: none;
     cursor: pointer;
 }
@@ -47,13 +51,14 @@ body {
 
 /* ---------- Paneles ---------- */
 .panel {
-    position: absolute;
-    top: 50px;
-    right: 10px;
-    width: 300px;
+    position: fixed;
+    top: 60px;
+    right: 20px;
+    width: 320px;
     background-color: #1f2933;
-    padding: 15px;
-    border-radius: 10px;
+    padding: 20px;
+    border-radius: 16px;
+    z-index: 2000;
     display: none;
 }
 
@@ -64,7 +69,7 @@ body {
 }
 
 .close-btn {
-    font-size: 16px;
+    font-size: 20px;
     font-weight: bold;
     border: none;
     background: none;
@@ -75,31 +80,36 @@ body {
 .benefits {
     list-style: none;
     padding-left: 0;
-    margin-top: 10px;
+    margin-top: 12px;
 }
 
 .benefits li {
-    margin-bottom: 8px;
-    font-size: 16px;
+    margin-bottom: 10px;
+    font-size: 18px;
 }
 
 /* ---------- Contenedor principal ---------- */
 .container {
     text-align: center;
-    margin-top: 50px;
+    margin-top: 120px;
 }
 
 h1 {
-    font-size: 36px;
-    margin-bottom: 20px;
+    font-size: 40px;
+    margin-bottom: 30px;
 }
 
 #decidir {
-    font-size: 20px;
-    padding: 12px 30px;
-    border-radius: 15px;
+    font-size: 28px;
+    padding: 20px 60px;
+    border-radius: 20px;
     border: none;
     background-color: #22c55e;
     color: black;
     cursor: pointer;
+}
+
+#resultado {
+    font-size: 22px;
+    margin-top: 20px;
 }
