@@ -1,4 +1,4 @@
-// ---------- Elementos ----------
+// ---------- Paneles ----------
 const configBtn = document.getElementById("open-config");
 const configPanel = document.getElementById("config-panel");
 const closeConfig = document.getElementById("close-config");
@@ -12,12 +12,17 @@ const adsBtn = document.getElementById("open-ads");
 const adsPanel = document.getElementById("ads-panel");
 const closeAds = document.getElementById("close-ads");
 
+// ---------- Chat ----------
 const decidirBtn = document.getElementById("decidir");
 const resultado = document.getElementById("resultado");
+const chatContainer = document.getElementById("chat-container");
+const userInput = document.getElementById("user-input");
+const sendBtn = document.getElementById("send-btn");
+const chatOutput = document.getElementById("chat-output");
 
 let premiumActive = false;
 
-// ---------- Eventos ----------
+// ---------- Paneles ----------
 configBtn.addEventListener("click", () => configPanel.style.display = "block");
 closeConfig.addEventListener("click", () => configPanel.style.display = "none");
 
@@ -30,13 +35,24 @@ closeAds.addEventListener("click", () => adsPanel.style.display = "none");
 // Comprar Premium
 premiumBuy.addEventListener("click", () => {
     premiumActive = true;
-    alert("¡Premium activado! Ahora todos los beneficios se aplicarán.");
+    alert("¡Premium activado! Todos los beneficios aplicados.");
     premiumPanel.style.display = "none";
 });
 
 // DECIDIR
 decidirBtn.addEventListener("click", () => {
+    chatContainer.style.display = "flex"; // Se muestra el chat
     const opciones = ["Sí", "No", "Tal vez", "Pregunta luego"];
     const eleccion = opciones[Math.floor(Math.random() * opciones.length)];
     resultado.textContent = premiumActive ? `⭐ Premium: ${eleccion}` : eleccion;
+});
+
+// Enviar mensaje en chat
+sendBtn.addEventListener("click", () => {
+    const msg = userInput.value.trim();
+    if (!msg) return;
+    const respuesta = premiumActive ? `⭐ Premium: ${msg}` : msg;
+    chatOutput.innerHTML += `<p><b>Tú:</b> ${msg}</p><p><b>Bot:</b> ${respuesta}</p>`;
+    userInput.value = "";
+    chatOutput.scrollTop = chatOutput.scrollHeight;
 });
