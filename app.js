@@ -1,44 +1,65 @@
-// ---------- Paneles ----------
+// SELECCIÓN DE ELEMENTOS
+const configBtn = document.querySelector(".config-btn");
+const premiumBtn = document.querySelector(".premium-btn");
+const adsBtn = document.querySelector(".ads-btn");
+
 const configPanel = document.getElementById("config-panel");
 const premiumPanel = document.getElementById("premium-panel");
 const adsPanel = document.getElementById("ads-panel");
 
-document.getElementById("open-config").addEventListener("click", () => {
-    configPanel.scrollIntoView({behavior: "smooth"});
-});
-document.getElementById("open-premium").addEventListener("click", () => {
-    premiumPanel.scrollIntoView({behavior: "smooth"});
-});
-document.getElementById("open-ads").addEventListener("click", () => {
-    adsPanel.scrollIntoView({behavior: "smooth"});
-});
+const closeConfig = document.getElementById("close-config");
+const closePremium = document.getElementById("close-premium");
+const closeAds = document.getElementById("close-ads");
 
-// ---------- Premium ----------
-let premiumActive = false;
-document.getElementById("buy-premium").addEventListener("click", () => {
-    premiumActive = true;
-    alert("¡Premium activado! Todos los beneficios se aplican.");
-});
-
-// ---------- DECIDIR ----------
 const decidirBtn = document.getElementById("decidir");
-const resultado = document.getElementById("resultado");
-decidirBtn.addEventListener("click", () => {
-    const opciones = ["Sí", "No", "Tal vez", "Pregunta luego"];
-    const eleccion = opciones[Math.floor(Math.random() * opciones.length)];
-    resultado.textContent = premiumActive ? `⭐ Premium: ${eleccion}` : eleccion;
+const userInput = document.getElementById("userInput");
+const enviarBtn = document.getElementById("enviar");
+const chatBox = document.getElementById("chatBox");
+
+let premiumActivo = false;
+
+// FUNCIONES DE PANEL
+configBtn.addEventListener("click", () => {
+  configPanel.classList.remove("hidden");
+  premiumPanel.classList.add("hidden");
+  adsPanel.classList.add("hidden");
 });
 
-// ---------- Chat ----------
-const userInput = document.getElementById("user-input");
-const sendBtn = document.getElementById("send-btn");
-const chatOutput = document.getElementById("chat-output");
+premiumBtn.addEventListener("click", () => {
+  premiumPanel.classList.remove("hidden");
+  configPanel.classList.add("hidden");
+  adsPanel.classList.add("hidden");
+});
 
-sendBtn.addEventListener("click", () => {
-    const msg = userInput.value.trim();
-    if (!msg) return;
-    const respuesta = premiumActive ? `⭐ Premium: ${msg}` : msg;
-    chatOutput.innerHTML += `<p><b>Tú:</b> ${msg}</p><p><b>Bot:</b> ${respuesta}</p>`;
+adsBtn.addEventListener("click", () => {
+  adsPanel.classList.remove("hidden");
+  configPanel.classList.add("hidden");
+  premiumPanel.classList.add("hidden");
+});
+
+closeConfig.addEventListener("click", () => configPanel.classList.add("hidden"));
+closePremium.addEventListener("click", () => premiumPanel.classList.add("hidden"));
+closeAds.addEventListener("click", () => adsPanel.classList.add("hidden"));
+
+// BOTÓN DECIDIR
+decidirBtn.addEventListener("click", () => {
+  let opciones = ["Sí", "No", "Tal vez", "Depende"];
+  let resultado = opciones[Math.floor(Math.random() * opciones.length)];
+  chatBox.innerHTML += `<p><b>Decisión:</b> ${resultado}</p>`;
+});
+
+// ENVIAR MENSAJE
+enviarBtn.addEventListener("click", () => {
+  let mensaje = userInput.value.trim();
+  if (mensaje !== "") {
+    chatBox.innerHTML += `<p><b>Tú:</b> ${mensaje}</p>`;
     userInput.value = "";
-    chatOutput.scrollTop = chatOutput.scrollHeight;
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+});
+
+// COMPRAR PREMIUM
+document.querySelector(".premium-buy").addEventListener("click", () => {
+  premiumActivo = true;
+  alert("¡Premium activado!");
 });
