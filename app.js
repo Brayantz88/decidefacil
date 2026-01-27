@@ -1,61 +1,45 @@
-// ------------------- Configuración -------------------
-const configBtn = document.querySelector(".icon-btn");
+// ---------- Botones y paneles ----------
+const configBtn = document.getElementById("open-config");
 const configPanel = document.getElementById("config-panel");
 const closeConfig = document.getElementById("close-config");
 
-// ------------------- Premium -------------------
-const premiumBtn = document.querySelector(".premium-btn");
+const premiumBtn = document.getElementById("open-premium");
 const premiumPanel = document.getElementById("premium-panel");
 const closePremium = document.getElementById("close-premium");
 const premiumBuy = document.querySelector(".premium-buy");
 
-// ------------------- Chat -------------------
 const decidirBtn = document.getElementById("decidir");
-const chatContainer = document.querySelector(".chat-container");
-const sendBtn = document.getElementById("send-btn");
-const userInput = document.getElementById("user-input");
-const chatOutput = document.getElementById("chat-output");
+const resultado = document.getElementById("resultado");
 
 let premiumActive = false;
 
-// ------------------- Eventos -------------------
+// ---------- Eventos ----------
 configBtn.addEventListener("click", () => {
-    configPanel.classList.remove("hidden");
+    configPanel.style.display = "block";
 });
 
 closeConfig.addEventListener("click", () => {
-    configPanel.classList.add("hidden");
+    configPanel.style.display = "none";
 });
 
 premiumBtn.addEventListener("click", () => {
-    premiumPanel.classList.remove("hidden");
+    premiumPanel.style.display = "block";
 });
 
 closePremium.addEventListener("click", () => {
-    premiumPanel.classList.add("hidden");
+    premiumPanel.style.display = "none";
 });
 
 // Comprar premium
 premiumBuy.addEventListener("click", () => {
     premiumActive = true;
-    alert("¡Premium activado! Ahora todos los chats tienen beneficios.");
-    premiumPanel.classList.add("hidden");
+    alert("¡Premium activado!");
+    premiumPanel.style.display = "none";
 });
 
-// Abrir chat principal
+// DECIDIR
 decidirBtn.addEventListener("click", () => {
-    chatContainer.classList.remove("hidden");
-    chatOutput.innerHTML = ""; // limpiar chat
-});
-
-// Enviar mensaje
-sendBtn.addEventListener("click", () => {
-    const msg = userInput.value.trim();
-    if (msg === "") return;
-    const response = premiumActive
-        ? "Respuesta Premium: " + msg
-        : "Respuesta normal: " + msg;
-    chatOutput.innerHTML += `<p><b>Tú:</b> ${msg}</p><p><b>Bot:</b> ${response}</p>`;
-    userInput.value = "";
-    chatOutput.scrollTop = chatOutput.scrollHeight;
+    const mensajes = ["Sí", "No", "Tal vez", "Pregunta luego"];
+    const eleccion = mensajes[Math.floor(Math.random() * mensajes.length)];
+    resultado.textContent = premiumActive ? `⭐ Premium: ${eleccion}` : eleccion;
 });
