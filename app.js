@@ -1,7 +1,26 @@
 // ===============================
-// ESTADO PREMIUM (GLOBAL)
+// ESTADO PREMIUM
 // ===============================
 let isPremium = localStorage.getItem("premium") === "true";
+
+// ===============================
+// CONTROL DE MENSAJES GRATIS
+// ===============================
+const MAX_FREE_MESSAGES = 2;
+
+function getToday() {
+  return new Date().toISOString().split("T")[0];
+}
+
+let messageData = JSON.parse(localStorage.getItem("messageData")) || {
+  date: getToday(),
+  count: 0
+};
+
+if (messageData.date !== getToday()) {
+  messageData = { date: getToday(), count: 0 };
+  localStorage.setItem("messageData", JSON.stringify(messageData));
+}
 
 // ===============================
 // BOTONES DE PANELES
@@ -18,36 +37,19 @@ const openAds = document.getElementById("open-ads");
 const closeAds = document.getElementById("close-ads");
 const adsPanel = document.getElementById("ads-panel");
 
-// Abrir / cerrar Configuración
-openConfig?.addEventListener("click", () => {
-  configPanel.classList.remove("hidden");
-});
-closeConfig?.addEventListener("click", () => {
-  configPanel.classList.add("hidden");
-});
+openConfig?.addEventListener("click", () => configPanel.classList.remove("hidden"));
+closeConfig?.addEventListener("click", () => configPanel.classList.add("hidden"));
 
-// Abrir / cerrar Premium
-openPremium?.addEventListener("click", () => {
-  premiumPanel.classList.remove("hidden");
-});
-closePremium?.addEventListener("click", () => {
-  premiumPanel.classList.add("hidden");
-});
+openPremium?.addEventListener("click", () => premiumPanel.classList.remove("hidden"));
+closePremium?.addEventListener("click", () => premiumPanel.classList.add("hidden"));
 
-// Abrir / cerrar Anuncios
-openAds?.addEventListener("click", () => {
-  adsPanel.classList.remove("hidden");
-});
-closeAds?.addEventListener("click", () => {
-  adsPanel.classList.add("hidden");
-});
+openAds?.addEventListener("click", () => adsPanel.classList.remove("hidden"));
+closeAds?.addEventListener("click", () => adsPanel.classList.add("hidden"));
 
 // ===============================
 // COMPRAR PREMIUM
 // ===============================
-const buyPremiumBtn = document.querySelector(".premium-buy");
-
-buyPremiumBtn?.addEventListener("click", () => {
+document.querySelector(".premium-buy")?.addEventListener("click", () => {
   isPremium = true;
   localStorage.setItem("premium", "true");
   alert("⭐ Premium activado correctamente");
@@ -55,43 +57,53 @@ buyPremiumBtn?.addEventListener("click", () => {
 });
 
 // ===============================
-// CHAT PRINCIPAL (DECIDIR)
+// FUNCIÓN PARA VERIFICAR LÍMITE
+// ===============================
+function canSendMessage() {
+  if (isPremium) return true;
+
+  if (messageData.count >= MAX_FREE_MESSAGES) {
+    alert("Límite diario alcanzado. Activa Premium ⭐");
+    return false;
+  }
+
+  messageData.count++;
+  localStorage.setItem("messageData", JSON.stringify(messageData));
+  return true;
+}
+
+// ===============================
+// CHAT PRINCIPAL
 // ===============================
 const chatText = document.getElementById("chat-text");
 const sendChat = document.getElementById("send-chat");
 const chatMessages = document.getElementById("chat-messages");
 
-sendChat?.addEventListener("click", enviarMensaje);
+sendChat?.addEventListener("click", () => {
+  if (!canSendMessage()) return;
+  enviarMensaje();
+});
+
 chatText?.addEventListener("keypress", (e) => {
-  if (e.key === "Enter") enviarMensaje();
+  if (e.key === "Enter") {
+    if (!canSendMessage()) return;
+    enviarMensaje();
+  }
 });
 
 function enviarMensaje() {
   const texto = chatText.value.trim();
-  if (texto === "") return;
+  if (!texto) return;
 
-  const userMsg = document.createElement("div");
-  userMsg.className = "chat-message user";
-  userMsg.textContent = "Tú: " + texto;
-  chatMessages.appendChild(userMsg);
-
-  const botMsg = document.createElement("div");
-  botMsg.className = "chat-message bot";
-
-  if (isPremium) {
-    botMsg.textContent = "App: Respuesta premium ✨";
-  } else {
-    botMsg.textContent = "App: Límite gratis. Activa Premium ⭐";
-  }
-
-  chatMessages.appendChild(botMsg);
+  chatMessages.innerHTML += `<div class="chat-message user">Tú: ${texto}</div>`;
+  chatMessages.innerHTML += `<div class="chat-message bot">App: ${isPremium ? "Respuesta premium ✨" : "Respuesta básica"}</div>`;
 
   chatText.value = "";
   chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
 // ===============================
-// CHAT ASISTENTE (PANTALLA COMPLETA)
+// CHAT ASISTENTE
 // ===============================
 const openAssistant = document.getElementById("open-assistant");
 const closeAssistant = document.getElementById("close-assistant");
@@ -101,38 +113,27 @@ const assistantText = document.getElementById("assistant-text");
 const assistantSend = document.getElementById("assistant-send");
 const assistantMessages = document.getElementById("assistant-messages");
 
-// Abrir / cerrar asistente
-openAssistant?.addEventListener("click", () => {
-  assistantScreen.classList.remove("hidden");
-});
-closeAssistant?.addEventListener("click", () => {
-  assistantScreen.classList.add("hidden");
+openAssistant?.addEventListener("click", () => assistantScreen.classList.remove("hidden"));
+closeAssistant?.addEventListener("click", () => assistantScreen.classList.add("hidden"));
+
+assistantSend?.addEventListener("click", () => {
+  if (!canSendMessage()) return;
+  enviarAsistente();
 });
 
-assistantSend?.addEventListener("click", enviarAsistente);
 assistantText?.addEventListener("keypress", (e) => {
-  if (e.key === "Enter") enviarAsistente();
+  if (e.key === "Enter") {
+    if (!canSendMessage()) return;
+    enviarAsistente();
+  }
 });
 
 function enviarAsistente() {
   const texto = assistantText.value.trim();
-  if (texto === "") return;
+  if (!texto) return;
 
-  const userMsg = document.createElement("div");
-  userMsg.className = "chat-message user";
-  userMsg.textContent = "Tú: " + texto;
-  assistantMessages.appendChild(userMsg);
-
-  const botMsg = document.createElement("div");
-  botMsg.className = "chat-message bot";
-
-  if (isPremium) {
-    botMsg.textContent = "Asistente: Respuesta premium ✨";
-  } else {
-    botMsg.textContent = "Asistente: Activa Premium para continuar ⭐";
-  }
-
-  assistantMessages.appendChild(botMsg);
+  assistantMessages.innerHTML += `<div class="chat-message user">Tú: ${texto}</div>`;
+  assistantMessages.innerHTML += `<div class="chat-message bot">Asistente: ${isPremium ? "Respuesta premium ✨" : "Respuesta básica"}</div>`;
 
   assistantText.value = "";
   assistantMessages.scrollTop = assistantMessages.scrollHeight;
