@@ -38,20 +38,12 @@ body {
     cursor: pointer;
 }
 
-.premium-btn {
-    background-color: gold;
-    color: black;
-    font-weight: bold;
-}
-
-.ads-btn {
-    background-color: #374151;
-    color: white;
-}
+.premium-btn { background-color: gold; color: black; font-weight: bold; }
+.ads-btn { background-color: #374151; color: white; }
 
 /* ---------- Paneles ---------- */
 .panel {
-    position: fixed;
+    position: absolute;
     top: 60px;
     right: 20px;
     width: 320px;
@@ -62,11 +54,7 @@ body {
     display: none;
 }
 
-.panel-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+.panel-header { display: flex; justify-content: space-between; align-items: center; }
 
 .close-btn {
     font-size: 20px;
@@ -77,16 +65,9 @@ body {
     cursor: pointer;
 }
 
-.benefits {
-    list-style: none;
-    padding-left: 0;
-    margin-top: 12px;
-}
+.benefits { list-style: none; padding-left: 0; margin-top: 12px; }
 
-.benefits li {
-    margin-bottom: 10px;
-    font-size: 18px;
-}
+.benefits li { margin-bottom: 10px; font-size: 18px; }
 
 /* ---------- Contenedor principal ---------- */
 .container {
@@ -94,10 +75,7 @@ body {
     margin-top: 120px;
 }
 
-h1 {
-    font-size: 40px;
-    margin-bottom: 30px;
-}
+h1 { font-size: 40px; margin-bottom: 30px; }
 
 #decidir {
     font-size: 28px;
@@ -107,9 +85,43 @@ h1 {
     background-color: #22c55e;
     color: black;
     cursor: pointer;
+    margin-bottom: 20px;
 }
 
-#resultado {
-    font-size: 22px;
+/* ---------- Chat ---------- */
+#chat-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin-top: 20px;
+}
+
+#user-input {
+    width: 300px;
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+#send-btn {
+    padding: 12px 20px;
+    border-radius: 12px;
+    border: none;
+    background-color: #22c55e;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+#chat-output {
+    width: 80%;
+    max-width: 500px;
+    min-height: 150px;
+    background-color: #374151;
+    border-radius: 12px;
+    padding: 10px;
+    text-align: left;
 }
