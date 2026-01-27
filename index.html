@@ -2,44 +2,64 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Decide Fácil</title>
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
 <header class="top-bar">
-  <button class="icon-btn">⚙</button>
+  <button class="icon-btn" id="open-config">⚙️</button>
 
   <div class="right-buttons">
-    <button class="premium-btn">Premium</button>
-    <button class="ads-btn">Anuncios</button>
+    <button class="premium-btn" id="open-premium">⭐ Premium</button>
+    <button class="ads-btn">📢 Anuncios</button>
   </div>
 </header>
 
-<main class="container">
+<!-- PANEL CONFIG -->
+<div id="config-panel" class="panel hidden">
+  <div class="panel-header">
+    <button class="close-btn" id="close-config">✕</button>
+    <h2>Configuración</h2>
+  </div>
+
+  <ul class="benefits">
+    <li>✔ Decisiones más rápidas</li>
+    <li>✔ Mejor experiencia</li>
+    <li>✔ Acceso Premium</li>
+  </ul>
+</div>
+
+<!-- PANEL PREMIUM -->
+<div id="premium-panel" class="panel hidden">
+  <div class="panel-header">
+    <button class="close-btn" id="close-premium">✕</button>
+    <h2>Premium</h2>
+  </div>
+
+  <ul class="benefits">
+    <li>✔ Sin anuncios</li>
+    <li>✔ Acceso a IA</li>
+    <li>✔ Mejor experiencia</li>
+  </ul>
+
+  <button class="premium-buy">Obtener Premium</button>
+</div>
+
+<!-- CONTENIDO -->
+<div class="container">
   <h1>Decide Fácil</h1>
+
   <button id="decidir">DECIDIR</button>
-</main>
 
-<!-- CHAT PANTALLA COMPLETA -->
-<div id="chat-screen" class="chat hidden">
+  <p id="resultado"></p>
 
-  <div class="chat-header">
-    <button id="close-chat" class="close-btn">✕</button>
-    <h2>Decide Fácil</h2>
+  <div class="chat-box">
+    <input type="text" placeholder="Escribe aquí...">
+    <button>Enviar</button>
   </div>
-
-  <div id="chat-messages" class="chat-messages">
-    <div class="message bot">
-      Hola 👋 escribe tu decisión y te ayudo
-    </div>
-  </div>
-
-  <div class="chat-input">
-    <input id="chat-text" type="text" placeholder="Escribe aquí..." />
-    <button id="send-chat">Enviar</button>
-  </div>
-
 </div>
 
 <script src="app.js"></script>
